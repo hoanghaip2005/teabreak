@@ -1,0 +1,415 @@
+/* Đoạn CSS được chuyển từ Index.cshtml */
+@import url("https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css");
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+* {
+    -webkit-font-smoothing: antialiased;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0px;
+    height: 100%;
+}
+
+button:focus-visible {
+    outline: 2px solid #4a90e2 !important;
+    outline: -webkit-focus-ring-color auto 5px !important;
+}
+
+a {
+    text-decoration: none;
+}
+
+body * {
+    font-family: Barlow;
+    font-size: 14px;
+}
+
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    text-align: left;
+    background-color: #fff;
+}
+
+:root {
+    --cen-1: rgba(255, 214, 58, 1);
+    --cen-2: rgba(161, 154, 211, 1);
+    --cen-3: rgba(247, 90, 90, 1);
+    --nn: rgba(168, 213, 186, 1);
+    --cen-4: rgba(224, 122, 95, 1);
+    --cen-5: rgba(109, 225, 210, 1);
+    --cen-6: rgba(210, 183, 116, 1);
+    --ST-h4-font-family: "Source Sans Pro", Helvetica;
+    --ST-h4-font-weight: 400;
+    --ST-h4-font-size: 15px;
+    --ST-h4-letter-spacing: 0px;
+    --ST-h4-line-height: normal;
+    --ST-h4-font-style: normal;
+    --h1-font-family: "Source Sans Pro", Helvetica;
+    --h1-font-weight: 700;
+    --h1-font-size: 130px;
+    --h1-letter-spacing: 0px;
+    --h1-line-height: normal;
+    --h1-font-style: normal;
+    --h-2-font-family: "Source Sans Pro", Helvetica;
+    --h-2-font-weight: 400;
+    --h-2-font-size: 24px;
+    --h-2-letter-spacing: 0px;
+    --h-2-line-height: normal;
+    --h-2-font-style: normal;
+    --h-3-font-family: "Inter", Helvetica;
+    --h-3-font-weight: 700;
+    --h-3-font-size: 16px;
+    --h-3-letter-spacing: 0px;
+    --h-3-line-height: normal;
+    --h-3-font-style: normal;
+    --h-4-font-family: "Inter", Helvetica;
+    --h-4-font-weight: 700;
+    --h-4-font-size: 14px;
+    --h-4-letter-spacing: 0px;
+    --h-4-line-height: normal;
+    --h-4-font-style: normal;
+    --TEXT-font-family: "Noto Sans HK", Helvetica;
+    --TEXT-font-weight: 500;
+    --TEXT-font-size: 38px;
+    --TEXT-letter-spacing: 0px;
+    --TEXT-line-height: normal;
+    --TEXT-font-style: normal;
+    --text-danh-m-c-tin-t-c-font-family: "Barlow", Helvetica;
+    --text-danh-m-c-tin-t-c-font-weight: 500;
+    --text-danh-m-c-tin-t-c-font-size: 24px;
+    --text-danh-m-c-tin-t-c-letter-spacing: 0px;
+    --text-danh-m-c-tin-t-c-line-height: normal;
+    --text-danh-m-c-tin-t-c-font-style: normal;
+    --TEXT-NH-TIN-t-c-font-family: "Barlow", Helvetica;
+    --TEXT-NH-TIN-t-c-font-weight: 400;
+    --TEXT-NH-TIN-t-c-font-size: 24px;
+    --TEXT-NH-TIN-t-c-letter-spacing: 0px;
+    --TEXT-NH-TIN-t-c-line-height: normal;
+    --TEXT-NH-TIN-t-c-font-style: normal;
+    --text-font-family: "Mulish", Helvetica;
+    --text-font-weight: 700;
+    --text-font-size: 24px;
+    --text-letter-spacing: 0px;
+    --text-line-height: normal;
+    --text-font-style: normal;
+    --variable-collection-CEN-3: rgba(241, 186, 136, 1);
+    --variable-collection-color: var(--variable-collection-CEN-3);
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.06);
+    height: 50px;
+    align-items: center;
+    padding: 0 16px;
+    background: #ffffff;
+    position: relative;
+}
+
+.header .logo {
+    width: 150px;
+    height: 40px;
+    text-decoration: none;
+    line-height: 50px;
+    color: #d8b979;
+    font-size: 22px;
+    font-family: Muli, sans-serif;
+    font-weight: bold;
+}
+
+.header .logo img {
+    width: 100%;
+}
+
+.header .input-search {
+    width: 500px;
+    border-radius: 30px;
+    border: none;
+    background: #fbfbfb;
+    height: 32px;
+    font-size: 14px;
+    padding: 0 20px 0 30px;
+    background-image: url(../images/icon-search.svg);
+    background-repeat: no-repeat;
+    background-position: 8px 10px;
+    background-size: 14px 14px;
+}
+
+.header .input-search:focus {
+    outline: none;
+}
+
+.header .login-button {
+    padding: 6px 15px;
+    background: #d8b979;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 14px;
+    line-height: normal;
+    border-radius: 25px;
+    white-space: nowrap;
+}
+
+/* Phần page */
+
+.order-content {
+    display: flex;
+    padding-top: 8px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.order-sidebar {
+    width: 300px;
+    max-width: 25%;
+    margin: 0 16px;
+    color: #282828;
+    background: #ffffff;
+    height: fit-content;
+    box-shadow: 0 2px 7px 0 rgba(0, 0, 0, .05);
+    border-radius: 4px;
+    padding-bottom: 12px;
+}
+
+.cat-title {
+    padding: 10px 20px;
+    font-size: 14px;
+    border-bottom: 1px solid #f1f1f1;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.list-cat {
+    padding: 0 16px;
+}
+
+.order-content .cat-item {
+    cursor: pointer;
+}
+
+.cat-item {
+    display: flex;
+    padding: 8px 0px;
+    justify-content: space-between;
+    border-bottom: 1px solid #f1f1f1;
+}
+
+.cat-amount {
+    color: #8a733f;
+}
+
+.order-center {
+    width: 1px;
+    flex-grow: 1;
+}
+
+.main-center {
+    padding-bottom: 150px;
+}
+
+.main-center .category {
+    /* background: #ffffff; */
+    margin-top: 16px;
+}
+
+.category-name {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px;
+    padding-bottom: 16px;
+    cursor: pointer;
+    align-items: center;
+}
+
+.category-name .left {
+    font-weight: bold;
+}
+
+.fa-solid,
+.fas {
+    font-weight: 900;
+}
+
+.fa-angle-down {
+    --fa: "\f107";
+    --fa--fa: "\f107\f107";
+}
+
+.list-product {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0 5px;
+}
+
+
+.product {
+    width: 31%;
+    margin-right: 2%;
+    margin-bottom: 3%;
+    padding: 15px;
+    border-bottom: 1px solid #f8f8f8;
+    box-shadow: 0 2px 7px 0 rgba(0, 0, 0, 0.05);
+    position: relative;
+    cursor: pointer;
+}
+
+.product img {
+    width: 100%;
+}
+
+.product .product-name {
+    /* height: 36px; */
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 1rem;
+    padding: 5px 0;
+    margin-top: 20px;
+    margin-bottom: 5px;
+}
+
+.product-price {
+    display: flex;
+    align-items: flex-end;
+}
+
+.product-origin-price {
+    color: #8a733f;
+    font-weight: 600;
+}
+
+.btn-increase {
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    border-radius: 50%;
+    background: #799dd9;
+    color: #ffffff;
+    height: 20px;
+    width: 20px;
+    text-align: center;
+    line-height: 15px;
+    font-size: 26px;
+    font-weight: 600;
+    position: absolute;
+    right: 15px;
+    bottom: 15px;
+}
+
+.order-sidebar {
+    width: 300px;
+    max-width: 25%;
+    margin: 0 16px;
+    color: #282828;
+    background: #ffffff;
+    height: fit-content;
+    box-shadow: 0 2px 7px 0 rgba(0, 0, 0, .05);
+    border-radius: 4px;
+    padding-bottom: 12px;
+}
+
+.cart-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.cart-title {
+    padding: 10px 15px;
+    border-bottom: 1px solid #f1f1f1;
+}
+
+.cart-title-left {
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.cart-title-right {
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.cart-ss1 {
+    display: flex;
+    flex-direction: column;
+    font-size: 14px;
+    margin: 10px 15px;
+    padding: 8px 0;
+}
+
+.cart-ss2 {
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    margin: 15px 0;
+}
+
+.img-toco {
+    height: 35px;
+}
+
+.cart-ss2-one {
+    font-weight: 600;
+    padding: 0 4px;
+}
+
+.cart-ss2-two,
+.cart-ss2-four {
+    color: #8a733f;
+}
+
+.cart-ss2-three {
+    padding: 0 4px;
+}
+
+.cart-ss2-four {
+    font-weight: 600;
+}
+
+.button-cart {
+    height: 30px;
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #d8b979;
+    color: #ffffff;
+    margin: 0 20px;
+    cursor: pointer;
+}
+
+.arrow-down,
+.btn-menu {
+    display: none;
+}
+
+.product-sale-price {
+    font-size: 12px;
+    text-decoration: line-through;
+    color: #535353;
+    margin-left: 8px;
+}
+
+.btn-increase {
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    border-radius: 50%;
+    background: #799dd9;
+    color: #ffffff;
+    height: 20px;
+    width: 20px;
+    text-align: center;
+    line-height: 15px;
+    font-size: 26px;
+    font-weight: 600;
+    position: absolute;
+    right: 15px;
+    bottom: 15px;
+}

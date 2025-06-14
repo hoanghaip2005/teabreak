@@ -1,0 +1,450 @@
+﻿@model IndexViewModel
+@{
+    ViewData["Title"] = "Quản lý tài khoản của bạn";
+    Layout = "_Layout"; 
+}
+
+<div class="profile-container">
+    <div class="profile-header">
+        <h1 class="profile-title">@ViewData["Title"]</h1>
+        @if (!string.IsNullOrEmpty(ViewData["StatusMessage"]?.ToString()))
+        {
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                @ViewData["StatusMessage"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
+    </div>
+
+    <div class="row g-4">
+        <!-- Avatar Card -->
+        <div class="col-md-4">
+            <div class="card profile-card h-100">
+                <div class="card-body text-center">
+                    <div class="avatar-container mb-4">
+                        @if (!string.IsNullOrEmpty(Model.profile.Avatar))
+                        {
+                            <img src="@Model.profile.Avatar" alt="Avatar" class="avatar-preview" />
+                        }
+                        else
+                        {
+                            <div class="avatar-placeholder">
+                                @Model.profile.UserName.Substring(0, 1).ToUpper()
+                            </div>
+                        }
+                        <div class="avatar-upload mt-3">
+                            <label for="avatarInput" class="btn btn-primary btn-sm">
+                                <i class="fas fa-camera me-2"></i>Thay đổi ảnh đại diện
+                            </label>
+                            <input type="file" id="avatarInput" accept="image/*" style="display: none;" />
+                        </div>
+                    </div>
+                    <h5 class="card-title mb-3">@Model.profile.UserName</h5>
+                    <p class="text-muted mb-2">
+                        <i class="fas fa-envelope me-2"></i>@Model.profile.UserEmail
+                    </p>
+                    @if (!string.IsNullOrEmpty(Model.profile.PhoneNumber))
+                    {
+                        <p class="text-muted">
+                            <i class="fas fa-phone me-2"></i>@Model.profile.PhoneNumber
+                        </p>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <!-- Personal Info Card -->
+        <div class="col-md-8">
+            <div class="card profile-card h-100">
+                <div class="card-header bg-transparent">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-user me-2"></i>Thông tin cá nhân
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <div class="info-item">
+                                <label class="text-muted small">Tên đăng nhập</label>
+                                <p class="mb-0">@Model.profile.UserName</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="info-item">
+                                <label class="text-muted small">Email</label>
+                                <p class="mb-0">@Model.profile.UserEmail</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="info-item">
+                                <label class="text-muted small">Số điện thoại</label>
+                                <p class="mb-0">@(Model.profile.PhoneNumber ?? "Chưa cập nhật")</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="info-item">
+                                <label class="text-muted small">Địa chỉ</label>
+                                <p class="mb-0">@(Model.profile.HomeAdress ?? "Chưa cập nhật")</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="info-item">
+                                <label class="text-muted small">Ngày sinh</label>
+                                <p class="mb-0">@(Model.profile.BirthDate?.ToString("dd/MM/yyyy") ?? "Chưa cập nhật")</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <a asp-action="EditProfile" class="btn btn-primary">
+                            <i class="fas fa-edit me-2"></i>Sửa thông tin
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Security Settings Card -->
+        <div class="col-md-6">
+            <div class="card profile-card">
+                <div class="card-header bg-transparent">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-shield-alt me-2"></i>Bảo mật
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="security-item mb-3">
+                        <h6 class="mb-2">Mật khẩu</h6>
+                        @if (Model.HasPassword)
+                        {
+                            <a asp-controller="Manage" asp-action="ChangePassword" class="btn btn-outline-primary btn-sm">
+                                <i class="fas fa-key me-2"></i>Đổi mật khẩu
+                            </a>
+                        }
+                        else
+                        {
+                            <a asp-controller="Manage" asp-action="SetPassword" class="btn btn-outline-primary btn-sm">
+                                <i class="fas fa-key me-2"></i>Tạo mật khẩu
+                            </a>
+                        }
+                    </div>
+                    <div class="security-item mb-3">
+                        <h6 class="mb-2">Xác thực hai yếu tố</h6>
+                        @if (Model.TwoFactor)
+                        {
+                            <form asp-controller="Manage" asp-action="DisableTwoFactorAuthentication" method="post" class="d-inline">
+                                <button type="submit" class="btn btn-danger btn-sm">
+                                    <i class="fas fa-toggle-off me-2"></i>Hủy kích hoạt
+                                </button>
+                            </form>
+                        }
+                        else
+                        {
+                            <form asp-controller="Manage" asp-action="EnableTwoFactorAuthentication" method="post" class="d-inline">
+                                <button type="submit" class="btn btn-success btn-sm">
+                                    <i class="fas fa-toggle-on me-2"></i>Kích hoạt
+                                </button>
+                            </form>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- External Logins Card -->
+        <div class="col-md-6">
+            <div class="card profile-card">
+                <div class="card-header bg-transparent">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-link me-2"></i>Liên kết tài khoản
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="external-logins mb-3">
+                        <p class="mb-2">Có @Model.Logins.Count liên kết tài khoản ngoài</p>
+                        <a asp-controller="Manage" asp-action="ManageLogins" class="btn btn-outline-primary btn-sm">
+                            <i class="fas fa-cog me-2"></i>Quản lý liên kết
+                        </a>
+                    </div>
+                    <div class="phone-number">
+                        <h6 class="mb-2">Số điện thoại xác thực</h6>
+                        <p class="text-muted small mb-2">Sử dụng cho xác thực hai yếu tố</p>
+                        @if (Model.PhoneNumber != null)
+                        {
+                            <div class="d-flex align-items-center gap-2">
+                                <span>@Model.PhoneNumber</span>
+                                <a asp-controller="Manage" asp-action="AddPhoneNumber" class="btn btn-outline-primary btn-sm">
+                                    <i class="fas fa-edit me-2"></i>Thay đổi
+                                </a>
+                                <form asp-controller="Manage" asp-action="RemovePhoneNumber" method="post" class="d-inline">
+                                    <button type="submit" class="btn btn-outline-danger btn-sm">
+                                        <i class="fas fa-trash-alt me-2"></i>Xóa
+                                    </button>
+                                </form>
+                            </div>
+                        }
+                        else
+                        {
+                            <a asp-controller="Manage" asp-action="AddPhoneNumber" class="btn btn-outline-primary btn-sm">
+                                <i class="fas fa-plus me-2"></i>Thêm số điện thoại
+                            </a>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            $('#avatarInput').change(function(e) {
+                var file = e.target.files[0];
+                if (file) {
+                    console.log('File selected:', file.name, file.type, file.size);
+                    
+                    // Kiểm tra kích thước file (giới hạn 5MB)
+                    if (file.size > 5 * 1024 * 1024) {
+                        alert('File quá lớn. Kích thước tối đa là 5MB.');
+                        return;
+                    }
+
+                    // Kiểm tra loại file
+                    if (!file.type.match('image.*')) {
+                        alert('Vui lòng chọn file ảnh.');
+                        return;
+                    }
+
+                    var formData = new FormData();
+                    formData.append('avatar', file);
+
+                    // Hiển thị loading
+                    $('.avatar-upload .btn').prop('disabled', true).html('<i class="fas fa-spinner fa-spin"></i> Đang tải lên...');
+
+                    $.ajax({
+                        url: '/Profile/UploadAvatar',
+                        type: 'POST',
+                        data: formData,
+                        processData: false,
+                        contentType: false,
+                        success: function(response) {
+                            console.log('Upload response:', response);
+                            
+                            if (response.success) {
+                                // Cập nhật avatar preview với timestamp để tránh cache
+                                var newAvatarUrl = response.avatarUrl + '?t=' + new Date().getTime();
+                                $('.avatar-preview').attr('src', newAvatarUrl);
+                                
+                                // Ẩn placeholder và hiện preview
+                                $('.avatar-placeholder').hide();
+                                $('.avatar-preview').show();
+                                
+                                // Thêm class để trigger animation
+                                $('.avatar-preview').removeClass('avatar-updated').addClass('avatar-updated');
+                                
+                                // Hiển thị thông báo thành công
+                                alert('Cập nhật ảnh đại diện thành công!');
+                            } else {
+                                alert('Lỗi: ' + (response.message || 'Không thể cập nhật ảnh đại diện'));
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            console.error('Upload error:', xhr.responseText);
+                            alert('Lỗi khi upload avatar: ' + (xhr.responseText || error));
+                        },
+                        complete: function() {
+                            // Reset button state
+                            $('.avatar-upload .btn').prop('disabled', false)
+                                .html('<i class="fas fa-camera"></i> Thay đổi ảnh đại diện');
+                            // Reset file input
+                            $('#avatarInput').val('');
+                        }
+                    });
+                }
+            });
+
+            // Thêm event listener để reload avatar khi trang được tải
+            $(window).on('load', function() {
+                var currentAvatar = $('.avatar-preview').attr('src');
+                if (currentAvatar) {
+                    // Thêm timestamp để tránh cache
+                    $('.avatar-preview').attr('src', currentAvatar + '?t=' + new Date().getTime());
+                }
+            });
+        });
+    </script>
+
+    <style>
+        .profile-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        .profile-header {
+            margin-bottom: 2rem;
+        }
+
+        .profile-title {
+            font-size: 2rem;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 1rem;
+        }
+
+        .profile-card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.05);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .profile-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 25px rgba(0,0,0,0.1);
+        }
+
+        .card-header {
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            padding: 1.25rem;
+        }
+
+        .card-title {
+            color: #2c3e50;
+            font-weight: 600;
+        }
+
+        .info-item {
+            padding: 0.5rem;
+            border-radius: 8px;
+            background-color: #f8f9fa;
+        }
+
+        .info-item label {
+            font-size: 0.875rem;
+            color: #6c757d;
+        }
+
+        .info-item p {
+            font-weight: 500;
+            color: #2c3e50;
+        }
+
+        .avatar-container {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+
+        .avatar-preview, .avatar-placeholder {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border: 4px solid #fff;
+            transition: all 0.3s ease;
+        }
+
+        .avatar-placeholder {
+            background: linear-gradient(45deg, #007bff, #00bcd4);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            font-weight: bold;
+        }
+
+        .avatar-upload .btn {
+            border-radius: 20px;
+            padding: 0.5rem 1.5rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .avatar-upload .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,123,255,0.3);
+        }
+
+        .security-item, .external-logins, .phone-number {
+            padding: 1rem;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+        }
+
+        .btn {
+            border-radius: 8px;
+            padding: 0.5rem 1rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-outline-primary {
+            border-color: #007bff;
+            color: #007bff;
+        }
+
+        .btn-outline-primary:hover {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .btn-outline-danger {
+            border-color: #dc3545;
+            color: #dc3545;
+        }
+
+        .btn-outline-danger:hover {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .alert {
+            border-radius: 10px;
+            border: none;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        @@keyframes avatarUpdate {
+            0% { transform: scale(0.8); opacity: 0; }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .avatar-updated {
+            animation: avatarUpdate 0.5s ease-out;
+        }
+
+        .fa-spinner {
+            animation: spin 1s linear infinite;
+        }
+
+        @@keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Responsive adjustments */
+        @@media (max-width: 768px) {
+            .profile-container {
+                padding: 1rem;
+            }
+
+            .profile-title {
+                font-size: 1.5rem;
+            }
+
+            .avatar-preview, .avatar-placeholder {
+                width: 120px;
+                height: 120px;
+            }
+        }
+    </style>
+}

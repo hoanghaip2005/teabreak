@@ -1,0 +1,163 @@
+﻿@model DisplayRecoveryCodesViewModel
+@{
+    ViewData["Title"] = "Mã phục hồi";
+    Layout = "_Layout"; 
+}
+
+<div class="auth-container">
+    <div class="auth-header">
+        <h1 class="auth-title">
+            <i class="fas fa-key me-2"></i>@ViewData["Title"]
+        </h1>
+        <p class="text-muted">Lưu trữ các mã này ở nơi an toàn</p>
+    </div>
+
+    @if (!string.IsNullOrEmpty(ViewData["StatusMessage"]?.ToString()))
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @ViewData["StatusMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card auth-card">
+                <div class="card-body">
+                    <div class="recovery-codes-header mb-4">
+                        <h5 class="card-title">
+                            <i class="fas fa-info-circle me-2"></i>Mã phục hồi của bạn
+                        </h5>
+                        <p class="text-muted">
+                            Những mã này có thể được sử dụng để đăng nhập vào tài khoản của bạn khi không có quyền truy cập vào thiết bị xác thực hai yếu tố.
+                            <strong>Lưu ý:</strong> Mỗi mã chỉ có thể sử dụng một lần.
+                        </p>
+                    </div>
+
+                    <div class="recovery-codes-list">
+                        <div class="row g-3">
+                            @foreach (var code in Model.Codes)
+                            {
+                                <div class="col-md-6 col-lg-4">
+                                    <div class="recovery-code-item">
+                                        <code>@code</code>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="form-actions mt-4">
+                        <a asp-action="Index" class="btn btn-primary">
+                            <i class="fas fa-arrow-left me-2"></i>Quay lại trang chủ
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .auth-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem 1rem;
+    }
+
+    .auth-header {
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+
+    .auth-title {
+        font-size: 2rem;
+        font-weight: 600;
+        color: #2c3e50;
+        margin-bottom: 0.5rem;
+    }
+
+    .auth-card {
+        border: none;
+        border-radius: 15px;
+        box-shadow: 0 0 20px rgba(0,0,0,0.05);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .auth-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 5px 25px rgba(0,0,0,0.1);
+    }
+
+    .recovery-codes-header {
+        text-align: center;
+    }
+
+    .recovery-codes-header .card-title {
+        color: #2c3e50;
+        font-weight: 600;
+        margin-bottom: 1rem;
+    }
+
+    .recovery-code-item {
+        background-color: #f8f9fa;
+        border-radius: 8px;
+        padding: 1rem;
+        text-align: center;
+        transition: all 0.2s ease;
+    }
+
+    .recovery-code-item:hover {
+        background-color: #e9ecef;
+        transform: translateY(-2px);
+    }
+
+    .recovery-code-item code {
+        font-size: 1.1rem;
+        font-weight: 500;
+        color: #2c3e50;
+        letter-spacing: 1px;
+    }
+
+    .btn {
+        padding: 0.5rem 1.5rem;
+        font-weight: 500;
+        border-radius: 8px;
+        transition: all 0.2s ease;
+    }
+
+    .btn:hover {
+        transform: translateY(-2px);
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+        border-color: #0056b3;
+        box-shadow: 0 5px 15px rgba(0,123,255,0.3);
+    }
+
+    .alert {
+        border-radius: 10px;
+        border: none;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+
+    @@media (max-width: 768px) {
+        .auth-container {
+            padding: 1rem;
+        }
+
+        .auth-title {
+            font-size: 1.5rem;
+        }
+
+        .recovery-code-item code {
+            font-size: 1rem;
+        }
+    }
+</style>

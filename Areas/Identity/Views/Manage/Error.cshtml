@@ -1,0 +1,111 @@
+﻿@{
+    ViewData["Title"] = "Có lỗi xảy ra";
+    Layout = "_Layout"; 
+}
+
+<div class="error-container">
+    <div class="error-content text-center">
+        <div class="error-icon mb-4">
+            <i class="fas fa-exclamation-circle"></i>
+        </div>
+        <h1 class="error-title">@ViewData["Title"]</h1>
+        <p class="error-message">
+            Rất tiếc, đã có lỗi xảy ra trong quá trình xử lý yêu cầu của bạn.
+        </p>
+        <div class="error-actions mt-4">
+            <a asp-action="Index" class="btn btn-primary">
+                <i class="fas fa-home me-2"></i>Quay về trang chủ
+            </a>
+        </div>
+    </div>
+</div>
+
+<style>
+    .error-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 4rem 1rem;
+        min-height: 60vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .error-content {
+        max-width: 600px;
+    }
+
+    .error-icon {
+        font-size: 5rem;
+        color: #dc3545;
+        animation: pulse 2s infinite;
+    }
+
+    .error-title {
+        font-size: 2.5rem;
+        font-weight: 600;
+        color: #2c3e50;
+        margin-bottom: 1rem;
+    }
+
+    .error-message {
+        font-size: 1.1rem;
+        color: #6c757d;
+        margin-bottom: 2rem;
+    }
+
+    .btn {
+        padding: 0.75rem 2rem;
+        font-weight: 500;
+        border-radius: 8px;
+        transition: all 0.2s ease;
+    }
+
+    .btn:hover {
+        transform: translateY(-2px);
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+        border-color: #0056b3;
+        box-shadow: 0 5px 15px rgba(0,123,255,0.3);
+    }
+
+    @@keyframes pulse {
+        0% {
+            transform: scale(1);
+            opacity: 1;
+        }
+        50% {
+            transform: scale(1.1);
+            opacity: 0.8;
+        }
+        100% {
+            transform: scale(1);
+            opacity: 1;
+        }
+    }
+
+    @@media (max-width: 768px) {
+        .error-container {
+            padding: 2rem 1rem;
+        }
+
+        .error-icon {
+            font-size: 4rem;
+        }
+
+        .error-title {
+            font-size: 2rem;
+        }
+
+        .error-message {
+            font-size: 1rem;
+        }
+    }
+</style>

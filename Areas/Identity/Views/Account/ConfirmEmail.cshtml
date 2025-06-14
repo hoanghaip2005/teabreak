@@ -1,0 +1,39 @@
+﻿@{
+    ViewData["Title"] = "Xác thực email";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
+                <div class="card-body p-0">
+                    <div class="bg-success bg-gradient p-4 text-white text-center">
+                        <i class="fas fa-check-circle fa-4x mb-3 animate__animated animate__bounceIn"></i>
+                        <h2 class="fw-bold mb-0">@ViewData["Title"]</h2>
+                    </div>
+                    <div class="p-5 text-center">
+                        <p class="lead text-muted mb-4">
+                            Bạn đã hoàn thành xác thực email thành công.
+                        </p>
+                        <a asp-controller="Account" asp-action="Login" class="btn btn-success btn-lg px-5 py-3 rounded-pill shadow-sm animate__animated animate__pulse animate__infinite">
+                            <i class="fas fa-sign-in-alt me-2"></i>Đăng nhập ngay
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .animate__animated {
+        animation-duration: 1s;
+    }
+    .btn-success {
+        transition: all 0.3s ease;
+    }
+    .btn-success:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1) !important;
+    }
+</style>

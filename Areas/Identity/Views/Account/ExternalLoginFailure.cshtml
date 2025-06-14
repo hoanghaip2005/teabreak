@@ -1,0 +1,27 @@
+﻿@{
+    ViewData["Title"] = "Lỗi đăng nhập";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm border-danger">
+                <div class="card-body text-center p-5">
+                    <i class="fas fa-user-slash text-danger" style="font-size: 4rem;"></i>
+                    <h2 class="mt-4 mb-3 text-danger">@ViewData["Title"]</h2>
+                    <p class="lead text-muted mb-4">
+                        Không sử dụng được dịch vụ đăng nhập. Vui lòng thử lại hoặc sử dụng phương thức đăng nhập khác.
+                    </p>
+                    <div class="d-flex justify-content-center gap-3">
+                        <a asp-controller="Account" asp-action="Login" class="btn btn-outline-primary">
+                            <i class="fas fa-sign-in-alt me-2"></i>Thử đăng nhập lại
+                        </a>
+                        <a href="/" class="btn btn-outline-secondary">
+                            <i class="fas fa-home me-2"></i>Về trang chủ
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

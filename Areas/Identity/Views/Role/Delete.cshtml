@@ -1,0 +1,104 @@
+@model IdentityRole
+@{
+    ViewData["Title"] = "Xóa role";
+    Layout = "_Layout"; 
+}
+
+<div class="role-form-container">
+    <div class="page-header mb-4">
+        <h2 class="display-5 fw-bold text-gradient">@ViewData["Title"]</h2>
+        <partial name="_StatusMessage"></partial>
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-body p-4">
+            <div class="delete-confirmation">
+                <div class="warning-icon mb-4">
+                    <i class="fas fa-exclamation-triangle fa-3x text-warning"></i>
+                </div>
+                
+                <div class="alert alert-warning" role="alert">
+                    <h4 class="alert-heading mb-3">Bạn có chắc chắn muốn xóa role này?</h4>
+                    <p class="mb-0">Role: <strong class="text-danger">@Model.Name</strong></p>
+                    <hr>
+                    <p class="mb-0">Hành động này không thể hoàn tác. Tất cả các quyền và đặc tính liên quan đến role này sẽ bị xóa vĩnh viễn.</p>
+                </div>
+
+                <form method="post" class="mt-4">
+                    <div class="d-flex gap-3">
+                        <button type="submit" class="btn btn-danger btn-lg hover-scale flex-grow-1">
+                            <i class="fas fa-trash-alt me-2"></i>Xác nhận xóa
+                        </button>
+                        <a class="btn btn-outline-secondary btn-lg hover-scale" asp-action="Index">
+                            <i class="fas fa-times me-2"></i>Hủy bỏ
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .role-form-container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 2rem 1rem;
+    }
+
+    .text-gradient {
+        background: linear-gradient(45deg, #2196F3, #4CAF50);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .hover-scale {
+        transition: all 0.2s ease-in-out;
+    }
+
+    .hover-scale:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    .delete-confirmation {
+        text-align: center;
+    }
+
+    .warning-icon {
+        animation: pulse 2s infinite;
+    }
+
+    @@keyframes pulse {
+        0% {
+            transform: scale(1);
+        }
+        50% {
+            transform: scale(1.1);
+        }
+        100% {
+            transform: scale(1);
+        }
+    }
+
+    .alert {
+        border-radius: 8px;
+        border: none;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+
+    @@media (max-width: 768px) {
+        .d-flex {
+            flex-direction: column;
+        }
+        
+        .btn {
+            width: 100%;
+        }
+    }
+</style>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+}

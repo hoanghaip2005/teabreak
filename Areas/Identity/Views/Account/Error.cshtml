@@ -1,0 +1,47 @@
+﻿@{
+    ViewData["Title"] = "Có lỗi";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
+                <div class="card-body p-0">
+                    <div class="bg-warning bg-gradient p-4 text-white text-center">
+                        <i class="fas fa-exclamation-circle fa-4x mb-3 animate__animated animate__wobble"></i>
+                        <h2 class="fw-bold mb-0">@ViewData["Title"]</h2>
+                    </div>
+                    <div class="p-5 text-center">
+                        <p class="lead text-muted mb-4">
+                            Lỗi không hoàn thành được tác vụ. Vui lòng thử lại sau.
+                        </p>
+                        <div class="d-flex justify-content-center gap-3">
+                            <a href="/" class="btn btn-warning btn-lg px-4 py-2 rounded-pill shadow-sm hover-effect">
+                                <i class="fas fa-home me-2"></i>Về trang chủ
+                            </a>
+                            <button onclick="history.back()" class="btn btn-outline-secondary btn-lg px-4 py-2 rounded-pill shadow-sm hover-effect">
+                                <i class="fas fa-arrow-left me-2"></i>Quay lại
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .hover-effect {
+        transition: all 0.3s ease;
+    }
+    .hover-effect:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1) !important;
+    }
+    .animate__animated {
+        animation-duration: 1s;
+    }
+    .bg-warning {
+        background: linear-gradient(45deg, #ffc107, #ff9800) !important;
+    }
+</style>

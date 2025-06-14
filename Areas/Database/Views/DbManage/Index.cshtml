@@ -1,0 +1,291 @@
+@using Microsoft.EntityFrameworkCore
+@using System.Data
+
+@inject AppDbContext dbContext
+
+@{
+    ViewData["Title"] = "Quản lý cơ sở dữ liệu";
+    var connect = dbContext.Database.GetDbConnection();
+    var dbname = connect.Database;
+    var can_connect = dbContext.Database.CanConnect();
+}
+
+<partial name="_AlertMessage"/>
+
+<div class="db-manage-container">
+    <div class="db-header">
+        <h1 class="db-title">
+            <i class="fas fa-database me-2"></i>@ViewData["Title"]
+        </h1>
+    </div>
+
+    <!-- Database Info Card -->
+    <div class="row g-4 mb-4">
+        <div class="col-md-6">
+            <div class="card db-card">
+                <div class="card-header bg-transparent">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-info-circle me-2"></i>Thông tin cơ sở dữ liệu
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="info-item">
+                        <label class="text-muted small">Tên database</label>
+                        <p class="mb-0">@dbname</p>
+                    </div>
+                    <div class="info-item">
+                        <label class="text-muted small">Nguồn dữ liệu</label>
+                        <p class="mb-0">@connect.DataSource</p>
+                    </div>
+                    <div class="info-item">
+                        <label class="text-muted small">Trạng thái</label>
+                        <p class="mb-0">
+                            @if (connect.State == ConnectionState.Open)
+                            {
+                                <span class="badge bg-success">Đang kết nối</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-danger">Ngắt kết nối</span>
+                            }
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card db-card">
+                <div class="card-header bg-transparent">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-tools me-2"></i>Thao tác
+                    </h5>
+                </div>
+                <div class="card-body">
+                    @if (!can_connect)
+                    {
+                        <div class="alert alert-danger">
+                            <i class="fas fa-exclamation-triangle me-2"></i>
+                            Không thể kết nối đến database
+                        </div>
+                    }
+
+                    @if (dbContext.Database.GetPendingMigrations().Any()) 
+                    {
+                        <form method="post" class="mb-3">
+                            <button class="btn btn-primary" asp-action="Migrate">
+                                <i class="fas fa-sync-alt me-2"></i>Tạo database (Cập nhật migration)
+                            </button>
+                        </form>
+                    }
+
+                    @if (can_connect)
+                    {
+                        <div class="d-flex gap-2">
+                            <a class="btn btn-danger" asp-action="DeleteDb">
+                                <i class="fas fa-trash-alt me-2"></i>Xóa Database: @dbname
+                            </a>
+                            <a class="btn btn-success" asp-action="SeedData">
+                                <i class="fas fa-seedling me-2"></i>Seed Data
+                            </a>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Migrations Card -->
+    <div class="card db-card mb-4">
+        <div class="card-header bg-transparent">
+            <h5 class="card-title mb-0">
+                <i class="fas fa-code-branch me-2"></i>Migrations
+            </h5>
+        </div>
+        <div class="card-body">
+            <div class="migrations-list">
+                @foreach (var migration in dbContext.Database.GetAppliedMigrations())
+                {
+                    <div class="migration-item">
+                        <i class="fas fa-check-circle text-success me-2"></i>
+                        <span>@migration</span>
+                    </div>
+                }
+                @foreach (var migration in dbContext.Database.GetPendingMigrations())
+                {
+                    <div class="migration-item pending">
+                        <i class="fas fa-clock text-warning me-2"></i>
+                        <span>@migration (pending)</span>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <!-- Tables Card -->
+    @if (can_connect)
+    {
+        <div class="card db-card">
+            <div class="card-header bg-transparent">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-table me-2"></i>Danh sách bảng
+                </h5>
+            </div>
+            <div class="card-body">
+                @{
+                    await dbContext.Database.OpenConnectionAsync();
+                    var table = dbContext.Database.GetDbConnection().GetSchema("Tables");
+                }
+                <div class="tables-grid">
+                    @foreach (System.Data.DataRow row in table.Rows)
+                    {
+                        <div class="table-item">
+                            <i class="fas fa-table me-2"></i>
+                            @row["TABLE_NAME"]
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<style>
+    .db-manage-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem 1rem;
+    }
+
+    .db-header {
+        margin-bottom: 2rem;
+    }
+
+    .db-title {
+        font-size: 2rem;
+        font-weight: 600;
+        color: #2c3e50;
+        margin-bottom: 1rem;
+    }
+
+    .db-card {
+        border: none;
+        border-radius: 15px;
+        box-shadow: 0 0 20px rgba(0,0,0,0.05);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .db-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 5px 25px rgba(0,0,0,0.1);
+    }
+
+    .card-header {
+        border-bottom: 1px solid rgba(0,0,0,0.05);
+        padding: 1.25rem;
+    }
+
+    .card-title {
+        color: #2c3e50;
+        font-weight: 600;
+    }
+
+    .info-item {
+        padding: 0.75rem;
+        border-radius: 8px;
+        background-color: #f8f9fa;
+        margin-bottom: 1rem;
+    }
+
+    .info-item:last-child {
+        margin-bottom: 0;
+    }
+
+    .info-item label {
+        font-size: 0.875rem;
+        color: #6c757d;
+        margin-bottom: 0.25rem;
+    }
+
+    .info-item p {
+        font-weight: 500;
+        color: #2c3e50;
+        margin: 0;
+    }
+
+    .migrations-list {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .migration-item {
+        padding: 0.75rem;
+        background-color: #f8f9fa;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+    }
+
+    .migration-item.pending {
+        background-color: #fff3cd;
+    }
+
+    .tables-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 1rem;
+    }
+
+    .table-item {
+        padding: 0.75rem;
+        background-color: #f8f9fa;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        transition: all 0.2s ease;
+    }
+
+    .table-item:hover {
+        background-color: #e9ecef;
+        transform: translateX(5px);
+    }
+
+    .btn {
+        border-radius: 8px;
+        padding: 0.5rem 1rem;
+        font-weight: 500;
+        transition: all 0.2s ease;
+    }
+
+    .btn:hover {
+        transform: translateY(-2px);
+    }
+
+    .badge {
+        padding: 0.5rem 0.75rem;
+        font-weight: 500;
+        border-radius: 6px;
+    }
+
+    .alert {
+        border-radius: 10px;
+        border: none;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+
+    /* Responsive adjustments */
+    @@media (max-width: 768px) {
+        .db-manage-container {
+            padding: 1rem;
+        }
+
+        .db-title {
+            font-size: 1.5rem;
+        }
+
+        .tables-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>

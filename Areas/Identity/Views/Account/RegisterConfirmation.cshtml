@@ -1,0 +1,149 @@
+@{
+    ViewData["Title"] = "Xác nhận đăng ký";
+}
+
+<div class="auth-container">
+    <div class="auth-header">
+        <h1 class="auth-title">
+            <i class="fas fa-envelope me-2"></i>@ViewData["Title"]
+        </h1>
+        <p class="text-muted">Vui lòng kiểm tra email của bạn để xác nhận tài khoản</p>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card auth-card">
+                <div class="card-body text-center">
+                    <div class="email-icon mb-4">
+                        <i class="fas fa-envelope-open-text"></i>
+                    </div>
+                    <p class="mb-4">
+                        Chúng tôi đã gửi một email xác nhận đến địa chỉ email của bạn. 
+                        Vui lòng kiểm tra hộp thư đến và làm theo hướng dẫn để hoàn tất quá trình đăng ký.
+                    </p>
+                    <div class="alert alert-info mb-4" role="alert">
+                        <i class="fas fa-info-circle me-2"></i>
+                        Nếu bạn không nhận được email, vui lòng kiểm tra thư mục spam hoặc 
+                        <a asp-controller="Account" asp-action="ResendEmailConfirmation" class="alert-link">bấm vào đây</a> 
+                        để gửi lại email xác nhận.
+                    </div>
+                    <a asp-controller="Home" asp-action="Index" class="btn btn-primary">
+                        <i class="fas fa-home me-2"></i>Về trang chủ
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .auth-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem 1rem;
+    }
+
+    .auth-header {
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+
+    .auth-title {
+        font-size: 2rem;
+        font-weight: 600;
+        color: #2c3e50;
+        margin-bottom: 0.5rem;
+    }
+
+    .auth-card {
+        border: none;
+        border-radius: 15px;
+        box-shadow: 0 0 20px rgba(0,0,0,0.05);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .auth-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 5px 25px rgba(0,0,0,0.1);
+    }
+
+    .email-icon {
+        font-size: 4rem;
+        color: #17a2b8;
+        animation: bounceIn 0.5s ease-out;
+    }
+
+    .alert {
+        border-radius: 8px;
+        border: none;
+        padding: 1rem;
+    }
+
+    .alert-info {
+        background-color: #e8f4f8;
+        color: #0c5460;
+    }
+
+    .alert-link {
+        color: #0c5460;
+        text-decoration: underline;
+        font-weight: 500;
+    }
+
+    .alert-link:hover {
+        color: #062c33;
+    }
+
+    .btn {
+        padding: 0.75rem 1.5rem;
+        font-weight: 500;
+        border-radius: 8px;
+        transition: all 0.2s ease;
+    }
+
+    .btn:hover {
+        transform: translateY(-2px);
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+        border-color: #0056b3;
+        box-shadow: 0 5px 15px rgba(0,123,255,0.3);
+    }
+
+    @@keyframes bounceIn {
+        0% {
+            transform: scale(0);
+            opacity: 0;
+        }
+        50% {
+            transform: scale(1.2);
+        }
+        70% {
+            transform: scale(0.9);
+        }
+        100% {
+            transform: scale(1);
+            opacity: 1;
+        }
+    }
+
+    @@media (max-width: 768px) {
+        .auth-container {
+            padding: 1rem;
+        }
+
+        .auth-title {
+            font-size: 1.5rem;
+        }
+
+        .email-icon {
+            font-size: 3rem;
+        }
+    }
+</style>

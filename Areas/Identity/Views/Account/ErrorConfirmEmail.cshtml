@@ -1,0 +1,47 @@
+﻿@{
+    ViewData["Title"] = "Lỗi xác thực email";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
+                <div class="card-body p-0">
+                    <div class="bg-danger bg-gradient p-4 text-white text-center">
+                        <i class="fas fa-times-circle fa-4x mb-3 animate__animated animate__heartBeat"></i>
+                        <h2 class="fw-bold mb-0">@ViewData["Title"]</h2>
+                    </div>
+                    <div class="p-5 text-center">
+                        <p class="lead text-muted mb-4">
+                            Có lỗi khi xác thực địa chỉ email. Vui lòng kiểm tra lại hoặc liên hệ hỗ trợ.
+                        </p>
+                        <div class="d-flex justify-content-center gap-3">
+                            <a asp-controller="Account" asp-action="Login" class="btn btn-danger btn-lg px-4 py-2 rounded-pill shadow-sm hover-effect">
+                                <i class="fas fa-sign-in-alt me-2"></i>Về trang đăng nhập
+                            </a>
+                            <a href="/" class="btn btn-outline-secondary btn-lg px-4 py-2 rounded-pill shadow-sm hover-effect">
+                                <i class="fas fa-home me-2"></i>Về trang chủ
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .hover-effect {
+        transition: all 0.3s ease;
+    }
+    .hover-effect:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1) !important;
+    }
+    .animate__animated {
+        animation-duration: 1s;
+    }
+    .bg-danger {
+        background: linear-gradient(45deg, #dc3545, #ff4d5b) !important;
+    }
+</style>

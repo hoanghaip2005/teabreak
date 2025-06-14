@@ -1,0 +1,260 @@
+﻿@model ManageLoginsViewModel
+@using Microsoft.AspNetCore.Authentication
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<AppUser> SignInManager
+@{
+    ViewData["Title"] = "Quản lý đăng nhập bên ngoài";
+    Layout = "_Layout"; 
+}
+
+<div class="auth-container">
+    <div class="auth-header">
+        <h1 class="auth-title">
+            <i class="fas fa-sign-in-alt me-2"></i>@ViewData["Title"]
+        </h1>
+        <p class="text-muted">Quản lý các phương thức đăng nhập bên ngoài của bạn</p>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            @if (Model.CurrentLogins.Count > 0)
+            {
+                <div class="card auth-card mb-4">
+                    <div class="card-header bg-transparent">
+                        <h5 class="card-title mb-0">
+                            <i class="fas fa-link me-2"></i>Đăng nhập hiện tại
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row g-3">
+                            @foreach (var login in Model.CurrentLogins)
+                            {
+                                <div class="col-md-6">
+                                    <div class="login-provider-card">
+                                        <div class="provider-icon">
+                                            @switch (login.LoginProvider.ToLower())
+                                            {
+                                                case "google":
+                                                    <i class="fab fa-google"></i>
+                                                    break;
+                                                case "facebook":
+                                                    <i class="fab fa-facebook"></i>
+                                                    break;
+                                                case "microsoft":
+                                                    <i class="fab fa-microsoft"></i>
+                                                    break;
+                                                default:
+                                                    <i class="fas fa-user"></i>
+                                                    break;
+                                            }
+                                        </div>
+                                        <div class="provider-info">
+                                            <h6 class="provider-name">@login.ProviderDisplayName</h6>
+                                            <span class="provider-email">@login.ProviderKey</span>
+                                        </div>
+                                        @if (ViewData["ShowRemoveButton"] != null && (bool)ViewData["ShowRemoveButton"])
+                                        {
+                                            <form asp-controller="Manage" asp-action="RemoveLogin" method="post" class="provider-action">
+                                                <input asp-for="@login.LoginProvider" name="LoginProvider" type="hidden" />
+                                                <input asp-for="@login.ProviderKey" name="ProviderKey" type="hidden" />
+                                                <button type="submit" class="btn btn-outline-danger btn-sm" title="Xóa đăng nhập @login.ProviderDisplayName">
+                                                    <i class="fas fa-times"></i>
+                                                </button>
+                                            </form>
+                                        }
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+
+            @if (Model.OtherLogins.Count > 0)
+            {
+                <div class="card auth-card">
+                    <div class="card-header bg-transparent">
+                        <h5 class="card-title mb-0">
+                            <i class="fas fa-plus-circle me-2"></i>Thêm đăng nhập khác
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <form asp-controller="Manage" asp-action="LinkLogin" method="post" class="form-horizontal">
+                            <div class="row g-3">
+                                @foreach (var provider in Model.OtherLogins)
+                                {
+                                    <div class="col-md-6">
+                                        <button type="submit" 
+                                                class="btn btn-outline-primary w-100 provider-button" 
+                                                name="provider" 
+                                                value="@provider.Name" 
+                                                title="Đăng nhập bằng @provider.DisplayName">
+                                            @switch (provider.Name.ToLower())
+                                            {
+                                                case "google":
+                                                    <i class="fab fa-google me-2"></i>
+                                                    break;
+                                                case "facebook":
+                                                    <i class="fab fa-facebook me-2"></i>
+                                                    break;
+                                                case "microsoft":
+                                                    <i class="fab fa-microsoft me-2"></i>
+                                                    break;
+                                                default:
+                                                    <i class="fas fa-user me-2"></i>
+                                                    break;
+                                            }
+                                            Đăng nhập bằng @provider.DisplayName
+                                        </button>
+                                    </div>
+                                }
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<style>
+    .auth-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem 1rem;
+    }
+
+    .auth-header {
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+
+    .auth-title {
+        font-size: 2rem;
+        font-weight: 600;
+        color: #2c3e50;
+        margin-bottom: 0.5rem;
+    }
+
+    .auth-card {
+        border: none;
+        border-radius: 15px;
+        box-shadow: 0 0 20px rgba(0,0,0,0.05);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .auth-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 5px 25px rgba(0,0,0,0.1);
+    }
+
+    .card-header {
+        border-bottom: 1px solid rgba(0,0,0,0.05);
+        padding: 1.5rem;
+    }
+
+    .card-title {
+        color: #2c3e50;
+        font-weight: 600;
+    }
+
+    .login-provider-card {
+        display: flex;
+        align-items: center;
+        padding: 1rem;
+        background: #f8f9fa;
+        border-radius: 10px;
+        transition: all 0.2s ease;
+    }
+
+    .login-provider-card:hover {
+        background: #e9ecef;
+        transform: translateY(-2px);
+    }
+
+    .provider-icon {
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #fff;
+        border-radius: 50%;
+        margin-right: 1rem;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .provider-icon i {
+        font-size: 1.2rem;
+    }
+
+    .provider-icon .fa-google { color: #DB4437; }
+    .provider-icon .fa-facebook { color: #4267B2; }
+    .provider-icon .fa-microsoft { color: #00A4EF; }
+
+    .provider-info {
+        flex: 1;
+    }
+
+    .provider-name {
+        margin: 0;
+        font-weight: 600;
+        color: #2c3e50;
+    }
+
+    .provider-email {
+        font-size: 0.875rem;
+        color: #6c757d;
+    }
+
+    .provider-action {
+        margin-left: 1rem;
+    }
+
+    .btn-outline-danger {
+        color: #dc3545;
+        border-color: #dc3545;
+        padding: 0.25rem 0.5rem;
+        font-size: 0.875rem;
+    }
+
+    .btn-outline-danger:hover {
+        color: #fff;
+        background-color: #dc3545;
+        border-color: #dc3545;
+        box-shadow: 0 2px 5px rgba(220,53,69,0.3);
+    }
+
+    .provider-button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.75rem 1.5rem;
+        font-weight: 500;
+        border-radius: 8px;
+        transition: all 0.2s ease;
+    }
+
+    .provider-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0,123,255,0.2);
+    }
+
+    @@media (max-width: 768px) {
+        .auth-container {
+            padding: 1rem;
+        }
+
+        .auth-title {
+            font-size: 1.5rem;
+        }
+
+        .login-provider-card {
+            margin-bottom: 1rem;
+        }
+
+        .provider-button {
+            margin-bottom: 1rem;
+        }
+    }
+</style>
