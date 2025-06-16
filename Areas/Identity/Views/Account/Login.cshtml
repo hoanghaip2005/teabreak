@@ -1,6 +1,7 @@
 ﻿@using System.Collections.Generic
 @using Microsoft.AspNetCore.Http
 @using Microsoft.AspNetCore.Authentication
+@using App.Areas.Identity.Models.AccountViewModels
 @model LoginViewModel
 @inject SignInManager<AppUser> SignInManager
 
@@ -8,247 +9,109 @@
     ViewData["Title"] = "Đăng nhập";
 }
 
-@section Styles {
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-}
-
-<style>
-    html,
-    body {
-        margin: 0px;
-        height: 100%;
-    }
-
-    body * {
-        font-family: Barlow;
-        font-size: 14px;
-    }
-
-    button:focus-visible {
-        outline: 2px solid #4a90e2 !important;
-        outline: -webkit-focus-ring-color auto 5px !important;
-    }
-
-    a {
-        text-decoration: none;
-    }
-
-    .container {
-        padding: 0 !important;
-    }
-
-    :root {
-        --cen-1: rgba(255, 214, 58, 1);
-        --cen-2: rgba(161, 154, 211, 1);
-        --cen-3: rgba(247, 90, 90, 1);
-        --nn: rgba(168, 213, 186, 1);
-        --cen-4: rgba(224, 122, 95, 1);
-        --cen-5: rgba(109, 225, 210, 1);
-        --cen-6: rgba(210, 183, 116, 1);
-        --ST-h4-font-family: "Source Sans Pro", Helvetica;
-        --ST-h4-font-weight: 400;
-        --ST-h4-font-size: 15px;
-        --ST-h4-letter-spacing: 0px;
-        --ST-h4-line-height: normal;
-        --ST-h4-font-style: normal;
-        --h1-font-family: "Source Sans Pro", Helvetica;
-        --h1-font-weight: 700;
-        --h1-font-size: 130px;
-        --h1-letter-spacing: 0px;
-        --h1-line-height: normal;
-        --h1-font-style: normal;
-        --h-2-font-family: "Source Sans Pro", Helvetica;
-        --h-2-font-weight: 400;
-        --h-2-font-size: 24px;
-        --h-2-letter-spacing: 0px;
-        --h-2-line-height: normal;
-        --h-2-font-style: normal;
-        --h-3-font-family: "Inter", Helvetica;
-        --h-3-font-weight: 700;
-        --h-3-font-size: 16px;
-        --h-3-letter-spacing: 0px;
-        --h-3-line-height: normal;
-        --h-3-font-style: normal;
-        --h-4-font-family: "Inter", Helvetica;
-        --h-4-font-weight: 700;
-        --h-4-font-size: 14px;
-        --h-4-letter-spacing: 0px;
-        --h-4-line-height: normal;
-        --h-4-font-style: normal;
-        --TEXT-font-family: "Noto Sans HK", Helvetica;
-        --TEXT-font-weight: 500;
-        --TEXT-font-size: 38px;
-        --TEXT-letter-spacing: 0px;
-        --TEXT-line-height: normal;
-        --TEXT-font-style: normal;
-        --text-danh-m-c-tin-t-c-font-family: "Barlow", Helvetica;
-        --text-danh-m-c-tin-t-c-font-weight: 500;
-        --text-danh-m-c-tin-t-c-font-size: 24px;
-        --text-danh-m-c-tin-t-c-letter-spacing: 0px;
-        --text-danh-m-c-tin-t-c-line-height: normal;
-        --text-danh-m-c-tin-t-c-font-style: normal;
-        --TEXT-NH-TIN-t-c-font-family: "Barlow", Helvetica;
-        --TEXT-NH-TIN-t-c-font-weight: 400;
-        --TEXT-NH-TIN-t-c-font-size: 24px;
-        --TEXT-NH-TIN-t-c-letter-spacing: 0px;
-        --TEXT-NH-TIN-t-c-line-height: normal;
-        --TEXT-NH-TIN-t-c-font-style: normal;
-        --text-font-family: "Mulish", Helvetica;
-        --text-font-weight: 700;
-        --text-font-size: 24px;
-        --text-letter-spacing: 0px;
-        --text-line-height: normal;
-        --text-font-style: normal;
-        --variable-collection-CEN-3: rgba(241, 186, 136, 1);
-        --variable-collection-color: var(--variable-collection-CEN-3);
-    }
-
-    .wrap-popup-login-content {
-        display: flex;
-        width: 100vw;
-        height: 100vh;
-        justify-content: center;
-        align-items: center;
-        background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/img/home/background_login.png') no-repeat center;
-        background-size: cover;
-    }
-
-    .popup-login-content {
-        background-image: url('/img/home/card_login.png');
-        background-size: cover;
-        padding-bottom: 80px;
-    }
-
-    .popup-login-content {
-        width: 500px;
-        height: 600px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        background: white;
-        border-radius: 5px;
-        padding: 24px 120px;
-        background-image: url('/img/home/card_login.png');
-        background-repeat: no-repeat;
-        background-size: 100%;
-        background-position: bottom center;
-    }
-
-    .logo-toco {
-        width: 200px;
-        margin-bottom: 20px;
-    }
-
-    .login-description {
-        display: none;
-        text-align: center;
-        margin: 16px 0;
-    }
-
-    .login-area {
-        width: 100%;
-        padding-bottom: 60px;
-    }
-
-    .popup-login-content input {
-        background: 0 0;
-        outline: unset;
-        border: none;
-        padding: 10px 0;
-        font-size: 14px;
-        border-bottom: 1px solid #d6cdbc;
-        width: 100%;
-        outline: 0 !important;
-        box-shadow: none;
-    }
-
-    .input-err {
-        color: red;
-        font-style: italic;
-        font-size: 12px;
-        font-weight: 300;
-        align-self: flex-start;
-    }
-
-    .forgot-password {
-        text-align: right;
-        margin-top: 16px;
-        cursor: pointer;
-        font-weight: bold;
-        color: #d4b774;
-    }
-
-    .btn-yellow {
-        background: #d8b979;
-        box-shadow: 0 3px 25px 0 rgba(0, 0, 0, 0.2);
-        color: #ffffff;
-        margin-top: 24px;
-        font-size: 14px;
-        overflow: visible;
-        min-height: 42px;
-        height: auto;
-        display: flex;
-        line-height: normal;
-        align-items: center;
-        justify-content: center;
-        width: 100%;
-        padding: 10px 5px;
-        border-radius: 30px;
-        cursor: pointer;
-        font-weight: bold;
-        text-transform: uppercase;
-    }
-
-    .sugget-text {
-        display: flex;
-        justify-content: center;
-        margin: 20px 0;
-    }
-
-    .sugget-text .link {
-        font-weight: bold;
-        color: #d4b774;
-        margin-left: 8px;
-        cursor: pointer;
-    }
-</style>
-
 <!-- Thêm Font Awesome vào head -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-
+<link rel="stylesheet" href="~/Areas/Identity/assets/Account/IndexAndLogin.css" asp-append-version="true">
 <div class="wrap-popup-login-content" bis_skin_checked="1">
     <div class="popup-login-content login-content" bis_skin_checked="1">
         <img src="/img/home/logo_login.png" alt="" class="logo-toco">
         <div class="login-description" bis_skin_checked="1">Đăng nhập để tích điểm, lưu lại những món yêu thích và nhận
             những ưu đãi đặc biệt từ ToCoToCo nhé!</div>
-        <div class="login-area" bis_skin_checked="1">
-            <input type="text" name="phone" autocomplete="off" inputtype="phone"
-                placeholder="Nhập số điện thoại của bạn" style="color: #fff">
-            <div class="input-err" bis_skin_checked="1"></div>
-            <input type="password" name="password" autocomplete="off" inputtype="password"
-                placeholder="Nhập mật khẩu của bạn" style="color: #fff">
-            <div class="input-err" bis_skin_checked="1"></div>
-            <div class="forgot-password" style="color: #fff" bis_skin_checked="1">Quên mật khẩu?</div>
-            <div class="login-btn btn-yellow" bis_skin_checked="1">Đăng nhập</div>
+        <form asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="login-area" bis_skin_checked="1">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            
+            <div class="form-group">
+                <input asp-for="UserNameOrEmail" class="form-control" placeholder="Nhập email hoặc tên tài khoản" style="color: #fff" />
+                <span asp-validation-for="UserNameOrEmail" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input asp-for="Password" class="form-control" placeholder="Nhập mật khẩu của bạn" style="color: #fff" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+
+            <div class="forgot-password" style="color: #fff" bis_skin_checked="1">
+                <a asp-action="ForgotPassword" style="color: #fff">Quên mật khẩu?</a>
+            </div>
+
+            <button type="submit" class="btn-yellow">Đăng nhập</button>
+
             <div class="sugget-text" bis_skin_checked="1">
                 <div class="text" style="color: #fff" bis_skin_checked="1">Bạn chưa có tài khoản?</div>
-                <div class="link register-link" style="color: #fff" bis_skin_checked="1">Tạo tài khoản</div>
+                <a asp-action="Register" class="link">Tạo tài khoản</a>
             </div>
             <div class="sugget-text" bis_skin_checked="1">
-                <a href="https://tocotocotea.com/news-mobile/?source_id=app" class="back-home" style="color: #fff"
+                <a href="/Toocha/Order/Index" class="back-home" style="color: #007bff !important"
                     bis_skin_checked="1">Quay lại màn hình chính</a>
             </div>
-        </div>
+        </form>
     </div>
 </div>
-
-<script>
-</script>
 
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/4.0.0/jquery.validate.unobtrusive.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Cấu hình Toastr
+            toastr.options = {
+                "closeButton": true,
+                "progressBar": true,
+                "positionClass": "toast-top-right",
+                "showDuration": "300",
+                "hideDuration": "1000",
+                "timeOut": "5000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            };
+            
+            console.log('Document ready');
+            
+            // Add error styling
+            $('.input-validation-error').addClass('input-err');
+            
+            // Handle form submission
+            $('form').on('submit', function(e) {
+                console.log('Form submitted');
+                
+                var $form = $(this);
+                if (!$form.valid()) {
+                    console.log('Form validation failed');
+                    e.preventDefault();
+                    return false;
+                }
+
+                // Thêm input hidden để xác định đây là form submit thông thường
+                if (!$form.find('input[name="isFormSubmit"]').length) {
+                    $form.append('<input type="hidden" name="isFormSubmit" value="true" />');
+                }
+
+                // Cho phép form submit bình thường
+                return true;
+            });
+
+            // Xử lý thông báo lỗi từ server
+            var errorMessage = '@TempData["ErrorMessage"]';
+            if (errorMessage) {
+                toastr.error(errorMessage);
+            }
+
+            var successMessage = '@TempData["SuccessMessage"]';
+            if (successMessage) {
+                toastr.success(successMessage);
+                // Chuyển hướng sau khi đăng nhập thành công
+                setTimeout(function() {
+                    window.location.href = '/Toocha/Order/Index';
+                }, 1000);
+            }
+        });
+    </script>
 }

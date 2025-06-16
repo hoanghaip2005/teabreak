@@ -78,7 +78,8 @@ namespace App.Areas.Identity.Controllers
                 if (result.Succeeded)
                 {
                     _logger.LogInformation(1, "User logged in.");
-                    return LocalRedirect(returnUrl);
+                    TempData["SuccessMessage"] = "Đăng nhập thành công!";
+                    return Redirect("/Toocha/Order/Index");
                 }
                 if (result.RequiresTwoFactor)
                 {
@@ -92,7 +93,8 @@ namespace App.Areas.Identity.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("Không đăng nhập được.");
+                    ModelState.AddModelError("", "Không đăng nhập được.");
+                    TempData["ErrorMessage"] = "Đăng nhập thất bại. Vui lòng kiểm tra lại tên đăng nhập và mật khẩu.";
                     return View(model);
                 }
             }

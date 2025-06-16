@@ -1,0 +1,312 @@
+@import url("https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css");
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+
+html,
+body {
+    margin: 0px;
+    height: 100%;
+}
+
+body * {
+    font-family: Barlow;
+    font-size: 14px;
+}
+
+button:focus-visible,
+.btn-yellow:focus-visible,
+.btn-yellow:focus,
+.btn-yellow:active {
+    outline: none !important;
+    box-shadow: none !important;
+    border: none !important;
+}
+
+a {
+    text-decoration: none;
+}
+
+.container {
+    padding: 0 !important;
+}
+
+.form-control:focus,
+.form-control:active,
+.form-control:hover {
+    outline: none !important;
+    box-shadow: none !important;
+    border-color: inherit !important;
+    background: transparent !important;
+}
+
+input:focus,
+input:active,
+input:hover {
+    outline: none !important;
+    box-shadow: none !important;
+    border-color: inherit !important;
+    background: transparent !important;
+}
+
+/* Tắt background của autofill */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px transparent inset !important;
+    -webkit-text-fill-color: #fff !important;
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+/* Tắt hover và border-radius của input */
+.popup-login-content input {
+    border-radius: 0 !important;
+    border-bottom: 1px solid #d6cdbc !important;
+}
+
+.popup-login-content input::placeholder {
+    color: #fff !important;
+    opacity: 1;
+}
+
+.popup-login-content input:hover,
+.popup-login-content input:focus {
+    border-bottom: 1px solid #d6cdbc !important;
+}
+
+:root {
+    --cen-1: rgba(255, 214, 58, 1);
+    --cen-2: rgba(161, 154, 211, 1);
+    --cen-3: rgba(247, 90, 90, 1);
+    --nn: rgba(168, 213, 186, 1);
+    --cen-4: rgba(224, 122, 95, 1);
+    --cen-5: rgba(109, 225, 210, 1);
+    --cen-6: rgba(210, 183, 116, 1);
+    --ST-h4-font-family: "Source Sans Pro", Helvetica;
+    --ST-h4-font-weight: 400;
+    --ST-h4-font-size: 15px;
+    --ST-h4-letter-spacing: 0px;
+    --ST-h4-line-height: normal;
+    --ST-h4-font-style: normal;
+    --h1-font-family: "Source Sans Pro", Helvetica;
+    --h1-font-weight: 700;
+    --h1-font-size: 130px;
+    --h1-letter-spacing: 0px;
+    --h1-line-height: normal;
+    --h1-font-style: normal;
+    --h-2-font-family: "Source Sans Pro", Helvetica;
+    --h-2-font-weight: 400;
+    --h-2-font-size: 24px;
+    --h-2-letter-spacing: 0px;
+    --h-2-line-height: normal;
+    --h-2-font-style: normal;
+    --h-3-font-family: "Inter", Helvetica;
+    --h-3-font-weight: 700;
+    --h-3-font-size: 16px;
+    --h-3-letter-spacing: 0px;
+    --h-3-line-height: normal;
+    --h-3-font-style: normal;
+    --h-4-font-family: "Inter", Helvetica;
+    --h-4-font-weight: 700;
+    --h-4-font-size: 14px;
+    --h-4-letter-spacing: 0px;
+    --h-4-line-height: normal;
+    --h-4-font-style: normal;
+    --TEXT-font-family: "Noto Sans HK", Helvetica;
+    --TEXT-font-weight: 500;
+    --TEXT-font-size: 38px;
+    --TEXT-letter-spacing: 0px;
+    --TEXT-line-height: normal;
+    --TEXT-font-style: normal;
+    --text-danh-m-c-tin-t-c-font-family: "Barlow", Helvetica;
+    --text-danh-m-c-tin-t-c-font-weight: 500;
+    --text-danh-m-c-tin-t-c-font-size: 24px;
+    --text-danh-m-c-tin-t-c-letter-spacing: 0px;
+    --text-danh-m-c-tin-t-c-line-height: normal;
+    --text-danh-m-c-tin-t-c-font-style: normal;
+    --TEXT-NH-TIN-t-c-font-family: "Barlow", Helvetica;
+    --TEXT-NH-TIN-t-c-font-weight: 400;
+    --TEXT-NH-TIN-t-c-font-size: 24px;
+    --TEXT-NH-TIN-t-c-letter-spacing: 0px;
+    --TEXT-NH-TIN-t-c-line-height: normal;
+    --TEXT-NH-TIN-t-c-font-style: normal;
+    --text-font-family: "Mulish", Helvetica;
+    --text-font-weight: 700;
+    --text-font-size: 24px;
+    --text-letter-spacing: 0px;
+    --text-line-height: normal;
+    --text-font-style: normal;
+    --variable-collection-CEN-3: rgba(241, 186, 136, 1);
+    --variable-collection-color: var(--variable-collection-CEN-3);
+}
+
+.wrap-popup-login-content {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/img/home/background_login.png') no-repeat center;
+    background-size: cover;
+}
+
+.popup-login-content {
+    background-image: url('/img/home/card_login.png');
+    background-size: cover;
+    padding-bottom: 80px;
+}
+
+.popup-login-content {
+    width: 500px;
+    height: 600px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    border-radius: 5px;
+    padding: 24px 120px;
+    background-image: url('/img/home/card_login.png');
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-position: bottom center;
+}
+
+.logo-toco {
+    width: 200px;
+    margin-bottom: 20px;
+}
+
+.login-description {
+    display: none;
+    text-align: center;
+    margin: 16px 0;
+}
+
+.login-area {
+    width: 100%;
+    padding-bottom: 60px;
+}
+
+.popup-login-content input {
+    background: 0 0;
+    outline: unset;
+    border: none;
+    padding: 10px 0;
+    font-size: 14px;
+    border-bottom: 1px solid #d6cdbc;
+    width: 100%;
+    outline: 0 !important;
+    box-shadow: none;
+}
+
+.input-err {
+    color: red;
+    font-style: italic;
+    font-size: 12px;
+    font-weight: 300;
+    align-self: flex-start;
+}
+
+.forgot-password {
+    text-align: right;
+    margin-top: 16px;
+    cursor: pointer;
+    font-weight: bold;
+    color: #d4b774;
+}
+
+.btn-yellow {
+    background: #d8b979;
+    box-shadow: 0 3px 25px 0 rgba(0, 0, 0, 0.2);
+    border: none;
+    color: #ffffff;
+    margin-top: 24px;
+    font-size: 14px;
+    overflow: visible;
+    min-height: 42px;
+    height: auto;
+    display: flex;
+    line-height: normal;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 10px 5px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.sugget-text {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.sugget-text .link {
+    font-weight: bold;
+    color: #d4b774;
+    margin-left: 8px;
+    cursor: pointer;
+}
+
+/* Custom Toast Styles */
+#toast-container > div {
+    opacity: 1;
+    border-radius: 8px;
+    padding: 15px 15px 15px 50px;
+    width: 300px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    background-position: 15px center;
+    background-size: 24px;
+    font-family: 'Inter', sans-serif;
+}
+
+#toast-container > .toast-error {
+    background-color: rgba(255, 255, 255, 0.95);
+    color: #dc3545;
+    border-left: 4px solid #dc3545;
+}
+
+#toast-container > .toast-success {
+    background-color: rgba(255, 255, 255, 0.95);
+    color: #28a745;
+    border-left: 4px solid #28a745;
+}
+
+.toast-close-button {
+    color: #666;
+    opacity: 0.7;
+    font-size: 20px;
+    padding: 0;
+    margin-right: 5px;
+}
+
+.toast-close-button:hover {
+    opacity: 1;
+}
+
+.toast-progress {
+    background-color: rgba(0, 0, 0, 0.1);
+    height: 3px;
+    border-radius: 3px;
+}
+
+.toast-message {
+    font-size: 14px;
+    line-height: 1.4;
+    margin-top: 5px;
+}
+
+.text-danger {
+    color: #dc3545;
+    font-style: italic;
+    font-size: 12px;
+    margin-top: 4px;
+    display: block;
+}
+
+.back-home:hover {
+    text-decoration: underline;
+}

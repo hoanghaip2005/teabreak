@@ -447,3 +447,4 @@ C:\Workspace\toocha\obj\Debug\net9.0\App.pdb
 C:\Workspace\toocha\obj\Debug\net9.0\toocha.genruntimeconfig.cache
 C:\Workspace\toocha\obj\Debug\net9.0\ref\App.dll
 C:\Workspace\toocha\obj\Debug\net9.0\compressed\1xfxo50w0g-qqmubilpbp.gz
+C:\Workspace\toocha\obj\Debug\net9.0\toocha.sourcelink.json
