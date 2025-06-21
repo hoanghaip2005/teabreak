@@ -89,6 +89,7 @@ builder.Services.AddAuthentication()
         });
 
 builder.Services.AddSingleton<IdentityErrorDescriber, AppIdentityErrorDescriber>();
+builder.Services.AddScoped<App.Services.ILocationService, App.Services.LocationService>();
 builder.Services.AddAuthorization(options => {
     options.AddPolicy("ViewManageMenu", builder => {
         builder.RequireAuthenticatedUser();

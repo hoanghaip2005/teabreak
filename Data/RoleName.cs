@@ -7,6 +7,7 @@ namespace App.Data
         public const string Member = "Member";
         public const string Approver = "Approver";
         public const string Manager = "Manager";
+        public const string Seller = "Seller";
         
         // Roles for laptop request workflow
         public const string ITStaff = "ITStaff";           // Nhân viên IT

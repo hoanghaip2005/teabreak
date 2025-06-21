@@ -6,12 +6,16 @@ using System.Threading.Tasks;
 using App.Areas.Identity.Models.ManageViewModels;
 using App.ExtendMethods;
 using App.Models;
+using App.Models.Toocha;
 using App.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using System.Security.Claims;
+using toocha.Models;
 
 namespace App.Areas.Identity.Controllers
 {
@@ -25,17 +29,20 @@ namespace App.Areas.Identity.Controllers
         private readonly SignInManager<AppUser> _signInManager;
         private readonly IEmailSender _emailSender;
         private readonly ILogger<ManageController> _logger;
+        private readonly AppDbContext _context;
 
         public ManageController(
         UserManager<AppUser> userManager,
         SignInManager<AppUser> signInManager,
         IEmailSender emailSender,
-        ILogger<ManageController> logger)
+        ILogger<ManageController> logger,
+        AppDbContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
             _logger = logger;
+            _context = context;
         }
 
         //
@@ -399,6 +406,29 @@ namespace App.Areas.Identity.Controllers
             await _signInManager.RefreshSignInAsync(user);
             return RedirectToAction(nameof(Index), "Manage");
 
+        }
+
+        // GET: /Member/OrderHistory
+        [HttpGet]
+        public async Task<IActionResult> OrderHistory()
+        {
+            var user = await GetCurrentUserAsync();
+            if (user == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            var orders = await _context.Orders
+                .Include(o => o.OrderItems)
+                    .ThenInclude(oi => oi.Product)
+                .Include(o => o.OrderItems)
+                    .ThenInclude(oi => oi.OrderItemToppings)
+                        .ThenInclude(oit => oit.Topping)
+                .Where(o => o.UserId == user.Id)
+                .OrderByDescending(o => o.OrderDate)
+                .ToListAsync();
+
+            return View(orders);
         }
 
 

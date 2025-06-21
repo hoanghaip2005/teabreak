@@ -95,8 +95,11 @@
                         </div>
                     </div>
                     <div class="mt-4">
-                        <a asp-action="EditProfile" class="btn btn-primary">
+                        <a asp-area="Identity" asp-controller="Manage" asp-action="EditProfile" class="btn btn-primary">
                             <i class="fas fa-edit me-2"></i>Sửa thông tin
+                        </a>
+                        <a asp-area="Identity" asp-controller="Manage" asp-action="OrderHistory" class="btn btn-outline-primary ms-2">
+                            <i class="fas fa-history me-2"></i>Lịch sử đơn hàng
                         </a>
                     </div>
                 </div>
