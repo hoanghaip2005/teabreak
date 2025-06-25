@@ -273,47 +273,61 @@
                                     Thông tin khách hàng
                                 </h5>
                                 <form id="checkoutForm">
-                                    <div class="form-row">
-                                        <div class="form-group col-md-6">
+                                    <div class="customer-row">
+                                        <div class="customer-name">
                                             <label for="customerName">Họ và tên *</label>
                                             <input type="text" class="form-control" id="customerName" required>
                                         </div>
-                                        <div class="form-group col-md-6">
+                                        <div class="customer-phone">
                                             <label for="customerPhone">Số điện thoại *</label>
                                             <input type="tel" class="form-control" id="customerPhone" required>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="customerEmail">Email</label>
-                                        <input type="email" class="form-control" id="customerEmail">
+                                        <label for="customerEmail">Email (tùy chọn)</label>
+                                        <input type="email" class="form-control" id="customerEmail" placeholder="Để nhận thông báo đơn hàng">
                                     </div>
                                     <div class="form-group">
                                         <label for="customerAddress">Địa chỉ giao hàng *</label>
-                                        <div class="address-input-group">
-                                            <textarea class="form-control" id="customerAddress" rows="3" required placeholder="Nhập địa chỉ chi tiết để tìm cửa hàng gần nhất..."></textarea>
-                                            <button type="button" class="btn btn-outline-primary btn-find-stores" id="btnFindStores">
-                                                <i class="fas fa-search-location"></i> Tìm cửa hàng gần nhất
-                                            </button>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" id="customerAddress" required 
+                                                   placeholder="Nhập địa chỉ chi tiết để tìm cửa hàng gần nhất...">
+                                            <div class="input-group-append">
+                                                <button type="button" class="btn btn-outline-primary btn-find-stores" id="btnFindStores">
+                                                    <i class="fas fa-search-location"></i>
+                                                    <span class="d-none d-lg-inline ml-1">Tìm cửa hàng</span>
+                                                </button>
+                                            </div>
                                         </div>
                                         <small class="form-text text-muted">
                                             <i class="fas fa-info-circle"></i> 
-                                            Nhập địa chỉ chi tiết để chúng tôi tính phí giao hàng chính xác nhất
-                                            <br>
-                                            <i class="fas fa-map-marker-alt"></i> 
-                                            <strong>Phạm vi giao hàng:</strong> Tối đa 35km từ cửa hàng gần nhất
+                                            Phạm vi giao hàng: <strong>Tối đa 35km</strong> từ cửa hàng gần nhất
                                         </small>
                                     </div>
                                     
                                     <!-- Store Selection -->
                                     <div class="form-group" id="storeSelectionGroup" style="display: none;">
-                                        <label>Chọn cửa hàng gần nhất:</label>
-                                        <div id="storesList" class="stores-list">
-                                            <!-- Stores will be loaded here -->
+                                        <label>Chọn cửa hàng giao hàng:</label>
+                                        <div class="store-selector-container" style="position: relative;">
+                                            <button type="button" class="btn btn-outline-primary btn-store-selector" id="btnStoreSelector">
+                                                <i class="fas fa-store mr-2"></i>
+                                                <span id="selectedStoreName">Chọn cửa hàng gần nhất</span>
+                                                <i class="fas fa-chevron-down ml-auto"></i>
+                                            </button>
+                                            <div id="storeDropdown" class="store-dropdown" style="display: none;">
+                                                <div class="store-dropdown-header">
+                                                    <i class="fas fa-map-marker-alt mr-2"></i>
+                                                    Cửa hàng gần bạn
+                                                </div>
+                                                <div id="storesList" class="stores-list">
+                                                    <!-- Stores will be loaded here -->
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="orderNote">Ghi chú đơn hàng</label>
-                                        <textarea class="form-control" id="orderNote" rows="2" placeholder="Ghi chú thêm cho đơn hàng..."></textarea>
+                                        <label for="orderNote">Ghi chú (tùy chọn)</label>
+                                        <input type="text" class="form-control" id="orderNote" placeholder="Ghi chú thêm cho đơn hàng...">
                                     </div>
                                 </form>
                             </div>
@@ -417,6 +431,10 @@
             box-shadow: 0 25px 50px rgba(0,0,0,0.15);
             overflow: hidden;
             animation: modalSlideIn 0.4s ease-out;
+        }
+
+        .fas {
+            margin-right: 4px;
         }
 
         @@keyframes modalSlideIn {
@@ -1204,10 +1222,10 @@
         }
 
         .checkout-header {
-            background: linear-gradient(135deg, #28a745, #20c997);
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
             color: white;
             border: none;
-            padding: 20px 30px;
+            padding: 10px 30px;
         }
 
         .checkout-header .modal-title {
@@ -1217,7 +1235,7 @@
 
         .checkout-header .close {
             color: white;
-            opacity: 0.8;
+            opacity: 0.7;
             font-size: 1.2rem;
             border: none;
             background: none;
@@ -1228,7 +1246,7 @@
         }
 
         .checkout-body {
-            padding: 30px;
+            padding: 10px;
             background: #f8f9fa;
         }
 
@@ -1256,9 +1274,10 @@
         }
 
         .checkout-body .form-control {
-            border-radius: 8px;
+            border-radius: 22px;
             border: 1px solid #ddd;
-            padding: 12px 15px;
+            padding: 6px 15px;
+            margin-bottom: 10px;
             font-size: 14px;
         }
 
@@ -1369,18 +1388,31 @@
         }
 
         .checkout-footer {
-            background: white;
-            padding: 20px 30px;
+            background: none;
             border-top: 1px solid #eee;
+        }
+
+        .checkout-footer .btn-secondary {
+            background: #ff6b6b;
+            border: none;
+            font-weight: 600;
+            border-radius: 30px;
+            font-size: 12px;
+        }
+
+        .checkout-footer .btn-secondary:hover {
+            background: #ff6b6b;
+            transform: translateY(-1px);
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
         }
 
         .btn-place-order {
             background: linear-gradient(135deg, #28a745, #20c997);
             border: none;
-            padding: 12px 30px;
+            border-radius: 30px;    
             font-weight: 600;
-            border-radius: 8px;
             transition: all 0.3s ease;
+            font-size: 12px;
         }
 
         .btn-place-order:hover {
@@ -1389,19 +1421,58 @@
             box-shadow: 0 5px 15px rgba(40, 167, 69, 0.3);
         }
 
-        /* Store Selection & Shipping Styles */
-        .address-input-group {
+        /* Customer Info Row */
+        .customer-row {
             display: flex;
-            flex-direction: column;
-            gap: 10px;
+            gap: 15px;
+            margin-bottom: 1rem;
         }
 
+        .customer-name {
+            flex: 2;
+        }
+
+        .customer-phone {
+            flex: 1;
+        }
+
+        .customer-name .form-control,
+        .customer-phone .form-control {
+            margin-bottom: 0;
+        }
+
+        .customer-name label,
+        .customer-phone label {
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        @@media (max-width: 768px) {
+            .customer-row {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .customer-name,
+            .customer-phone {
+                flex: 1;
+            }
+        }
+
+        @@media (min-width: 576px) {
+        .modal-dialog-centered {
+                min-height: calc(100% - 11.5rem);
+            }
+        }
+
+        /* Store Selection & Shipping Styles */
         .btn-find-stores {
-            align-self: flex-end;
-            border-radius: 8px;
-            font-size: 0.9rem;
-            padding: 8px 16px;
+            font-size: 0.85rem;
+            padding: 6px 12px;
             transition: all 0.3s ease;
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+            white-space: nowrap;
         }
 
         .btn-find-stores:hover {
@@ -1409,20 +1480,163 @@
             box-shadow: 0 4px 12px rgba(0,123,255,0.3);
         }
 
+        .btn-find-stores i {
+            font-size: 14px;
+        }
+
+        @@media (max-width: 991.98px) {
+            .btn-find-stores {
+                padding: 6px 8px;
+                font-size: 0.8rem;
+            }
+        }
+
+        @@media (max-width: 575.98px) {
+            .btn-find-stores span {
+                display: none !important;
+            }
+        }
+
+        .btn-store-selector {
+            width: 100%;
+            text-align: left;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            background: white;
+            color: #333;
+            font-weight: 500;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+            margin-bottom: 10px;
+            box-shadow: none;
+            padding: 12px 15px;
+        }
+
+        .btn-store-selector .fas {
+            color: #ff6b6b;
+        }
+
+        .btn-store-selector:hover {
+            border: 2px solid #ff6b6b;
+            box-shadow: none;
+            background-color: white;
+        }
+
+        .btn-store-selector:focus {
+            border: none;
+            outline: none;
+            box-shadow: none;
+            background-color: white;
+        }
+
+        .btn-store-selector.active {
+            border: 2px solid #ff6b6b;
+            background-color: white;
+            box-shadow: none;
+        }
+
+        .btn-store-selector.active .fas {
+            color: #ff6b6b;
+        }
+
+        .btn-store-selector:focus,
+        .btn-store-selector:active,
+        .btn-store-selector:active:focus {
+            background-color: white !important;
+            border-color: #ff6b6b !important;
+            box-shadow: none !important;
+            outline: none !important;
+        }
+
+        .btn-store-selector.active .fa-chevron-down {
+            transform: rotate(180deg);
+            color: #ff6b6b;
+        }
+
+        .store-dropdown {
+            position: fixed !important;
+            top: auto !important;
+            left: auto !important;
+            right: auto !important;
+            z-index: 999999 !important;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            margin-top: 5px;
+            max-height: 350px;
+            overflow: hidden;
+            overflow-x: hidden;
+            animation: slideDown 0.3s ease-out;
+        }
+
+        .store-selector-container {
+            position: relative !important;
+            z-index: 999999 !important;
+        }
+
         .stores-list {
             max-height: 300px;
             overflow-y: auto;
-            border: 1px solid #e0e0e0;
-            border-radius: 8px;
+            overflow-x: hidden;
             background: #fafafa;
+            position: relative;
+            z-index: 999999 !important;
         }
 
+        @@keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .store-dropdown-header {
+            background: linear-gradient(135deg, #ff6b6b, #ff6b6b);
+            color: white;
+            padding: 12px 15px;
+            font-weight: 600;
+            font-size: 14px;
+            border-bottom: 1px solid #e0e0e0;
+            display: flex;
+            align-items: center;
+        }
+
+        .selected-store-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .selected-store-info strong {
+            display: block;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            font-size: 14px;
+            color: #333;
+        }
+
+        .selected-store-info small {
+            font-size: 12px;
+            margin-top: 2px;
+        }
+
+
+
         .store-item {
-            padding: 15px;
+            padding: 12px 15px;
             border-bottom: 1px solid #e0e0e0;
             cursor: pointer;
             transition: all 0.3s ease;
             position: relative;
+            overflow: hidden;
+            word-wrap: break-word;
         }
 
         .store-item:last-child {
@@ -1431,7 +1645,6 @@
 
         .store-item:hover {
             background: #e3f2fd;
-            transform: translateX(5px);
         }
 
         .store-item.selected {
@@ -1453,20 +1666,22 @@
         .store-name {
             font-weight: 600;
             color: #333;
-            margin-bottom: 5px;
+            margin-bottom: 3px;
+            font-size: 0.95rem;
         }
 
         .store-address {
             color: #666;
-            font-size: 0.9rem;
-            margin-bottom: 8px;
+            font-size: 0.85rem;
+            margin-bottom: 6px;
+            line-height: 1.3;
         }
 
         .store-details {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
         }
 
         .store-distance {
@@ -1547,9 +1762,13 @@
         }
 
         .store-hours {
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             color: #888;
-            margin-top: 3px;
+            margin-top: 2px;
+        }
+
+        .fa-map-marker-alt {
+            margin-right: 4px;
         }
     </style>
 
@@ -2139,6 +2358,9 @@
                                 // Reset form và store selection
                                 $('#checkoutForm')[0].reset();
                                 $('#storeSelectionGroup').hide();
+                                $('#selectedStoreName').text('Chọn cửa hàng gần nhất');
+                                $('#btnStoreSelector').removeClass('active');
+                                $('#storeDropdown').hide();
                                 
                                 // Reset button
                                 button.html(originalText);
@@ -2544,8 +2766,50 @@
                     }
                 });
                 
-                $('#storeSelectionGroup').slideDown();
+                                        $('#storeSelectionGroup').slideDown();
+                        
+                        // Reset store selector
+                        $('#selectedStoreName').text('Chọn cửa hàng gần nhất');
+                        $('#btnStoreSelector').removeClass('active');
+                        $('#storeDropdown').hide();
             }
+
+            // Store selector dropdown handlers
+            $('#btnStoreSelector').on('click', function(e) {
+                e.stopPropagation();
+                const dropdown = $('#storeDropdown');
+                const button = $(this);
+                const isVisible = dropdown.is(':visible');
+                
+                if (isVisible) {
+                    dropdown.hide();
+                    button.removeClass('active');
+                } else {
+                    // Calculate position for fixed dropdown
+                    const buttonOffset = button.offset();
+                    const buttonHeight = button.outerHeight();
+                    const buttonWidth = button.outerWidth();
+                    
+                    dropdown.css({
+                        'position': 'fixed',
+                        'top': buttonOffset.top + buttonHeight + 5,
+                        'left': buttonOffset.left,
+                        'width': buttonWidth,
+                        'z-index': 999999
+                    });
+                    
+                    dropdown.show();
+                    button.addClass('active');
+                }
+            });
+
+            // Close dropdown when clicking outside
+            $(document).on('click', function(e) {
+                if (!$(e.target).closest('.store-selector-container').length) {
+                    $('#storeDropdown').hide();
+                    $('#btnStoreSelector').removeClass('active');
+                }
+            });
 
             // Event handler cho việc chọn cửa hàng
             $(document).on('click', '.store-item', function() {
@@ -2562,6 +2826,18 @@
                     distance: parseFloat($this.data('distance')),
                     name: $this.find('.store-name').text()
                 };
+                
+                // Update store selector button with selected store info
+                $('#selectedStoreName').html(`
+                    <div class="selected-store-info">
+                        <strong>${selectedStore.name}</strong>
+                        <small class="d-block text-muted">${selectedStore.distance}km - ${selectedStore.shippingFee === 0 ? 'Miễn phí' : selectedStore.shippingFee.toLocaleString('vi-VN') + 'đ'}</small>
+                    </div>
+                `);
+                
+                // Close dropdown
+                $('#storeDropdown').hide();
+                $('#btnStoreSelector').removeClass('active');
                 
                 // Update shipping display
                 updateShippingDisplay();

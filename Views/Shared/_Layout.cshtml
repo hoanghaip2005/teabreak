@@ -10,9 +10,43 @@
     <link rel="stylesheet" href="~/Shared/globals.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Shared/styleguide.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Shared/style.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Areas/Toocha/Views/Introduce/layout-introduce.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+
+    <!-- Google Fonts: Be Vietnam Pro -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;700;900&display=swap" rel="stylesheet">
+    
 </head>
 <body>
     
+
+    <!-- ==================== HEADER ==================== -->
+    <header class="main-header">
+        <div class="container">
+            <a href="#" class="logo">
+                <img src="@Url.Content("~/assets/logo.svg")" alt="Toochao Logo">
+            </a>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="#">Trang chủ</a></li>
+                    <li><a href="#" class="active">Giới thiệu <i class="fas fa-chevron-down"></i></a></li>
+                    <li><a href="#">Sản phẩm <i class="fas fa-chevron-down"></i></a></li>
+                    <li><a href="#">Thực đơn <i class="fas fa-chevron-down"></i></a></li>
+                    <li><a href="#">Cửa hàng <i class="fas fa-chevron-down"></i></a></li>
+                    <li><a href="#">Tin tức <i class="fas fa-chevron-down"></i></a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <i class="fas fa-search"></i>
+                <i class="fas fa-shopping-cart"></i>
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+    <!-- NOTE: If the header still does not display, check your CSS for any rules hiding .main-header or its children (display: none, opacity: 0, z-index, etc.) -->
+
             <main class="container-fluid">
                 @RenderBody()
             </main>

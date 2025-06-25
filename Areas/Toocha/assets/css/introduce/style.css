@@ -1,0 +1,112 @@
+/* --- GLOBAL STYLES & VARIABLES --- */
+:root {
+    --primary-color: #D95A4E;
+    --text-color: #3C3C3C;
+    --light-bg-color: #F9F3F0;
+    --white-color: #FFFFFF;
+    --dark-color: #222222;
+    --orange-color: #F7931E;
+}
+/* ... (giữ nguyên phần reset và style chung) ... */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Be Vietnam Pro', sans-serif; color: var(--text-color); line-height: 1.6; background-color: var(--white-color); }
+.container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+h1, h2, h3 { font-weight: 700; color: var(--primary-color); }
+img { max-width: 100%; height: auto; display: block; }
+a { text-decoration: none; color: inherit; }
+ul { list-style: none; }
+section { padding: 80px 0; }
+
+/* --- HEADER --- */
+/* ... (giữ nguyên toàn bộ style header) ... */
+.main-header { position: absolute; top: 0; left: 0; width: 100%; z-index: 100; padding: 15px 0; background-color: rgba(0, 0, 0, 0.2); }
+.main-header .container { display: flex; justify-content: space-between; align-items: center; }
+.logo img { height: 50px; }
+.main-nav ul { display: flex; gap: 30px; }
+.main-nav a { color: var(--white-color); text-transform: uppercase; font-weight: 500; padding: 5px 0; position: relative; display: flex; align-items: center; gap: 5px; opacity: 0.7; transition: opacity 0.3s ease; }
+.main-nav a:hover, .main-nav a.active { opacity: 1; }
+.main-nav a.active::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 2px; background-color: var(--white-color); }
+.header-actions { display: flex; align-items: center; gap: 20px; color: var(--white-color); font-size: 1.2rem; }
+.header-actions i { cursor: pointer; transition: color 0.3s ease; }
+.header-actions i:hover { color: var(--orange-color); }
+
+/* --- HERO SECTION --- */
+.hero {
+    height: 85vh;
+    min-height: 600px;
+    /* Cập nhật đường dẫn */
+    background-image: url('/Areas/Toocha/assets/img/introduce/banner1.png');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    color: var(--white-color);
+    position: relative;
+}
+/* ... (giữ nguyên các style hero khác) ... */
+.hero::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.1); }
+.hero-content { position: relative; z-index: 2; }
+.hero h1 { font-size: 10rem; font-weight: 900; line-height: 1; text-transform: uppercase; color: var(--orange-color); -webkit-text-stroke: 4px var(--white-color); text-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+.hero-subtitle { margin-top: 20px; font-weight: 700; letter-spacing: 2px; color: var(--white-color); font-size: 1.2rem; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
+
+
+/* --- VALUES SECTION --- */
+/* ... (giữ nguyên style brand-story, vietnam-section) ... */
+.brand-story { background-color: var(--light-bg-color); }
+.brand-story-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+.story-text h2 { font-size: 2.5rem; margin-bottom: 20px; }
+.story-text p { font-size: 1.1rem; }
+.story-image img { filter: drop-shadow(0 10px 20px rgba(0,0,0,0.1)); }
+.vietnam-section { padding: 80px 0; }
+.vietnam-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; margin-bottom: 80px; }
+.vietnam-grid:last-child { margin-bottom: 0; }
+.vietnam-text h2 { font-size: 2.2rem; margin-bottom: 20px; }
+.vietnam-image img { border-radius: 10px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+.values-section { background-color: var(--light-bg-color); text-align: center; }
+.values-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; margin-top: 50px; }
+.value-item { padding: 20px; }
+.value-icon-wrapper { width: 130px; height: 130px; background-color: var(--white-color); border-radius: 50%; margin: 0 auto 25px; display: flex; justify-content: center; align-items: center; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+.value-icon { width: 100px; height: 100px; background-size: contain; background-repeat: no-repeat; background-position: center; }
+
+/* Cập nhật đường dẫn */
+.icon-quality { background-image: url('/Areas/Toocha/assets/img/introduce/chatlg.svg'); }
+.icon-service { background-image: url('/Areas/Toocha/assets/img/introduce/dichvu.png'); }
+.icon-trust { background-image: url('/Areas/Toocha/assets/img/introduce/thghieu.svg'); }
+.value-item h3 { font-size: 1.5rem; margin-bottom: 10px; }
+
+/* --- FOOTER --- */
+.main-footer {
+    /* Cập nhật đường dẫn */
+    background-image: url('/Areas/Toocha/assets/img/introduce/banner2.png');
+    background-size: cover;
+    background-position: center;
+    padding-top: 60px;
+    position: relative;
+    color: var(--white-color);
+}
+/* ... (giữ nguyên toàn bộ style footer và responsive) ... */
+.main-footer::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.8); }
+.footer-content, .copyright { position: relative; z-index: 2; }
+.footer-logo-container { text-align: center; margin-bottom: 40px; }
+.footer-logo-container .footer-logo img { height: 50px; display: inline-block; }
+.footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px; padding-bottom: 50px; }
+.footer-col h4 { font-size: 1.2rem; margin-bottom: 20px; text-transform: uppercase; }
+.footer-col ul li { margin-bottom: 12px; }
+.footer-col a:hover { color: var(--orange-color); text-decoration: underline; }
+.company-info h4 { font-size: 1.5rem; color: var(--white-color); }
+.company-info p { margin-bottom: 10px; display: flex; align-items: flex-start; color: #ccc; }
+.company-info p i { width: 20px; text-align: center; margin-right: 10px; margin-top: 5px; color: var(--orange-color); }
+.company-info p span { flex: 1; }
+.social-icons { display: flex; gap: 15px; margin: 20px 0; }
+.social-icons a { font-size: 1.5rem; transition: color 0.3s ease; }
+.app-stores { display: flex; gap: 10px; margin-top: 20px; }
+.app-stores img { height: 40px; cursor: pointer; }
+.bct-badge { margin-top: 20px; }
+.bct-badge img { height: 60px; }
+.copyright { border-top: 1px solid rgba(255, 255, 255, 0.2); text-align: center; padding: 20px 0; font-size: 0.9rem; color: #ccc; }
+@media (max-width: 992px) { .main-nav { display: none; } .hero h1 { font-size: 6rem; -webkit-text-stroke: 3px var(--white-color); } .brand-story-grid { grid-template-columns: 1fr; } .story-image { order: -1; margin-bottom: 30px; } .vietnam-grid { grid-template-columns: 1fr; } .vietnam-grid .vietnam-image { margin-bottom: 30px; } .vietnam-grid.reverse .vietnam-text { order: 2; } .vietnam-grid.reverse .vietnam-image { order: 1; } .values-grid { grid-template-columns: 1fr; } .footer-grid { grid-template-columns: 1fr; } }
+@media (max-width: 768px) { section { padding: 60px 0; } .hero { height: 70vh; } .hero h1 { font-size: 4.5rem; -webkit-text-stroke: 2px var(--white-color); } .hero-subtitle { font-size: 1rem; } h2 { font-size: 2rem !important; } }

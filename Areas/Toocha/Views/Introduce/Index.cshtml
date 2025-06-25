@@ -1,0 +1,123 @@
+﻿@{
+    ViewData["Title"] = "Giới thiệu";
+}
+
+<!-- Thêm liên kết CSS cho trang giới thiệu -->
+<link rel="stylesheet" href="@Url.Content("~/Areas/Toocha/assets/css/introduce/style.css")" />
+<link rel="stylesheet" href="@Url.Content("~/Areas/Toocha/Views/Introduce/layout-introduce.css")" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+
+    <!-- Google Fonts: Be Vietnam Pro -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;700;900&display=swap" rel="stylesheet">
+    
+
+<!-- ==================== HEADER ==================== -->
+    <header class="main-header">
+        <div class="container">
+            <a href="#" class="logo">
+                <img src="@Url.Content("~/Areas/Toocha/assets/img/introduce/logo.svg")" alt="Toochao Logo">
+            </a>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="#">Trang chủ</a></li>
+                    <li><a href="#" class="active">Giới thiệu <i class="fas fa-chevron-down"></i></a></li>
+                    <li><a href="#">Sản phẩm <i class="fas fa-chevron-down"></i></a></li>
+                    <li><a href="#">Thực đơn <i class="fas fa-chevron-down"></i></a></li>
+                    <li><a href="#">Cửa hàng <i class="fas fa-chevron-down"></i></a></li>
+                    <li><a href="#">Tin tức <i class="fas fa-chevron-down"></i></a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <i class="fas fa-search"></i>
+                <i class="fas fa-shopping-cart"></i>
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+    <!-- NOTE: If the header still does not display, check your CSS for any rules hiding .main-header or its children (display: none, opacity: 0, z-index, etc.) -->
+
+
+
+<main>
+    <!-- ==================== HERO SECTION ==================== -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Giới Thiệu</h1>
+            <div class="hero-subtitle">GOOD TEA - GREAT VIBES</div>
+        </div>
+    </section>
+
+    <!-- ==================== BRAND STORY ==================== -->
+    <section class="brand-story">
+        <div class="container">
+            <div class="brand-story-grid">
+                <div class="story-text">
+                    <h2>CÂU CHUYỆN THƯƠNG HIỆU</h2>
+                    <p>
+                        Toocha ra đời từ đam mê với trà và khát khao tạo nên một thương hiệu trà sữa chất lượng, hiện đại. Chúng tôi chú trọng tuyển chọn nguyên liệu thiên nhiên, không ngừng sáng tạo để mang đến những trải nghiệm mới mẻ nhưng vẫn giữ trọn hương vị nguyên bản. Toocha tin rằng mỗi ly trà không chỉ là thức uống mà còn là cầu nối của niềm vui, sự sẻ chia và kết nối giữa mọi người. Với sứ mệnh lan tỏa cảm hứng sống tích cực, Toocha mong muốn trở thành thương hiệu trà sữa được yêu thích nhất, đồng hành cùng khách hàng trên hành trình tận hưởng cuộc sống mỗi ngày.
+                    </p>
+                </div>
+                <div class="story-image">
+                    <!-- Cập nhật: Dùng Url.Content -->
+                    <img src="@Url.Content("~/Areas/Toocha/assets/img/introduce/tea.png")" alt="Ly trà Toocha">
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- ==================== TOOCHA VIETNAM ==================== -->
+    <section class="vietnam-section">
+        <div class="container">
+            <div class="vietnam-grid">
+                <div class="vietnam-image">
+                    <img src="@Url.Content("~/Areas/Toocha/assets/img/introduce/view1.png")" alt="Không gian cửa hàng Toocha">
+                </div>
+                <div class="vietnam-text">
+                    <h2>TOOCHA VIỆT NAM</h2>
+                    <p>Thương hiệu Toocha chính thức ra mắt tại thị trường Việt Nam vào ngày 01/09/2018 dưới sự quản lý và phát triển của Công ty TNHH Tinh Hoa Trà Việt. Chỉ sau vài năm hoạt động, Toocha đã nhanh chóng khẳng định vị thế là điểm đến quen thuộc của giới trẻ yêu thích trà sữa và văn hóa thưởng trà hiện đại.</p>
+                    <p>Với cam kết sử dụng nguyên liệu tự nhiên, chất lượng và nguồn gốc rõ ràng, Toocha luôn mang đến cho khách hàng những trải nghiệm trà tươi ngon, an toàn và đáng tin cậy.</p>
+                </div>
+            </div>
+            <div class="vietnam-grid reverse">
+                <div class="vietnam-text">
+                    <p>Toocha không chỉ mang đến trà sữa chất lượng mà còn tạo dựng không gian thưởng trà hiện đại cho giới trẻ. Năm 2022, thương hiệu ra mắt mô hình “Tea Lab” sáng tạo đồ uống cùng cộng đồng. Qua chiến dịch “Uống trà, giữ đất”, Toocha hướng đến phát triển bền vững với bao bì thân thiện môi trường, khẳng định vị thế thương hiệu trà sữa thế hệ mới.</p>
+                </div>
+                 <div class="vietnam-image">
+                    <img src="@Url.Content("~/Areas/Toocha/assets/img/introduce/view2.png")" alt="Rooftop Toocha">
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- ==================== VALUES SECTION ==================== -->
+    <section class="values-section">
+        <div class="container">
+            <div class="values-grid">
+                <div class="value-item">
+                    <div class="value-icon-wrapper">
+                        <div class="value-icon icon-quality"></div>
+                    </div>
+                    <h3>Chất lượng hàng đầu</h3>
+                    <p>An toàn, vệ sinh ngon miệng, chất lượng.</p>
+                </div>
+                <div class="value-item">
+                    <div class="value-icon-wrapper">
+                         <div class="value-icon icon-service"></div>
+                    </div>
+                    <h3>Dịch vụ chuyên nghiệp</h3>
+                    <p>Đa dạng dịch vụ, mong muốn làm hài lòng khách hàng, dịch vụ chuyên nghiệp, thân thiện.</p>
+                </div>
+                <div class="value-item">
+                    <div class="value-icon-wrapper">
+                         <div class="value-icon icon-trust"></div>
+                    </div>
+                    <h3>Thương hiệu đáng tin cậy</h3>
+                    <p>Nền tảng cốt lõi là dịch vụ và chất lượng, nỗ lực duy trì và xây dựng thương hiệu đáng tin cậy với khách hàng</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
