@@ -264,6 +264,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcVG9vY2hhXFZpZXdzXFNlbGxlclxfVmlld0ltcG9ydHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Workspace/toocha/Areas/Toocha/Views/Store/ToochaTea.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcVG9vY2hhXFZpZXdzXFN0b3JlXFRvb2NoYVRlYS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Workspace/toocha/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 

@@ -35,6 +35,10 @@ namespace App.Models.Toocha
         [Display(Name = "Đang hoạt động")]
         public bool IsActive { get; set; } = true;
 
+        [StringLength(10)]
+        [Display(Name = "Miền")]
+        public string? Region { get; set; } // MB: Miền Bắc, MN: Miền Nam
+
         [Display(Name = "Thành phố")]
         public string? City { get; set; }
 
