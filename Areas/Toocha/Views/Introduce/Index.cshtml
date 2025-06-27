@@ -1,47 +1,28 @@
 ﻿@{
-    ViewData["Title"] = "Giới thiệu";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Trang Chủ";
+    ViewData["HideBanner"] = true;
 }
 
 <!-- Thêm liên kết CSS cho trang giới thiệu -->
 <link rel="stylesheet" href="@Url.Content("~/Areas/Toocha/assets/css/introduce/style.css")" />
 <link rel="stylesheet" href="@Url.Content("~/Areas/Toocha/Views/Introduce/layout-introduce.css")" />
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
 
-    <!-- Google Fonts: Be Vietnam Pro -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;700;900&display=swap" rel="stylesheet">
-    
+<!-- Google Fonts: Be Vietnam Pro -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;700;900&display=swap" rel="stylesheet">
 
-<!-- ==================== HEADER ==================== -->
-    <header class="main-header">
-        <div class="container">
-            <a href="#" class="logo">
-                <img src="@Url.Content("~/Areas/Toocha/assets/img/introduce/logo.svg")" alt="Toochao Logo">
-            </a>
-            <nav class="main-nav">
-                <ul>
-                    <li><a href="#">Trang chủ</a></li>
-                    <li><a href="#" class="active">Giới thiệu <i class="fas fa-chevron-down"></i></a></li>
-                    <li><a href="#">Sản phẩm <i class="fas fa-chevron-down"></i></a></li>
-                    <li><a href="#">Thực đơn <i class="fas fa-chevron-down"></i></a></li>
-                    <li><a href="#">Cửa hàng <i class="fas fa-chevron-down"></i></a></li>
-                    <li><a href="#">Tin tức <i class="fas fa-chevron-down"></i></a></li>
-                </ul>
-            </nav>
-            <div class="header-actions">
-                <i class="fas fa-search"></i>
-                <i class="fas fa-shopping-cart"></i>
-                <i class="fas fa-bars"></i>
-            </div>
-        </div>
-    </header>
-    <!-- NOTE: If the header still does not display, check your CSS for any rules hiding .main-header or its children (display: none, opacity: 0, z-index, etc.) -->
+<style>
+    .logo img {
+        height: 160px;
+    }
+</style>
 
 
-
-<main>
+<main class="container-fluid">
     <!-- ==================== HERO SECTION ==================== -->
     <section class="hero">
         <div class="hero-content">
@@ -57,7 +38,12 @@
                 <div class="story-text">
                     <h2>CÂU CHUYỆN THƯƠNG HIỆU</h2>
                     <p>
-                        Toocha ra đời từ đam mê với trà và khát khao tạo nên một thương hiệu trà sữa chất lượng, hiện đại. Chúng tôi chú trọng tuyển chọn nguyên liệu thiên nhiên, không ngừng sáng tạo để mang đến những trải nghiệm mới mẻ nhưng vẫn giữ trọn hương vị nguyên bản. Toocha tin rằng mỗi ly trà không chỉ là thức uống mà còn là cầu nối của niềm vui, sự sẻ chia và kết nối giữa mọi người. Với sứ mệnh lan tỏa cảm hứng sống tích cực, Toocha mong muốn trở thành thương hiệu trà sữa được yêu thích nhất, đồng hành cùng khách hàng trên hành trình tận hưởng cuộc sống mỗi ngày.
+                        Toocha ra đời từ đam mê với trà và khát khao tạo nên một thương hiệu trà sữa chất lượng, hiện
+                        đại. Chúng tôi chú trọng tuyển chọn nguyên liệu thiên nhiên, không ngừng sáng tạo để mang đến
+                        những trải nghiệm mới mẻ nhưng vẫn giữ trọn hương vị nguyên bản. Toocha tin rằng mỗi ly trà
+                        không chỉ là thức uống mà còn là cầu nối của niềm vui, sự sẻ chia và kết nối giữa mọi người. Với
+                        sứ mệnh lan tỏa cảm hứng sống tích cực, Toocha mong muốn trở thành thương hiệu trà sữa được yêu
+                        thích nhất, đồng hành cùng khách hàng trên hành trình tận hưởng cuộc sống mỗi ngày.
                     </p>
                 </div>
                 <div class="story-image">
@@ -67,31 +53,39 @@
             </div>
         </div>
     </section>
-    
+
     <!-- ==================== TOOCHA VIETNAM ==================== -->
     <section class="vietnam-section">
         <div class="container">
             <div class="vietnam-grid">
                 <div class="vietnam-image">
-                    <img src="@Url.Content("~/Areas/Toocha/assets/img/introduce/view1.png")" alt="Không gian cửa hàng Toocha">
+                    <img src="@Url.Content("~/Areas/Toocha/assets/img/introduce/view1.png")"
+                        alt="Không gian cửa hàng Toocha">
                 </div>
                 <div class="vietnam-text">
                     <h2>TOOCHA VIỆT NAM</h2>
-                    <p>Thương hiệu Toocha chính thức ra mắt tại thị trường Việt Nam vào ngày 01/09/2018 dưới sự quản lý và phát triển của Công ty TNHH Tinh Hoa Trà Việt. Chỉ sau vài năm hoạt động, Toocha đã nhanh chóng khẳng định vị thế là điểm đến quen thuộc của giới trẻ yêu thích trà sữa và văn hóa thưởng trà hiện đại.</p>
-                    <p>Với cam kết sử dụng nguyên liệu tự nhiên, chất lượng và nguồn gốc rõ ràng, Toocha luôn mang đến cho khách hàng những trải nghiệm trà tươi ngon, an toàn và đáng tin cậy.</p>
+                    <p>Thương hiệu Toocha chính thức ra mắt tại thị trường Việt Nam vào ngày 01/09/2018 dưới sự quản lý
+                        và phát triển của Công ty TNHH Tinh Hoa Trà Việt. Chỉ sau vài năm hoạt động, Toocha đã nhanh
+                        chóng khẳng định vị thế là điểm đến quen thuộc của giới trẻ yêu thích trà sữa và văn hóa thưởng
+                        trà hiện đại.</p>
+                    <p>Với cam kết sử dụng nguyên liệu tự nhiên, chất lượng và nguồn gốc rõ ràng, Toocha luôn mang đến
+                        cho khách hàng những trải nghiệm trà tươi ngon, an toàn và đáng tin cậy.</p>
                 </div>
             </div>
             <div class="vietnam-grid reverse">
                 <div class="vietnam-text">
-                    <p>Toocha không chỉ mang đến trà sữa chất lượng mà còn tạo dựng không gian thưởng trà hiện đại cho giới trẻ. Năm 2022, thương hiệu ra mắt mô hình “Tea Lab” sáng tạo đồ uống cùng cộng đồng. Qua chiến dịch “Uống trà, giữ đất”, Toocha hướng đến phát triển bền vững với bao bì thân thiện môi trường, khẳng định vị thế thương hiệu trà sữa thế hệ mới.</p>
+                    <p>Toocha không chỉ mang đến trà sữa chất lượng mà còn tạo dựng không gian thưởng trà hiện đại cho
+                        giới trẻ. Năm 2022, thương hiệu ra mắt mô hình “Tea Lab” sáng tạo đồ uống cùng cộng đồng. Qua
+                        chiến dịch “Uống trà, giữ đất”, Toocha hướng đến phát triển bền vững với bao bì thân thiện môi
+                        trường, khẳng định vị thế thương hiệu trà sữa thế hệ mới.</p>
                 </div>
-                 <div class="vietnam-image">
+                <div class="vietnam-image">
                     <img src="@Url.Content("~/Areas/Toocha/assets/img/introduce/view2.png")" alt="Rooftop Toocha">
                 </div>
             </div>
         </div>
     </section>
-    
+
     <!-- ==================== VALUES SECTION ==================== -->
     <section class="values-section">
         <div class="container">
@@ -105,19 +99,64 @@
                 </div>
                 <div class="value-item">
                     <div class="value-icon-wrapper">
-                         <div class="value-icon icon-service"></div>
+                        <div class="value-icon icon-service"></div>
                     </div>
                     <h3>Dịch vụ chuyên nghiệp</h3>
                     <p>Đa dạng dịch vụ, mong muốn làm hài lòng khách hàng, dịch vụ chuyên nghiệp, thân thiện.</p>
                 </div>
                 <div class="value-item">
                     <div class="value-icon-wrapper">
-                         <div class="value-icon icon-trust"></div>
+                        <div class="value-icon icon-trust"></div>
                     </div>
                     <h3>Thương hiệu đáng tin cậy</h3>
-                    <p>Nền tảng cốt lõi là dịch vụ và chất lượng, nỗ lực duy trì và xây dựng thương hiệu đáng tin cậy với khách hàng</p>
+                    <p>Nền tảng cốt lõi là dịch vụ và chất lượng, nỗ lực duy trì và xây dựng thương hiệu đáng tin cậy
+                        với khách hàng</p>
                 </div>
             </div>
         </div>
     </section>
 </main>
+
+
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const header = document.querySelector('.header');
+            let lastScrollTop = 0;
+            let isScrolling;
+
+            window.addEventListener('scroll', function () {
+                let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+                // Clear the timeout throughout the scroll
+                window.clearTimeout(isScrolling);
+
+                if (scrollTop > 50) {
+                    // Khi cuộn xuống quá 50px
+                    header.classList.add('header-scrolled');
+
+                    if (scrollTop < lastScrollTop) {
+                        // Cuộn lên
+                        header.classList.add('header-hidden');
+                    } else {
+                        // Cuộn xuống
+                        header.classList.remove('header-hidden');
+                    }
+                } else {
+                    // Khi ở gần đầu trang
+                    header.classList.remove('header-scrolled');
+                    header.classList.remove('header-hidden');
+                }
+
+                lastScrollTop = scrollTop;
+
+                // Set a timeout to run after scrolling ends
+                isScrolling = setTimeout(function () {
+                    // Hiện header sau khi dừng cuộn 150ms
+                    header.classList.remove('header-hidden');
+                }, 150);
+            });
+        });
+    </script>
+}

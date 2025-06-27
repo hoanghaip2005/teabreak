@@ -1,16 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Trang Chủ";
+}
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" />
-  <link rel="stylesheet" href="~/css/style.css" />
-  <script src="https://kit.fontawesome.com/5ca428eb12.js" crossorigin="anonymous"></script>  
-  <title>TooCha</title>
-</head>
-  
 <style>
   /* Reset css */
 *{
@@ -422,64 +414,6 @@ html {
 }
 
   </style>
-<body>
-  <header class="header">
-        <nav class="HOME">
-            <div class="logo">
-                <img src="~/img/home/logo.png" alt="Toocha Logo">
-            </div>
-            <div class="nav-items">
-                <div class="nav-item">
-                    <div class="text-wrapper" href="#">TRANG CHỦ</div>
-                </div>
-                <div class="nav-item dropdown">
-                    <div class="text-wrapper">GIỚI THIỆU <i class="fas fa-chevron-down"></i></div>
-                    <div class="dropdown-menu">
-                        <a href="#" class="dropdown-item">LỊCH SỬ</a>
-                        <a href="#" class="dropdown-item">SỨ MỆNH</a>
-                    </div>
-                </div>
-                <div class="nav-item dropdown">
-                    <div class="text-wrapper">SẢN PHẨM <i class="fas fa-chevron-down"></i></div>
-                    <div class="dropdown-menu">
-                        <a href="/toocha/order/index" class="dropdown-item">TOOCHA TEA</a>
-                        <a href="#" class="dropdown-item">INSTANT MILK TEA</a>
-                    </div>
-                </div>
-                <div class="nav-item dropdown">
-                    <div class="text-wrapper">THỰC ĐƠN <i class="fas fa-chevron-down"></i></div>
-                    <div class="dropdown-menu">
-                        <a href="#" class="dropdown-item">TIN TỨC KHUYẾN MÃI</a>
-                        <a href="#" class="dropdown-item">CÂU CHUYỆN THƯƠNG HIỆU</a>
-                        <a href="#" class="dropdown-item">SỰ KIỆN</a>
-                        <a href="#" class="dropdown-item">NHƯỢNG QUYỀN TOOCHA</a>
-                    </div>
-                </div>
-                <div class="nav-item dropdown">
-                    <div class="text-wrapper">CỬA HÀNG <i class="fas fa-chevron-down"></i></div>
-                    <div class="dropdown-menu">
-                        <a href="#" class="dropdown-item">TOOCHA TEA</a>
-                        <a href="#" class="dropdown-item">TOOCHA MILK AND COFFEE</a>
-                    </div>
-                </div>
-                <div class="nav-item dropdown">
-                    <div class="text-wrapper">TIN TỨC</div>
-                </div>                
-                <div class="nav-item dropdown">
-                    <div class="text-wrapper">NHƯỢNG QUYỀN</div>
-                </div>
-            </div>
-            <div class="nav-icons">
-                <i class="fas fa-search"></i>
-                <i class="fas fa-shopping-cart"></i>
-                <i class="fas fa-bars"></i>
-            </div>
-        </nav>
-    </header>
-
-    <div class="banner">
-        <img src="/Areas/Toocha/assets/img/hinh-anh-giao-dien/img-header.png" alt="Toocha Banner" class="banner-image">
-    </div>
 <!--Section-->
 <section class="news-section">
   <div class="container">
@@ -584,70 +518,6 @@ html {
   </div>
 </section>
 
-<!--Footer-->
-<footer class="footer">
-  <div class="footer-container">
-  <!-- Cột logo -->
-  <div class="footer-col logo-col">
-    <img src="/Areas/Toocha/assets/img/hinh-anh-giao-dien/logo-toocha.png" alt="Logo" class="footer-logo">
-  </div>
-
-  <!-- Cột thông tin công ty -->
-  <div class="footer-col company-info">
-    <h4>CÔNG TY TNHH TOOCHA VIỆT NAM</h4>
-    <p> <img src="/Areas/Toocha/assets/img/hinh-anh-giao-dien/icon-location.svg" alt="location"> Trụ sở chính: Tầng 69, Landmark 81, số 208 Nguyễn Hữu Cảnh, Tp Hồ Chí Minh.</p>
-    <p> <img src="/Areas/Toocha/assets/img/hinh-anh-giao-dien/icon-location.svg" alt="location"> Chi nhánh miền Bắc: 209 Ngõ Hà Trì 4, Hà Cầu, Hà Đông, Hà Nội </p>
-    <p> <img src="/Areas/Toocha/assets/img/hinh-anh-giao-dien/icon-location.svg" alt="location"> Chi nhánh miền Trung: 178 Bùi Trang Chước, Hòa Xuân, Cẩm Lệ, Đà Nẵng  </p>
-    <p><img src="/Areas/Toocha/assets/img/hinh-anh-giao-dien/icon-phone.svg" alt="location"> 1900.35.21.68</p>
-    <p> <img src="/Areas/Toocha/assets/img/hinh-anh-giao-dien/icon-mail.svg" alt="location"> toochavietnam@gmail.com</p>
-  <div class="footer-socials">
-        <img src="/Areas/Toocha/assets/img/hinh-anh-giao-dien/icon-face.svg" alt="facebook">
-        <img src="/Areas/Toocha/assets/img/hinh-anh-giao-dien/icon-globe.svg" alt="globe">
-        <img src="/Areas/Toocha/assets/img/hinh-anh-giao-dien/icon-ytb.svg" alt="youtube">
-        <img src="/Areas/Toocha/assets/img/hinh-anh-giao-dien/icon-twi.svg" alt="twitter">
-        <img src="/Areas/Toocha/assets/img/hinh-anh-giao-dien/icon-ins.svg" alt="instagram">
-
-      </div>
-      <div class="footer-apps">
-        <img src="/Areas/Toocha/assets/img/hinh-anh-giao-dien/img-googleplay.png" alt="Google Play">
-        <img src="/Areas/Toocha/assets/img/hinh-anh-giao-dien/img-appsotre.png" alt="App Store">
-      </div>
-      <div class="footer-tick">
-        <img src="/Areas/Toocha/assets/img/hinh-anh-giao-dien/img-footer-cong-bao-bo-cong-thuong.png" alt="">
-      </div>
-    </div>
-
-  <!-- Cột về chúng tôi -->
-  <div class="footer-col">
-    <h4>VỀ CHÚNG TÔI</h4>
-    <ul>
-      <li><a href="#">Giới thiệu</a></li>
-      <li><a href="#">Nhượng quyền</a></li>
-      <li><a href="#">Tin tức khuyến mại</a></li>
-      <li><a href="#">Quy định</a></li>
-      <li><a href="#">Liên hệ & ĐKKD</a></li>
-    </ul>
-  </div>
-
-  <!-- Cột chính sách -->
-  <div class="footer-col">
-    <h4>CHÍNH SÁCH</h4>
-    <ul>
-      <li><a href="#">Thành viên</a></li>
-      <li><a href="#">Thanh toán</a></li>
-      <li><a href="#">Giao nhận</a></li>
-      <li><a href="#">Hoàn tiền</a></li>
-      <li><a href="#">Bảo mật</a></li>
-      <li><a href="#">Bảo hành</a></li>
-    </ul>
-  </div>
-</div>
-
-  <div class="footer-bottom">
-    <p>TooCha - Thương hiệu trà sữa tiên phong sử dụng nguồn nông sản Việt Nam</p>
-    <p>Copyrights © 2019 by TooCha. All rights reserved.</p>
-  </div>
-</footer>
 
 <script>
         document.addEventListener('DOMContentLoaded', function () {
@@ -688,6 +558,3 @@ html {
             });
         });
     </script>
-
-</body>
-</html>
