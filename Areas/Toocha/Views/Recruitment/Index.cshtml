@@ -1,0 +1,149 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Về Chúng Tôi - Tocha";
+    ViewData["HideBanner"] = true;
+}
+
+<link rel="stylesheet" href="~/Areas/Toocha/assets/css/Recruit/vechungtoi.css">
+<link rel="stylesheet" href="~/Areas/Toocha/assets/css/Recruit/site.css">
+
+<style>
+    /* Backup styles để đảm bảo banner hiển thị */
+    .hero-banner {
+        min-height: 600px;
+        background-color: #1c1c1c; /* fallback color */
+    }
+    .quote-section {
+        min-height: 400px;
+        background-color: #2c3e50; /* fallback color */
+    }
+
+</style>
+
+<script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const header = document.querySelector('.header');
+            let lastScrollTop = 0;
+            let isScrolling;
+
+            window.addEventListener('scroll', function () {
+                let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+                // Clear the timeout throughout the scroll
+                window.clearTimeout(isScrolling);
+
+                if (scrollTop > 50) {
+                    // Khi cuộn xuống quá 50px
+                    header.classList.add('header-scrolled');
+
+                    if (scrollTop < lastScrollTop) {
+                        // Cuộn lên
+                        header.classList.add('header-hidden');
+                    } else {
+                        // Cuộn xuống
+                        header.classList.remove('header-hidden');
+                    }
+                } else {
+                    // Khi ở gần đầu trang
+                    header.classList.remove('header-scrolled');
+                    header.classList.remove('header-hidden');
+                }
+
+                lastScrollTop = scrollTop;
+
+                // Set a timeout to run after scrolling ends
+                isScrolling = setTimeout(function () {
+                    // Hiện header sau khi dừng cuộn 150ms
+                    header.classList.remove('header-hidden');
+                }, 150);
+            });
+        });
+    </script>
+
+
+<div class="about-us-page">
+
+    <!-- ✅ HERO BANNER SECTION (Sử dụng 'banner1.png') -->
+    <section class="hero-banner" style="background-image: url('@Url.Content("~/Areas/Toocha/assets/img/Recruit/banner1.png")');">
+        <div class="hero-content">
+            <p class="sub-heading">Cơ hội nghề nghiệp</p>
+            <h1 class="main-heading">TRỞ THÀNH THÀNH VIÊN TRONG GIA ĐÌNH TOCHA TEA</h1>
+            <a href="/toocha/recruitment/positions" class="cta-button">CÁC VỊ TRÍ HIỆN TẠI</a>
+        </div>
+    </section>
+
+    <!-- ✅ QUOTE SECTION (Sử dụng 'vi_tri_ung_tuyen.png') -->
+    <section class="quote-section section-padding" style="background-image: url('@Url.Content("~/Areas/Toocha/assets/img/Recruit/vi_tri_ung_tuyen.png")');">
+        <div class="container text-center">
+            <div class="quote-icon">”</div>
+            <p class="quote-text">
+                “Tocha với tâm huyết tôn vinh sản phẩm Việt Nam làm từ nguyên liệu chính, dùng nông sản Việt tạo ra những ly đồ uống mang
+                đậm hương vị quê hương, an toàn và giàu giá trị dinh dưỡng. Việc ưu tiên sử dụng nguồn nông sản trong nước trong pha chế góp
+                phần đẩy mạnh tiêu thụ và phát triển nông sản Việt.”
+            </p>
+        </div>
+    </section>
+
+    <!-- TWO-COLUMN LAYOUT SECTIONS -->
+    <section class="section-padding section-light">
+        <div class="container">
+            <!-- ✅ Lịch sử phát triển (Sử dụng 'ảnh 1.jpg') -->
+            <div class="two-column-layout">
+                <div class="column-text">
+                    <h3 class="column-title">LỊCH SỬ PHÁT TRIỂN</h3>
+                    <p>Từ những ngày đầu tiên, Tocha là một cửa hàng nhỏ nhưng luôn tấp nập phục vụ khách hàng những sản phẩm được làm từ nguyên liệu sạch và chất lượng hàng đầu. Thương hiệu trà sữa Tocha chính thức được thành lập với mục tiêu mang những sản phẩm chất lượng nhất đến tay người tiêu dùng Việt Nam.</p>
+                </div>
+                <div class="column-image">
+                    <img src="~/Areas/Toocha/assets/img/Recruit/ảnh 1.jpg" alt="Lịch sử phát triển Tocha">
+                </div>
+            </div>
+
+            <!-- ✅ Khác biệt (Sử dụng 'ảnh 2.jpg') -->
+            <div class="two-column-layout reverse">
+                <div class="column-image">
+                    <img src="~/Areas/Toocha/assets/img/Recruit/ảnh 2.jpg" alt="Cửa hàng Tocha">
+                </div>
+                <div class="column-text">
+                    <h3 class="column-title">KHÁC BIỆT ĐẾN TỪ NHỮNG ĐIỀU ĐƠN GIẢN NHẤT</h3>
+                    <p>Ngay từ đầu, Tocha đã định hình và lựa chọn con đường đi khác biệt. Đó là không chỉ đơn giản đến những ly đồ uống chất lượng hoàn hảo mà còn đem tới cho khách hàng những trải nghiệm, xúc cảm tuyệt vời nhất. Các cửa hàng của chúng tôi đã trở thành địa điểm dành cho những người yêu thích trà sữa trên khắp Việt Nam.</p>
+                </div>
+            </div>
+            
+            <!-- ✅ Nhiều hơn một ly đồ uống (Sử dụng 'ảnh 3.jpg') -->
+            <div class="two-column-layout">
+                <div class="column-text">
+                    <h3 class="column-title">TOCHA – NHIỀU HƠN CẢ MỘT LY ĐỒ UỐNG</h3>
+                    <p>Với một ly đồ uống từ Tocha, chúng tôi thật sự kỳ vọng sẽ truyền cảm hứng và nuôi dưỡng tâm hồn con người. Mọi người đến Tocha để trò chuyện, họp mặt hoặc làm việc. Chúng tôi là địa điểm tụ họp cho tình bạn, tình yêu và tình đồng nghiệp.</p>
+                </div>
+                <div class="column-image">
+                    <img src="~/Areas/Toocha/assets/img/Recruit/ảnh 3.jpg" alt="Khách hàng Tocha">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ✅ FEATURES GRID SECTION (Sử dụng đúng tên file icon của bạn) -->
+    <section class="section-padding section-light">
+        <div class="container">
+            <div class="features-grid">
+                <div class="feature-item">
+                    <img src="~/Areas/Toocha/assets/img/Recruit/icon-chinhsach.png.png" alt="Chính sách" class="feature-icon">
+                    <h4>CHÍNH SÁCH TUYỂN DỤNG CHUYÊN NGHIỆP, MINH BẠCH, CÔNG BẰNG</h4>
+                </div>
+                <div class="feature-item">
+                    <img src="~/Areas/Toocha/assets/img/Recruit/icon-daotao.png.png" alt="Đào tạo" class="feature-icon">
+                    <h4>TRUNG TÂM ĐÀO TẠO VỚI NHIỀU CHƯƠNG TRÌNH ĐÀO TẠO CHỨC DANH, ĐÀO TẠO NGUỒN</h4>
+                </div>
+                <div class="feature-item">
+                    <img src="~/Areas/Toocha/assets/img/Recruit/icon-cup.png.png" alt="Cơ hội" class="feature-icon">
+                    <h4>CƠ HỘI THĂNG TIẾN RỘNG MỞ VỚI PHƯƠNG CHÂM: PHÁT TRIỂN NGUỒN LỰC NỘI BỘ LÀ TRỌNG TÂM</h4>
+                </div>
+                <div class="feature-item">
+                    <img src="~/Areas/Toocha/assets/img/Recruit/icon-chedo.png.png" alt="Chế độ" class="feature-icon">
+                    <h4>CHẾ ĐỘ ĐÃI NGỘ, THƯỞNG HẤP DẪN, CẠNH TRANH, XỨNG ĐÁNG VỚI NĂNG LỰC VÀ ĐÓNG GÓP</h4>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</div>

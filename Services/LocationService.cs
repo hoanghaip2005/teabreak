@@ -9,7 +9,7 @@ namespace App.Services
         double CalculateDistance(double lat1, double lon1, double lat2, double lon2);
         decimal CalculateShippingFee(double distanceKm);
         bool IsDeliverySupported(double distanceKm);
-        Task<List<StoreWithDistance>> GetNearestStores(double latitude, double longitude, int limit = 5);
+        Task<List<StoreWithDistance>> GetNearestStores(double latitude, double longitude, int limit = 15);
         Task<(double latitude, double longitude)?> GeocodeAddress(string address);
     }
 
@@ -80,7 +80,7 @@ namespace App.Services
         /// <summary>
         /// Lấy danh sách cửa hàng gần nhất (chỉ trong phạm vi hỗ trợ giao hàng)
         /// </summary>
-        public async Task<List<StoreWithDistance>> GetNearestStores(double latitude, double longitude, int limit = 5)
+        public async Task<List<StoreWithDistance>> GetNearestStores(double latitude, double longitude, int limit = 15)
         {
             var stores = await _context.Stores
                 .Where(s => s.IsActive)
@@ -106,40 +106,51 @@ namespace App.Services
 
         /// <summary>
         /// Chuyển đổi địa chỉ thành tọa độ (Geocoding)
-        /// Hiện tại trả về tọa độ mẫu, trong thực tế có thể tích hợp Google Maps API
+        /// Sử dụng logic đơn giản dựa trên từ khóa địa chỉ
         /// </summary>
         public async Task<(double latitude, double longitude)?> GeocodeAddress(string address)
         {
             if (string.IsNullOrWhiteSpace(address))
                 return null;
 
-            // TODO: Tích hợp với Google Maps Geocoding API
-            // Hiện tại trả về tọa độ trung tâm Hà Nội cho demo
             await Task.Delay(100); // Simulate API call
 
-            // Một số địa chỉ mẫu cho demo
-            var sampleLocations = new Dictionary<string, (double, double)>
-            {
-                ["hà nội"] = (21.0285, 105.8542),
-                ["hồ chí minh"] = (10.8231, 106.6297),
-                ["đà nẵng"] = (16.0471, 108.2068),
-                ["cầu giấy"] = (21.0333, 105.7847),
-                ["ba đình"] = (21.0245, 105.8412),
-                ["hoàn kiếm"] = (21.0285, 105.8542),
-                ["đống đa"] = (21.0144, 105.8336),
-                ["hai bà trưng"] = (21.0067, 105.8442)
-            };
+            address = address.ToLower().Trim();
 
-            address = address.ToLower();
-            foreach (var location in sampleLocations)
+            // Logic đơn giản để geocode dựa trên từ khóa
+            if (address.Contains("hà nội") || address.Contains("hanoi") || address.Contains("hn") ||
+                address.Contains("hoàn kiếm") || address.Contains("ba đình") || address.Contains("cầu giấy") ||
+                address.Contains("đống đa") || address.Contains("hai bà trưng") || address.Contains("thanh xuân") ||
+                address.Contains("long biên"))
             {
-                if (address.Contains(location.Key))
+                // Tọa độ trung tâm Hà Nội
+                return (21.0285, 105.8542);
+            }
+            else if (address.Contains("hồ chí minh") || address.Contains("ho chi minh") || address.Contains("hcm") ||
+                     address.Contains("sài gòn") || address.Contains("saigon") || address.Contains("quận 1") ||
+                     address.Contains("quận 3") || address.Contains("bình thạnh"))
+            {
+                // Tọa độ trung tâm TP.HCM
+                return (10.8231, 106.6297);
+            }
+            else if (address.Contains("đà nẵng") || address.Contains("da nang") ||
+                     address.Contains("hải châu") || address.Contains("sơn trà"))
+            {
+                // Tọa độ trung tâm Đà Nẵng
+                return (16.0471, 108.2068);
+            }
+            else if (address.Contains("hải phòng") || address.Contains("hai phong"))
+            {
+                // Tọa độ Hải Phòng
+                return (20.8449, 106.6881);
+            }
+            else if (address.Contains("cần thơ") || address.Contains("can tho"))
                 {
-                    return location.Value;
-                }
+                // Tọa độ Cần Thơ
+                return (10.0452, 105.7469);
             }
 
-            // Mặc định trả về tọa độ trung tâm Hà Nội
+            // Mặc định trả về tọa độ Hà Nội nếu không nhận diện được
             return (21.0285, 105.8542);
         }
 

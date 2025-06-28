@@ -317,7 +317,7 @@
                                             <div id="storeDropdown" class="store-dropdown" style="display: none;">
                                                 <div class="store-dropdown-header">
                                                     <i class="fas fa-map-marker-alt mr-2"></i>
-                                                    Cửa hàng gần bạn
+                                                    <span id="storeDropdownTitle">Cửa hàng gần bạn</span>
                                                 </div>
                                                 <div id="storesList" class="stores-list">
                                                     <!-- Stores will be loaded here -->
@@ -2726,6 +2726,9 @@
                 const storesList = $('#storesList');
                 storesList.empty();
                 
+                // Cập nhật tiêu đề với số lượng cửa hàng
+                $('#storeDropdownTitle').text(`Tìm thấy ${stores.length} cửa hàng gần bạn`);
+                
                 stores.forEach(function(store, index) {
                     const shippingText = store.shippingFee === 0 ? 
                         '<span class="store-shipping free">Miễn phí ship</span>' : 
@@ -2760,8 +2763,8 @@
                 
                                         $('#storeSelectionGroup').slideDown();
                         
-                        // Reset store selector
-                        $('#selectedStoreName').text('Chọn cửa hàng gần nhất');
+                // Reset store selector với thông tin mới
+                $('#selectedStoreName').text(`Chọn từ ${stores.length} cửa hàng gần nhất`);
                         $('#btnStoreSelector').removeClass('active');
                         $('#storeDropdown').hide();
             }

@@ -26,6 +26,22 @@ namespace toocha.Areas.Toocha.Controllers
             return View(stores);
         }
 
+        [Route("toocha/store/icecream")]
+        [Route("toocha/store/toochaicream")]
+        public async Task<IActionResult> ToochaIcream()
+        {
+            // Hiện tại sử dụng dữ liệu tĩnh từ view
+            // Sau này có thể mở rộng để lấy dữ liệu từ database
+            var stores = await _context.Stores
+                .Where(s => s.IsActive)
+                .OrderBy(s => s.Region)
+                .ThenBy(s => s.Name)
+                .ToListAsync();
+
+            ViewData["Title"] = "Cửa Hàng TocoToco Ice Cream & Coffee";
+            return View(stores);
+        }
+
         // API endpoint để lấy danh sách stores theo filter
         [HttpGet]
         public async Task<IActionResult> GetStores(string region = "ALL", string search = "")

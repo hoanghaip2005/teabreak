@@ -256,12 +256,24 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcVG9vY2hhXFZpZXdzXE9yZGVyXE9yZGVyTWFuYWdlbWVudC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Workspace/toocha/Areas/Toocha/Views/Recruitment/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcVG9vY2hhXFZpZXdzXFJlY3J1aXRtZW50XEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Workspace/toocha/Areas/Toocha/Views/Recruitment/Positions.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcVG9vY2hhXFZpZXdzXFJlY3J1aXRtZW50XFBvc2l0aW9ucy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Workspace/toocha/Areas/Toocha/Views/Seller/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcVG9vY2hhXFZpZXdzXFNlbGxlclxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Workspace/toocha/Areas/Toocha/Views/Seller/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcVG9vY2hhXFZpZXdzXFNlbGxlclxfVmlld0ltcG9ydHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Workspace/toocha/Areas/Toocha/Views/Store/ToochaIcream.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcVG9vY2hhXFZpZXdzXFN0b3JlXFRvb2NoYUljcmVhbS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Workspace/toocha/Areas/Toocha/Views/Store/ToochaTea.cshtml]

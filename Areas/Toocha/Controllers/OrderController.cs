@@ -324,11 +324,11 @@ public class OrderController : Controller
                 return Json(new { success = false, message = "Không thể xác định vị trí từ địa chỉ này" });
             }
 
-            // Lấy các cửa hàng gần nhất
+            // Lấy các cửa hàng gần nhất (tăng limit lên 15)
             var nearestStores = await _locationService.GetNearestStores(
                 coordinates.Value.latitude, 
                 coordinates.Value.longitude, 
-                5
+                15
             );
 
             if (nearestStores.Count == 0)
