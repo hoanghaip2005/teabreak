@@ -1,0 +1,329 @@
+.col-xs-1,
+.col-xs-2,
+.col-xs-3,
+.col-xs-4,
+.col-xs-5,
+.col-xs-6,
+.col-xs-7,
+.col-xs-8,
+.col-xs-9,
+.col-xs-10,
+.col-xs-11,
+.col-xs-12 {
+    float: left;
+}
+
+.sectionTitleStore {
+    text-align: center;
+}
+
+.sectionTitleStore h1 {
+    margin: 30px 0 10px 0;
+    font-weight: normal;
+    font-size: 26px;
+}
+
+.sectionTitleStore {
+    text-align: center;
+}
+
+.sectionTitleStore h1 {
+    margin: 30px 0 10px 0;
+    font-weight: normal;
+    font-size: 26px;
+}
+
+.no-padding {
+    padding: 0;
+}
+
+.leftCollumStore {
+    padding: 20px;
+    width: 100%;
+}
+
+.leftCollumStore select {
+    height: 40px;
+    font-size: 14px;
+    outline: none;
+    background: white;
+    border: 1px solid #cecece;
+    font-weight: 400;
+    margin-bottom: 5px;
+    width: 100%;
+    padding: 0 20px;
+    background-image: url(https://file.hstatic.net/1000360430/file/down_1c848d6….png);
+    background-position: right;
+    background-repeat: no-repeat;
+    background-size: 15px;
+    background-position-x: 95%;
+}
+
+.leftCollumStore input {
+    height: 40px;
+    font-size: 14px;
+    outline: none;
+    background: white;
+    border: 1px solid #cecece;
+    margin-bottom: 5px;
+    width: 100%;
+    padding: 0 20px;
+    background-image: url(http://file.hstatic.net/1000360430/file/search.svg);
+    background-position: right;
+    background-repeat: no-repeat;
+    background-size: 15px;
+    background-position-x: 95%;
+}
+
+.resultStoreBig {
+    margin: 20px 0 0 0;
+    float: left;
+    width: 100%;
+}
+
+.resultStore {
+    float: left;
+    width: 100%;
+    background: white;
+}
+
+innerResultStore {
+    font-family: 'MuliDisplayVN', sans-serif;
+}
+
+.itemStore {
+    width: 100%;
+    margin: 0 0 10px 0;
+    border-bottom: 2px dotted #cacaca;
+    position: relative;
+}
+
+.districtStore span {
+    font-weight: bold;
+    font-size: 13px;
+}
+
+p {
+    margin: 0 0 10px 0;
+    line-height: 21px;
+}
+
+p.infoLocation {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.viewMap {
+    font-size: 12px;
+    cursor: pointer;
+    position: absolute;
+    right: 0;
+    top: 90px;
+}
+
+.view-sr-down {
+    width: 12px;
+    margin-left: 10px;
+    margin-bottom: 2px;
+}
+
+a {
+    color: #252a2b;
+    text-decoration: none;
+    outline: none;
+    -moz-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+    -webkit-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+}
+
+.addressStore {
+    font-size: 13px;
+    margin: 10px 0 10px 0px;
+    position: relative;
+}
+
+.col-6 {
+    margin: 0px;
+    padding: 0px;
+}
+
+/* Fix layout cho thông tin liên hệ cửa hàng */
+.store-contact-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.store-contact-info .contact-phone {
+    flex: 1;
+    text-align: left;
+    margin: 0;
+    padding: 0;
+}
+
+.store-contact-info .contact-map {
+    flex: 1;
+    text-align: right;
+    margin: 0;
+    padding: 0;
+}
+
+.guideWay {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.guideWay:hover {
+    color: #0056b3;
+    text-decoration: underline;
+}
+
+/* Responsive cho mobile */
+@media (max-width: 767px) {
+    .store-contact-info {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+    
+    .store-contact-info .contact-map {
+        text-align: left;
+    }
+}
+
+/* Fix header overlay issue */
+body {
+    padding-top: 0;
+    margin: 0;
+}
+
+.banner {
+    margin-top: 0;
+    position: relative;
+    z-index: 1;
+}
+
+/* Đảm bảo content không bị đẩy xuống bởi fixed header */
+.mainStore {
+    position: relative;
+    z-index: 1;
+    margin-top: 40px;
+    padding-top: 0;
+}
+
+@media (min-width: 800px) {
+    .mainStore.clearfix.container-fluid {
+        padding: 0 20%;
+    }
+
+    .leftCollumStore select {
+        width: 48%;
+    }
+
+    .leftCollumStore input {
+        width: 48%;
+        margin-left: 2.5%;
+    }
+
+    .container-fluid.showroom-bt {
+        padding: 0 85px;
+    }
+}
+
+@media (min-width: 768px) {
+    .col-sm-12 {
+        width: 100%;
+    }
+}
+
+@media (max-width: 767px) {
+    .viewShowroom {
+        font-weight: 300;
+        text-decoration: underline;
+        font-size: 12px;
+        cursor: pointer;
+        position: absolute;
+        right: 0;
+        top: 110px;
+    }
+}
+
+img.wp-smiley,
+img.emoji {
+    display: inline !important;
+    border: none !important;
+    box-shadow: none !important;
+    height: 1em !important;
+    width: 1em !important;
+    margin: 0 0.07em !important;
+    vertical-align: -0.1em !important;
+    background: none !important;
+    padding: 0 !important;
+}
+
+
+.category-top-banner,
+.page-top-banner {
+    display: none;
+}
+
+/* @media (max-width: 767px) {
+     
+   .category-top-banner, .page-top-banner{
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://tocotocotea.com/wp-content/uploads/2024/08/mobile.png') no-repeat center;
+       background-size: cover;
+   }
+     
+   } */
+.product-card .discount-tag {
+    display: none;
+}
+
+.page.page-history,
+.page.page-achievement {
+    border-top: 70px solid #000 !important;
+    padding-top: 15px;
+}
+
+@media (max-width: 767px) {
+
+    .page.page-history,
+    .page.page-achievement {
+        border-top: 50px solid #000 !important;
+    }
+}
+
+.popup-login-content {
+    background-image: url("https://tocotocotea.com/wp-content/uploads/2024/09/11092024.png");
+    background-size: cover;
+    padding-bottom: 80px;
+}
+
+.popup-login-content input::placeholder {
+    color: #fff;
+}
+
+@media only screen and (max-width: 425px) {
+    .popup-login-content {
+        padding: 24px !important;
+        background: url("https://tocotocotea.com/wp-content/uploads/2024/09/10092024.png") !important;
+        background-size: cover !important;
+    }
+}
+
+.home-popup .popup {
+    background: transparent !important;
+    box-shadow: none !important;
+    border: 0px !important;
+}
+
+.home-popup .close-btn {
+    right: -5px !important;
+    top: 0px !important;
+}

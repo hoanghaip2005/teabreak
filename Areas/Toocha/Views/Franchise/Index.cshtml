@@ -1,0 +1,150 @@
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Trang Chủ";
+}
+
+<link rel="stylesheet" href="@Url.Content("~/Areas/Toocha/assets/css/Franchise/style.css")">
+<link rel="stylesheet" href="~/css/style.css" />
+
+    <!--Section-->
+    <section class="news-section">
+        <div class="container">
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <h3>DANH MỤC TIN TỨC</h3>
+                <ul class="category-list">
+                    <li><a href="#">CÂU CHUYỆN THƯƠNG HIỆU</a></li>
+                    <li><a href="#">TIN TỨC KHUYẾN MÃI</a></li>
+                    <li><a href="su-kien.html">SỰ KIỆN</a></li>
+                    <li><a href="nhuong-quyen.html">NHƯỢNG QUYỀN TOOCHA</a></li>
+                    <!-- ...existing code... -->
+                </ul>
+                <h3>TỪ KHÓA</h3>
+                <div class="tags">
+                    <a href="#">lịch hoạt động tết</a>
+                    <a href="#">partners</a>
+                    <a href="#">bộ sưu tập món mới</a>
+                    <a href="#">cảm xúc của 3 cung hoàng đạo khi được mời trà sữa</a>
+                    <a href="#">thương hiệu trà sữa Việt</a>
+                    <a href="#">nông sản Việt</a>
+                    <!-- thêm các tag -->
+                </div>
+            </aside>
+            <!-- Main News -->
+            <div class="news-content">
+                <h2>NHƯỢNG QUYỀN TOOCHA</h2>
+                <div class="news-grid">
+                    <div class="news-card">
+                        <img src="@Url.Content("~/Areas/Toocha/assets/img/hinh-anh-giao-dien-nhuong-quyen/img-1.jpg")"
+                            alt="News 1">
+                        <h4>Chiết khấu 60 triệu, tham dự ngay Hội thảo và sẵn sàng nhượng quyền trà sữa TooCha</h4>
+                        <p>Nâng tổng số lượng cửa hàng trên toàn quốc gần 500 cửa hàng chỉ trong vòng 9 năm, TooCha đang
+                            chứng minh sức mạnh thương hiệu và hiệu quả kinh […]</p>
+                        <a href="#" class="btn-read margin-left">Xem thêm</a>
+                    </div>
+                    <!-- thêm các .news-card -->
+                    <div class="news-card">
+                        <img src="@Url.Content("~/Areas/Toocha/assets/img/hinh-anh-giao-dien-nhuong-quyen/img-2.jpg")"
+                            alt="News 2">
+                        <h4>Gần 400 cửa hàng nhượng quyền trà sữa, lý do nào khiến TooCha thu hút nhà đầu tư?</h4>
+                        <p>Gần 400 cửa hàng nhượng quyền trà sữa, lý do nào khiến TooCha thu hút nhà đầu tư?</p>
+                        <a href="#" class="btn-read margin-left">Xem thêm</a>
+                    </div>
+                    <div class="news-card">
+                        <img src="@Url.Content("~/Areas/Toocha/assets/img/hinh-anh-giao-dien-nhuong-quyen/img-3.jpg")"
+                            alt="News 3">
+                        <h4>Nhà đầu tư tự tin nhượng quyền thương hiệu trà sữa từ nông sản Việt</h4>
+                        <p>Thep cafebiz.vn – Không chỉ gây bão với hương vị trà sữa thơm ngon, TooCha còn thu hút nhiều
+                            nhà đầu tư nhượng quyền thương hiệu bởi sản phẩm cam […]</p>
+                        <a href="#" class="btn-read margin-left">Xem thêm</a>
+                    </div>
+                    <div class="news-card">
+                        <img src="@Url.Content("~/Areas/Toocha/assets/img/hinh-anh-giao-dien-nhuong-quyen/img-4.jpg")"
+                            alt="News 4">
+                        <h4>GIỚI TRẺ HÀ THÀNH PHÁT SỐT VỚI 1000 LY TRÀ SỮA TOOCHA TẠI PHỐ ĐI BỘ</h4>
+                        <p>Cơ hội thưởng thức 1000 ly trà sữa trân châu đường hổ miễn phí và tìm hiểu nhiều ưu đãi hấp
+                            dẫn của TooCha và VNPay khi đến phố đi […]</p>
+                        <a href="#" class="btn-read margin-left">Xem thêm</a>
+                    </div>
+                    <div class="news-card">
+                        <img src="@Url.Content("~/Areas/Toocha/assets/img/hinh-anh-giao-dien-nhuong-quyen/img-5.webp")"
+                            alt="News 5">
+                        <h4>Kinh doanh nhượng quyền trà sữa, hướng đi cho người “ngại” làm thương hiệu</h4>
+                        <p>Kinh doanh trà sữa nhượng quyền là gì? Những thương hiệu nào nhượng quyền trà sữa giá rẻ? Nếu
+                            bạn đang có ý định mở quán trà sữa nhưng chưa biết […]</p>
+                        <a href="#" class="btn-read margin-left">Xem thêm</a>
+                    </div>
+                    <div class="news-card">
+                        <img src="@Url.Content("~/Areas/Toocha/assets/img/hinh-anh-giao-dien-nhuong-quyen/img-6.jpg")"
+                            alt="News 6">
+                        <h4>TooCha TIÊN PHONG TUNG LY XMAS 2023 ĐỘC ĐÁO VÀ Ý NGHĨA</h4>
+                        <p>Mặc dù hơn 1 tháng nữa mới đến Noel nhưng nhiều bạn trẻ, nhân viên văn phòng hay các bạn nhỏ
+                            khắp nơi đã đến TooCha check in Noel sớm […]</p>
+                        <a href="#" class="btn-read margin-left">Xem thêm</a>
+                    </div>
+                    <div class="news-card">
+                        <img src="@Url.Content("~/Areas/Toocha/assets/img/hinh-anh-giao-dien-nhuong-quyen/img-7.webp")"
+                            alt="News 7">
+                        <h4>Nhượng quyền trà sữa 0 đồng, cơ hội lớn của nhà đầu tư vừa và nhỏ</h4>
+                        <p>Thị trường trà sữa vẫn mở ra cơn sốt với các khách hàng trẻ muốn trải nghiệm thức uống cũng
+                            như mở rộng cơ hội kinh doanh cho những nhà […]</p>
+                        <a href="#" class="btn-read margin-left">Xem thêm</a>
+                    </div>
+                    <div class="news-card">
+                        <img src="@Url.Content("~/Areas/Toocha/assets/img/hinh-anh-giao-dien-nhuong-quyen/img-8.jpg")"
+                            alt="News 8">
+                        <h4>Instant Milk Tea có gì mà loạt nghệ sỹ Việt share rần rần trên mạng xã hội</h4>
+                        <p>Đồng hành và trở thành một phần đóng góp trong việc quảng bá MV mới của ca sĩ trẻ Tùng Maru,
+                            Instant Milk Tea xuất hiện rần rần trên mạng […]</p>
+                        <a href="#" class="btn-read margin-left">Xem thêm</a>
+                    </div>
+                </div>
+                <!-- Pagination -->
+                <div class="pagination">
+                    <a href="#">1</a>
+                    <a href="#">2</a>
+                    <span>...</span>
+                    <a href="#">»</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const header = document.querySelector('.header');
+            let lastScrollTop = 0;
+            let isScrolling;
+
+            window.addEventListener('scroll', function () {
+                let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+                // Clear the timeout throughout the scroll
+                window.clearTimeout(isScrolling);
+
+                if (scrollTop > 50) {
+                    // Khi cuộn xuống quá 50px
+                    header.classList.add('header-scrolled');
+
+                    if (scrollTop < lastScrollTop) {
+                        // Cuộn lên
+                        header.classList.add('header-hidden');
+                    } else {
+                        // Cuộn xuống
+                        header.classList.remove('header-hidden');
+                    }
+                } else {
+                    // Khi ở gần đầu trang
+                    header.classList.remove('header-scrolled');
+                    header.classList.remove('header-hidden');
+                }
+
+                lastScrollTop = scrollTop;
+
+                // Set a timeout to run after scrolling ends
+                isScrolling = setTimeout(function () {
+                    // Hiện header sau khi dừng cuộn 150ms
+                    header.classList.remove('header-hidden');
+                }, 150);
+            });
+        });
+    </script>

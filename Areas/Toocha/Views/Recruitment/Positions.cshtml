@@ -1,0 +1,269 @@
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Các Vị Trí Tuyển Dụng - Tocha";
+    ViewData["HideBanner"] = true;
+}
+
+<link rel="stylesheet" href="~/Areas/Toocha/assets/css/Recruit/vechungtoi.css">
+<link rel="stylesheet" href="~/Areas/Toocha/assets/css/Recruit/site.css">
+
+<div class="job-positions-page">
+    
+    <!-- Hero Section -->
+    <section class="hero-banner" style="background-image: url('@Url.Content("~/Areas/Toocha/assets/img/Recruit/banner2.png")');">
+        <div class="hero-content">
+            <p class="sub-heading">Cơ hội nghề nghiệp</p>
+            <h1 class="main-heading">CÁC VỊ TRÍ TUYỂN DỤNG HIỆN TẠI</h1>
+            <p class="hero-description">Gia nhập đội ngũ Tocha để cùng chúng tôi xây dựng thương hiệu trà sữa hàng đầu Việt Nam</p>
+        </div>
+    </section>
+
+    <!-- Job Positions Section -->
+    <section class="section-padding">
+        <div class="container">
+            <div class="section-header text-center mb-5">
+                <h2>VỊ TRÍ ĐANG TUYỂN DỤNG</h2>
+                <p>Khám phá những cơ hội nghề nghiệp tuyệt vời tại Tocha</p>
+            </div>
+
+            <div class="job-positions-grid">
+                <!-- Job Position Card 1 -->
+                <div class="job-card">
+                    <div class="job-header">
+                        <h3>Nhân viên pha chế</h3>
+                        <span class="job-type">Full-time</span>
+                    </div>
+                    <div class="job-details">
+                        <p><i class="fas fa-map-marker-alt"></i> Hà Nội, TP.HCM</p>
+                        <p><i class="fas fa-building"></i> Cửa hàng</p>
+                        <p><i class="fas fa-clock"></i> Đăng 3 ngày trước</p>
+                    </div>
+                    <div class="job-description">
+                        <p>Pha chế đồ uống theo tiêu chuẩn Tocha, phục vụ khách hàng nhiệt tình và chuyên nghiệp.</p>
+                    </div>
+                    <button class="apply-btn">Ứng tuyển ngay</button>
+                </div>
+
+                <!-- Job Position Card 2 -->
+                <div class="job-card">
+                    <div class="job-header">
+                        <h3>Quản lý ca</h3>
+                        <span class="job-type">Full-time</span>
+                    </div>
+                    <div class="job-details">
+                        <p><i class="fas fa-map-marker-alt"></i> TP.HCM, Đà Nẵng</p>
+                        <p><i class="fas fa-building"></i> Cửa hàng</p>
+                        <p><i class="fas fa-clock"></i> Đăng 1 tuần trước</p>
+                    </div>
+                    <div class="job-description">
+                        <p>Quản lý ca làm việc, giám sát chất lượng dịch vụ và đảm bảo vận hành cửa hàng hiệu quả.</p>
+                    </div>
+                    <button class="apply-btn">Ứng tuyển ngay</button>
+                </div>
+
+                <!-- Job Position Card 3 -->
+                <div class="job-card">
+                    <div class="job-header">
+                        <h3>Marketing Executive</h3>
+                        <span class="job-type">Full-time</span>
+                    </div>
+                    <div class="job-details">
+                        <p><i class="fas fa-map-marker-alt"></i> Hà Nội</p>
+                        <p><i class="fas fa-building"></i> Marketing</p>
+                        <p><i class="fas fa-clock"></i> Đăng 2 ngày trước</p>
+                    </div>
+                    <div class="job-description">
+                        <p>Thực hiện các chiến dịch marketing, quảng bá thương hiệu và phát triển kênh bán hàng.</p>
+                    </div>
+                    <button class="apply-btn">Ứng tuyển ngay</button>
+                </div>
+
+                <!-- Job Position Card 4 -->
+                <div class="job-card">
+                    <div class="job-header">
+                        <h3>Nhân viên kho</h3>
+                        <span class="job-type">Full-time</span>
+                    </div>
+                    <div class="job-details">
+                        <p><i class="fas fa-map-marker-alt"></i> Hà Nội, TP.HCM</p>
+                        <p><i class="fas fa-building"></i> Kho vận</p>
+                        <p><i class="fas fa-clock"></i> Đăng 5 ngày trước</p>
+                    </div>
+                    <div class="job-description">
+                        <p>Quản lý kho hàng, kiểm tra chất lượng nguyên liệu và đảm bảo cung ứng cho các cửa hàng.</p>
+                    </div>
+                    <button class="apply-btn">Ứng tuyển ngay</button>
+                </div>
+            </div>
+
+            <!-- CTA Section -->
+            <div class="cta-section text-center mt-5">
+                <h3>Không tìm thấy vị trí phù hợp?</h3>
+                <p>Gửi CV của bạn để chúng tôi cân nhắc cho những cơ hội trong tương lai</p>
+                <button class="cta-button">GỬI CV TỔNG HỢP</button>
+            </div>
+        </div>
+    </section>
+
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const header = document.querySelector('.header');
+    let lastScrollTop = 0;
+    let isScrolling;
+
+    window.addEventListener('scroll', function () {
+        let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+        // Clear the timeout throughout the scroll
+        window.clearTimeout(isScrolling);
+
+        if (scrollTop > 50) {
+            // Khi cuộn xuống quá 50px
+            header.classList.add('header-scrolled');
+
+            if (scrollTop < lastScrollTop) {
+                // Cuộn lên - ẩn header
+                header.classList.add('header-hidden');
+            } else {
+                // Cuộn xuống - hiện header
+                header.classList.remove('header-hidden');
+            }
+        } else {
+            // Khi ở gần đầu trang
+            header.classList.remove('header-scrolled');
+            header.classList.remove('header-hidden');
+        }
+
+        lastScrollTop = scrollTop;
+
+        // Set a timeout to run after scrolling ends
+        isScrolling = setTimeout(function () {
+            // Hiện header sau khi dừng cuộn 150ms
+            header.classList.remove('header-hidden');
+        }, 150);
+    });
+
+    // Smooth scrolling for any anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                e.preventDefault();
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+});
+</script>
+
+<style>
+.job-positions-page .hero-description {
+    font-size: 18px;
+    margin-top: 20px;
+    opacity: 0.9;
+}
+
+.job-positions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.job-card {
+    background: white;
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.job-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
+
+.job-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.job-header h3 {
+    margin: 0;
+    color: #2c3e50;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.job-type {
+    background: #e74c3c;
+    color: white;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.job-details {
+    margin-bottom: 15px;
+}
+
+.job-details p {
+    margin: 5px 0;
+    color: #7f8c8d;
+    font-size: 14px;
+}
+
+.job-details i {
+    width: 15px;
+    margin-right: 8px;
+    color: #e74c3c;
+}
+
+.job-description {
+    margin-bottom: 20px;
+    color: #34495e;
+    line-height: 1.6;
+}
+
+.apply-btn {
+    background: linear-gradient(135deg, #e74c3c, #c0392b);
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 25px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+}
+
+.apply-btn:hover {
+    background: linear-gradient(135deg, #c0392b, #a93226);
+    transform: translateY(-2px);
+}
+
+.cta-section {
+    background: #f8f9fa;
+    padding: 50px;
+    border-radius: 15px;
+    margin-top: 50px;
+}
+
+.cta-section h3 {
+    color: #2c3e50;
+    margin-bottom: 15px;
+}
+
+.cta-section p {
+    color: #7f8c8d;
+    margin-bottom: 25px;
+}
+</style> 

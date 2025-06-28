@@ -1,0 +1,536 @@
+@model List<App.Models.Toocha.Store>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Trang Chủ";
+    ViewData["HideBanner"] = true;
+}
+
+<link rel="stylesheet" href="~/Areas/Toocha/assets/css/store.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<div class="page page-achievement" bis_skin_checked="1">
+    <div class="page-top-banner" bis_skin_checked="1">
+        CỬA HÀNG TOCOTOCO ICECREAM &amp; COFFEE </div>
+    <div class="page-content container" bis_skin_checked="1">
+        <div class="page-title" bis_skin_checked="1">CỬA HÀNG TOCOTOCO ICECREAM &amp; COFFEE</div>
+        <h2>DANH SÁCH CỬA HÀNG MIỀN BẮC</h2>
+        <p><!-- /wp:heading --></p>
+        <p><!-- wp:table --></p>
+        <figure>
+            <table style="height: 754px" width="956">
+                <tbody>
+                    <tr>
+                        <td><strong>STT</strong></td>
+                        <td><strong>CỬA HÀNG</strong></td>
+                        <td><strong>ĐỊA CHỈ</strong></td>
+                        <td><strong>QUẬN</strong></td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>TCIC – Minh Khai</td>
+                        <td>472 Minh Khai, Hai Bà Trưng, Hà Nội</td>
+                        <td>Hai Bà Trưng</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>TCIC – Thạch Bàn</td>
+                        <td>142 Thạch Bàn, Long Biên, Hà Nội</td>
+                        <td>Long Biên</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>TCIC – Hàng Bông</td>
+                        <td>209 Hàng Bông, Hoàn Kiếm, Hà Nội</td>
+                        <td>Hoàn Kiếm</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>TCIC – Trung Kính</td>
+                        <td>47A Trung Kính, Cầu Giấy, Hà Nội</td>
+                        <td>Cầu Giấy</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>TCIC – Trần Đại Nghĩa</td>
+                        <td>295 Trần Đại Nghĩa, Hai Bà Trưng, Hà Nội</td>
+                        <td>Hai Bà Trưng</td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td>TCIC – Doãn Kế Thiện</td>
+                        <td>92 Doãn Kế Thiện, Cầu Giấy, Hà Nội</td>
+                        <td>Cầu Giấy</td>
+                    </tr>
+                    <tr>
+                        <td>7</td>
+                        <td>TCIC – Yên Hòa</td>
+                        <td>193 Yên Hoà, Hà Nội</td>
+                        <td>Cầu Giấy</td>
+                    </tr>
+                    <tr>
+                        <td>8</td>
+                        <td>TCIC – Trần Duy Hưng</td>
+                        <td>33 Trần Duy Hưng, Hà Nội</td>
+                        <td>Cầu Giấy</td>
+                    </tr>
+                    <tr>
+                        <td>9</td>
+                        <td>TCIC – Khu đô thị Ecopark</td>
+                        <td>A11 phố Trúc – Khu đô thị Ecopark, Xã Xuân Quan, Huyện Văn Giang, Tỉnh Hưng Yên</td>
+                        <td>Văn Giang</td>
+                    </tr>
+                    <tr>
+                        <td>10</td>
+                        <td>TCIC – Chiến Thắng</td>
+                        <td>60 Chiến Thắng, Phường Văn Quán, Hà Đông</td>
+                        <td>Hà Đông</td>
+                    </tr>
+                    <tr>
+                        <td>11</td>
+                        <td>TCIC – Thái Hà</td>
+                        <td>75 Thái Hà, Đống Đa, Hà Nội</td>
+                        <td>Đống Đa</td>
+                    </tr>
+                    <tr>
+                        <td>12</td>
+                        <td>TCIC – Đặng Văn Ngữ</td>
+                        <td>47 Đặng Văn Ngữ, Đống Đa, Hà Nội</td>
+                        <td>Đống Đa</td>
+                    </tr>
+                    <tr>
+                        <td>13</td>
+                        <td>TCIC – Bùi Xương Trạch</td>
+                        <td>154 Bùi Xương Trạch, Thanh Xuân, Hà Nội</td>
+                        <td>Thanh Xuân</td>
+                    </tr>
+                    <tr>
+                        <td>14</td>
+                        <td>TCIC – Đại La</td>
+                        <td>11 Đại La, Hai Bà Trưng, Hà Nội</td>
+                        <td>Hai Bà Trưng</td>
+                    </tr>
+                    <tr>
+                        <td>15</td>
+                        <td>TCIC – Thành Trung</td>
+                        <td>90 Thành Trung, Gia Lâm, Hà Nội</td>
+                        <td>Gia Lâm</td>
+                    </tr>
+                    <tr>
+                        <td>16</td>
+                        <td>TCIC – Hoàng Văn Thái</td>
+                        <td>285 Hoàng Văn Thái, Thanh Xuân, Hà Nội</td>
+                        <td>Thanh Xuân</td>
+                    </tr>
+                    <tr>
+                        <td>17</td>
+                        <td>TCIC – Tam Trinh</td>
+                        <td>220 Tam Trinh, Yên Sở, Hoàng Mai, Hà Nội</td>
+                        <td>Hoàng Mai</td>
+                    </tr>
+                    <tr>
+                        <td>18</td>
+                        <td>TCIC – Đồng Me</td>
+                        <td>8 Đồng Me, Mễ Trì, Từ Liêm, Hà Nội</td>
+                        <td>Từ Liêm</td>
+                    </tr>
+                    <tr>
+                        <td>19</td>
+                        <td>TCIC – Dương Văn Bé</td>
+                        <td>212 Dương Văn Bé, Hoàng Mai, Hà Nội</td>
+                        <td>Hoàng Mai</td>
+                    </tr>
+                    <tr>
+                        <td>20</td>
+                        <td>TCIC – Trần Cung</td>
+                        <td>317 Trần Cung, Cổ Nhuế, Bắc Từ Liêm, Hà Nội</td>
+                        <td>Bắc Từ Liêm</td>
+                    </tr>
+                    <tr>
+                        <td>21</td>
+                        <td>TCIC – Đền Lừ</td>
+                        <td>27 Đền Lừ, Hoàng Mai, Hà Nội</td>
+                        <td>Hoàng Mai</td>
+                    </tr>
+                    <tr>
+                        <td>22</td>
+                        <td>TCIC – Tạ Quang Bửu</td>
+                        <td>109 – E5 Tạ Quang Bửu, Hai Bà Trưng, Hà Nội</td>
+                        <td>Hai Bà Trưng</td>
+                    </tr>
+                    <tr>
+                        <td>23</td>
+                        <td>TCIC – Nguyễn An Ninh</td>
+                        <td>29 Nguyễn An Ninh, Hoàng Mai, Hà Nội</td>
+                        <td>Hoàng Mai</td>
+                    </tr>
+                    <tr>
+                        <td>24</td>
+                        <td>TCIC – Trần Quôc Hoàn</td>
+                        <td>65 Trần Quôc Hoàn, Cầu Giấy, Hà Nội</td>
+                        <td>Cầu Giấy</td>
+                    </tr>
+                </tbody>
+            </table>
+        </figure>
+        <p><!-- /wp:table --></p>
+        <p><!-- wp:heading --></p>
+        <h2>DANH SÁCH CỬA HÀNG MIỀN NAM</h2>
+        <p><!-- /wp:heading --></p>
+        <p><!-- wp:table --></p>
+        <figure>
+            <table>
+                <tbody>
+                    <tr>
+                        <td><strong>STT</strong></td>
+                        <td><strong>CỬA HÀNG</strong></td>
+                        <td><strong>ĐỊA CHỈ</strong></td>
+                        <td><strong>QUẬN</strong></td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>TCIC – Tân Hương</td>
+                        <td>248 Tân Hương, Tân Quý, Tân Phú</td>
+                        <td>Tân Phú</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>TCIC – Tô Ngọc Vân</td>
+                        <td>456 Tô Ngọc Vân, Tam Phú, Tp. Thủ Đức</td>
+                        <td>Thủ Đức</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>TCIC – Bùi Đình Tuý</td>
+                        <td>187 Bùi Đình Tuý, Phường 24, Bình Thạnh</td>
+                        <td>Bình Thạnh</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>TCIC – Vườn Lài</td>
+                        <td>8 Vườn Lài, Phường Tân Thành, Quận Tân Phú</td>
+                        <td>Tân Phú</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>TCIC – Nguyễn Văn Đậu</td>
+                        <td>40B Nguyễn Văn Đậu, Phường 5</td>
+                        <td>Phú Nhuận</td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td>TCIC – Nguyễn Văn Bảo</td>
+                        <td>7 Nguyễn Văn Bảo, Phường 4</td>
+                        <td>Gò Vấp</td>
+                    </tr>
+                    <tr>
+                        <td>7</td>
+                        <td>TCIC – Tô Ký</td>
+                        <td>12/9 Tô Ký, P. Tân Chánh Hiệp</td>
+                        <td>Quận 12</td>
+                    </tr>
+                    <tr>
+                        <td>8</td>
+                        <td>TCIC – Nguyễn Thái Sơn</td>
+                        <td>Số 2A (Số 38) Nguyễn Thái Sơn, P. 3</td>
+                        <td>Gò Vấp</td>
+                    </tr>
+                    <tr>
+                        <td>9</td>
+                        <td>TCIC – Lê Văn Thọ</td>
+                        <td>89 Đường Lê Văn Thọ, phường 8, Gò Vấp</td>
+                        <td>Gò Vấp</td>
+                    </tr>
+                    <tr>
+                        <td>10</td>
+                        <td>TCIC – Lê Trọng Tấn</td>
+                        <td>76 Lê Trọng Tấn, Phường Tây Thạnh, Quận Tân Phú</td>
+                        <td>Tân Phú</td>
+                    </tr>
+                    <tr>
+                        <td>11</td>
+                        <td>TCIC – Nguyễn Văn Tăng</td>
+                        <td>184 Nguyễn Văn Tăng, Phường Long Thạnh Mỹ, Quận 9</td>
+                        <td>Quận 9</td>
+                    </tr>
+                    <tr>
+                        <td>12</td>
+                        <td>TCIC – Lê Đức Thọ</td>
+                        <td>1376 Lê Đức Thọ, Phường 13, Quận Gò Vấp</td>
+                        <td>Gò Vấp</td>
+                    </tr>
+                    <tr>
+                        <td>13</td>
+                        <td>TCIC – Thống Nhất</td>
+                        <td>380 Thống Nhất, Phường 16, Quận Gò Vấp</td>
+                        <td>Gò Vấp</td>
+                    </tr>
+                    <tr>
+                        <td>14</td>
+                        <td>TCIC – Lê Quang Định</td>
+                        <td>516 Lê Quang Định, Phường 1, Quận Gò Vấp, TpHCM</td>
+                        <td>Gò Vấp</td>
+                    </tr>
+                    <tr>
+                        <td>15</td>
+                        <td>TCIC – Văn Cao</td>
+                        <td>11 Văn Cao, Phường Thú Thạnh, Quận Tân Phú, TpHCM</td>
+                        <td>Tân Phú</td>
+                    </tr>
+                    <tr>
+                        <td>16</td>
+                        <td>TCIC – Lạc Long Quân</td>
+                        <td>201 Lạc Long Quân, Phường 3, Quận 11</td>
+                        <td>Quận 11</td>
+                    </tr>
+                    <tr>
+                        <td>17</td>
+                        <td>TCIC – Vạn Kiếp</td>
+                        <td>157A Vạn Kiếp, Phường 3, Quận Bình Thạnh, TP.HCM</td>
+                        <td>Bình Thạnh</td>
+                    </tr>
+                    <tr>
+                        <td>18</td>
+                        <td>TCIC – Tăng Nhơn Phú</td>
+                        <td>97A Tăng Nhơn Phú, KP. 2, Phường Phước Long B, TP. Thủ Đức, TP HCM</td>
+                        <td>TP. Thủ Đức</td>
+                    </tr>
+                    <tr>
+                        <td>19</td>
+                        <td>TCIC – Cư xá Phú Lâm B</td>
+                        <td>D32 Cư xá Phú Lâm B, Phường 13, Quận 6, TP.HCM</td>
+                        <td>Quận 6</td>
+                    </tr>
+                    <tr>
+                        <td>20</td>
+                        <td>TCIC – Đình Phong Phú</td>
+                        <td>223D Đình Phong Phú, Phường Tăng Nhơn Phú B, TP. Thủ Đức, TP HCM</td>
+                        <td>Thủ Đức</td>
+                    </tr>
+                    <tr>
+                        <td>21</td>
+                        <td>TCIC – Nguyễn Thị Thập</td>
+                        <td>58 Nguyễn Thị Thập, Phường Tân Hưng, Quận 7, TP HCM</td>
+                        <td>Quận 7</td>
+                    </tr>
+                    <tr>
+                        <td>22</td>
+                        <td>TCIC – Xóm Chiếu</td>
+                        <td>163 Xóm Chiếu, phường 16, Quận 4, TP HCM</td>
+                        <td>Quận 4</td>
+                    </tr>
+                    <tr>
+                        <td>23</td>
+                        <td>TCIC – Tân Hòa Đông</td>
+                        <td>32 Tân Hòa Đông, Phường 14, Quận 6, Tp.HCM</td>
+                        <td>Quận 6</td>
+                    </tr>
+                    <tr>
+                        <td>24</td>
+                        <td>TCIC – Nguyễn Thượng Hiền</td>
+                        <td>119 Nguyễn Thượng Hiền, Phường 5, Quận 3, TP.HCM</td>
+                        <td>Quận 3</td>
+                    </tr>
+                    <tr>
+                        <td>25</td>
+                        <td>TCIC – Tân Hòa Đông</td>
+                        <td>178A3 Tân Hòa Đông, Phường 14, Quận 6, TP HCM</td>
+                        <td>Quận 6</td>
+                    </tr>
+                    <tr>
+                        <td>26</td>
+                        <td>TCIC – Tỉnh Lộ 10</td>
+                        <td>375 Tỉnh Lộ 10, Phường An Lạc A, Quận Bình Tân, TP.HCM</td>
+                        <td>Bình Tân</td>
+                    </tr>
+                    <tr>
+                        <td>27</td>
+                        <td>TCIC – Lãnh Bình Thăng</td>
+                        <td>281G Lãnh Bình Thăng, Phường 8, Quận 11, TP.HCM</td>
+                        <td>Quận 11</td>
+                    </tr>
+                    <tr>
+                        <td>28</td>
+                        <td>TCIC – Đặng Văn Bi</td>
+                        <td>151A Đặng Văn Bi, Phường Trường Thọ, TP.Thủ Đức, TP.HCM</td>
+                        <td>TP.Thủ Đức</td>
+                    </tr>
+                    <tr>
+                        <td>29</td>
+                        <td>TCIC – Lê Văn Khương</td>
+                        <td>12 Lê Văn Khương, Phường Thới An, Quận 12, TP.HCM</td>
+                        <td>Quận 12</td>
+                    </tr>
+                    <tr>
+                        <td>30</td>
+                        <td>TCIC – Thích Quảng Đức</td>
+                        <td>15A Thích Quảng Đức, Phường 4, Phú Nhuận, TP.HCM</td>
+                        <td>Phú Nhuận</td>
+                    </tr>
+                </tbody>
+            </table>
+        </figure>
+        <p><!-- /wp:table --></p>
+    </div>
+</div>
+
+
+<style>
+    /* Override header styles for Ice Cream page */
+    .header {
+        position: fixed !important; /* Fixed để có thể scroll */
+        top: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        width: 100% !important; /* Chiếm toàn bộ chiều ngang */
+        background: rgba(0, 0, 0, 0.95) !important; /* Background đen với transparency */
+        margin: 0 !important;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3) !important;
+        z-index: 1000 !important;
+        transition: all 0.3s ease !important;
+        backdrop-filter: blur(10px) !important;
+        padding: 6px 0 !important;
+    }
+
+    /* Header khi scroll */
+    .header.header-scrolled {
+        background: rgba(0, 0, 0, 0.98) !important;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5) !important;
+        padding: 10px 0 !important;
+    }
+
+    /* Header khi ẩn */
+    .header.header-hidden {
+        transform: translateY(-100%) !important;
+    }
+
+    .HOME {
+        transition: all 0.3s ease !important;
+    }
+
+    /* Đảm bảo content không bị che khuất bởi fixed header */
+    body {
+        margin-top: 80px !important; /* Tạo khoảng cách cho fixed header */
+        padding-top: 0 !important;
+    }
+
+    /* Style cho banner và content */
+    .page-top-banner {
+        background: #000 !important;
+        color: white !important;
+        padding: 20px 0 !important;
+        text-align: center !important;
+        font-size: 24px !important;
+        font-weight: bold !important;
+        margin: 0 !important;
+    }
+
+    .page.page-achievement {
+        border-top: none !important;
+        padding-top: 50px !important;
+        margin-top: 0 !important;
+    }
+    
+    /* Smooth scroll behavior */
+    html {
+        scroll-behavior: smooth;
+    }
+
+    .product-card .discount-tag {
+        display: none;
+    }
+
+    @@media(max-width: 767px) {
+        .HOME {
+            padding: 0 20px !important;
+        }
+        
+        .page-top-banner {
+            font-size: 18px !important;
+            padding: 15px 0 !important;
+        }
+    }
+
+        .popup-login-content {
+            background-image: url("https://tocotocotea.com/wp-content/uploads/2024/09/11092024.png");
+            background-size: cover;
+            padding-bottom: 80px;
+        }
+
+        .popup-login-content input::placeholder {
+            color: #fff;
+        }
+
+        @@media only screen and(max-width: 425px) {
+                .popup-login-content {
+                    padding: 24px !important;
+                    background: url("https://tocotocotea.com/wp-content/uploads/2024/09/10092024.png") !important;
+                    background-size: cover !important;
+                }
+            }
+
+            .home-popup .popup {
+                background: transparent !important;
+                box-shadow: none !important;
+                border: 0px !important;
+            }
+
+            .home-popup .close-btn {
+                right: -5px !important;
+                top: 0px !important;
+            }
+        </style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const header = document.querySelector('.header');
+    let lastScrollTop = 0;
+    let isScrolling;
+
+    window.addEventListener('scroll', function () {
+        let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+        // Clear the timeout throughout the scroll
+        window.clearTimeout(isScrolling);
+
+        if (scrollTop > 50) {
+            // Khi cuộn xuống quá 50px
+            header.classList.add('header-scrolled');
+
+            if (scrollTop < lastScrollTop) {
+                // Cuộn lên - ẩn header
+                header.classList.add('header-hidden');
+            } else {
+                // Cuộn xuống - hiện header
+                header.classList.remove('header-hidden');
+            }
+        } else {
+            // Khi ở gần đầu trang
+            header.classList.remove('header-scrolled');
+            header.classList.remove('header-hidden');
+        }
+
+        lastScrollTop = scrollTop;
+
+        // Set a timeout to run after scrolling ends
+        isScrolling = setTimeout(function () {
+            // Hiện header sau khi dừng cuộn 150ms
+            header.classList.remove('header-hidden');
+        }, 150);
+    });
+
+    // Smooth scrolling for any anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                e.preventDefault();
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+});
+</script>

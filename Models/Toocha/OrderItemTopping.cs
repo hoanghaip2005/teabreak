@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using App.Models.Toocha;
 
 namespace toocha.Models.Toocha
 {

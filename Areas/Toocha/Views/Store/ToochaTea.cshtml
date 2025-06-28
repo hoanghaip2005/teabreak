@@ -1,0 +1,225 @@
+@model List<App.Models.Toocha.Store>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Trang Chủ";
+}
+
+<link rel="stylesheet" href="@Url.Content("~/Areas/Toocha/assets/css/Franchise/style.css")">
+<link rel="stylesheet" href="~/Areas/Toocha/assets/css/store.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <div class="mainStore clearfix container-fluid">
+        <div class="sectionTitleStore">
+            <h1>
+                Danh sách cửa hàng
+            </h1>
+            <p>
+                Chọn ngay để biết cửa hàng ở gần bạn nhất!
+            </p>
+        </div>
+        <div class="sectionContentStore">
+            <div class="col-xs-12 col-sm-12 no-padding">
+                <div class="leftCollumStore fixTitleMaps">
+                    <select name="mien" id="mien" class="change-tinh activeSelect col-xs-12" style="display: block;">
+                        <option value="ALL">Tất cả</option>
+                        <option value="MB">Miền bắc</option>
+                        <option value="MN">Miền nam</option>
+                    </select>
+                    <input id="search" name="search" class="change-quan col-xs-12" placeholder="Tìm kiếm">
+                    <div class="resultStoreBig">
+                        <div class="resultStore">
+                            <div class="innerResultStore" id="resultsList">
+                                @foreach (var store in Model)
+                                {
+                                    <div class="itemStore @store.Region" data-region="@store.Region" data-filter="@store.Address">
+                                        <div class="districtStore">
+                                            <a>
+                                                <span>
+                                                    @if (store.Region == "MB")
+                                                    {
+                                                        <img draggable="false" role="img" class="emoji" alt="🧋" src="https://s.w.org/images/core/emoji/14.0.0/svg/1f9cb.svg">
+                                                    }
+                                                    else
+                                                    {
+                                                        <img draggable="false" role="img" class="emoji" alt="🍦" src="https://s.w.org/images/core/emoji/14.0.0/svg/1f366.svg">
+                                                    }
+                                                    @store.Name
+                                                </span>
+                                            </a>
+                                        </div>
+                                        <div class="addressStore">
+                                            <div>
+                                                <p class="infoAddres">Địa chỉ: @store.Address</p>
+                                                <p class="infoTime">
+                                                    @if (!string.IsNullOrEmpty(store.OpeningHours))
+                                                    {
+                                                        @:Thời gian hoạt động: @store.OpeningHours
+                                                    }
+                                                    else
+                                                    {
+                                                        @:Thời gian hoạt động: 9 giờ 00 - 22 giờ 00 (kể cả CN và ngày lễ)
+                                                    }
+                                                </p>
+                                                <div class="store-contact-info">
+                                                    <p class="contact-phone">
+                                                        Điện Thoại: @(store.PhoneNumber ?? "1900.63.69.36")
+                                                    </p>
+                                                    <p class="contact-map">
+                                                        <a target="_blank" href="https://www.google.com/maps/dir/?api=1&destination=@store.Latitude,@store.Longitude">
+                                                            <span class="guideWay">Xem bản đồ <i class="fa fa-map-marker" aria-hidden="true"></i></span>
+                                                        </a>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+   
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function () {
+                    const header = document.querySelector('.header');
+                    let lastScrollTop = 0;
+                    let isScrolling;
+
+                    window.addEventListener('scroll', function () {
+                        let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+                        // Clear the timeout throughout the scroll
+                        window.clearTimeout(isScrolling);
+
+                        if (scrollTop > 50) {
+                            // Khi cuộn xuống quá 50px
+                            header.classList.add('header-scrolled');
+
+                            if (scrollTop < lastScrollTop) {
+                                // Cuộn lên
+                                header.classList.add('header-hidden');
+                            } else {
+                                // Cuộn xuống
+                                header.classList.remove('header-hidden');
+                            }
+                        } else {
+                            // Khi ở gần đầu trang
+                            header.classList.remove('header-scrolled');
+                            header.classList.remove('header-hidden');
+                        }
+
+                        lastScrollTop = scrollTop;
+
+                        // Set a timeout to run after scrolling ends
+                        isScrolling = setTimeout(function () {
+                            // Hiện header sau khi dừng cuộn 150ms
+                            header.classList.remove('header-hidden');
+                        }, 150);
+                    });
+                });
+
+    // Store functionality
+    $(document).ready(function() {
+        // Store original data
+        let allStores = @Html.Raw(Json.Serialize(Model.Select(s => new {
+            s.Id,
+            s.Name,
+            s.Address,
+            s.Latitude,
+            s.Longitude,
+            s.PhoneNumber,
+            s.OpeningHours,
+            s.Region,
+            s.City,
+            s.District,
+            s.Ward
+        })));
+
+        // Filter by region
+        $('#mien').on('change', function() {
+            let selectedRegion = $(this).val();
+            let searchTerm = $('#search').val().toLowerCase();
+            filterStores(selectedRegion, searchTerm);
+        });
+
+        // Search functionality
+        $('#search').on('input', function() {
+            let searchTerm = $(this).val().toLowerCase();
+            let selectedRegion = $('#mien').val();
+            filterStores(selectedRegion, searchTerm);
+        });
+
+        function filterStores(region, searchTerm) {
+            let filteredStores = allStores;
+
+            // Filter by region
+            if (region !== 'ALL') {
+                filteredStores = filteredStores.filter(store => store.region === region);
+            }
+
+            // Filter by search term
+            if (searchTerm) {
+                filteredStores = filteredStores.filter(store => 
+                    store.name.toLowerCase().includes(searchTerm) || 
+                    store.address.toLowerCase().includes(searchTerm)
+                );
+            }
+
+            // Render filtered stores
+            renderStores(filteredStores);
+        }
+
+        function renderStores(stores) {
+            let html = '';
+            stores.forEach(function(store) {
+                let emoji = store.region === 'MB' ? 
+                    '<img draggable="false" role="img" class="emoji" alt="🧋" src="https://s.w.org/images/core/emoji/14.0.0/svg/1f9cb.svg">' :
+                    '<img draggable="false" role="img" class="emoji" alt="🍦" src="https://s.w.org/images/core/emoji/14.0.0/svg/1f366.svg">';
+                
+                let openingHours = store.openingHours || '9 giờ 00 - 22 giờ 00 (kể cả CN và ngày lễ)';
+                let phoneNumber = store.phoneNumber || '1900.63.69.36';
+
+                html += `
+                    <div class="itemStore ${store.region}" data-region="${store.region}" data-filter="${store.address}">
+                        <div class="districtStore">
+                            <a>
+                                <span>${emoji}${store.name}</span>
+                            </a>
+                        </div>
+                        <div class="addressStore">
+                            <div>
+                                <p class="infoAddres">Địa chỉ: ${store.address}</p>
+                                <p class="infoTime">
+                                    Thời gian hoạt động: ${openingHours}
+                                </p>
+                                <div class="store-contact-info">
+                                    <p class="contact-phone">
+                                        Điện Thoại: ${phoneNumber}
+                                    </p>
+                                    <p class="contact-map">
+                                        <a target="_blank" href="https://www.google.com/maps/dir/?api=1&destination=${store.latitude},${store.longitude}">
+                                            <span class="guideWay">Xem bản đồ <i class="fa fa-map-marker" aria-hidden="true"></i></span>
+                                        </a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            $('#resultsList').html(html);
+        }
+
+        // Initial load - show all stores
+        filterStores('ALL', '');
+    });
+    </script> 

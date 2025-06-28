@@ -1,0 +1,560 @@
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Trang Chủ";
+}
+
+<style>
+  /* Reset css */
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+html {
+    font-family: Arial, Helvetica, sans-serif;
+    scroll-behavior: smooth; /* cuộn mượt mà */
+}
+
+.margin-left {
+  margin-left: 15px;
+}
+@* /* Banner nền */
+.background-banner {
+  background-image: url('/Areas/Toocha/assets/img/hinh-anh-giao-dien/img-header.png'); /* Thay bằng ảnh banner của bạn */
+  background-size: cover;
+  background-position: center;
+  height: 110vh;
+  position: relative;
+}
+
+/* Header nổi trên banner */
+.header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 0px 40px;
+  z-index: 999;
+  display: flex;
+  transition: all 0.3s ease;
+  height: 80px;
+}
+
+.header.scrolled {
+  position: fixed;
+  background-color: #222; /* nền đen */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+  backdrop-filter: none;
+}
+
+.header.scrolled i {
+  color: #dac1a3;
+}
+
+.header.scrolled .nav-menu  {
+  color: #dac1a3;
+}
+
+.header-container {
+  max-width: 700px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo img {
+    height: auto;
+    max-height: 27%;
+    width: auto;
+    object-fit: contain;
+    vertical-align: middle;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    height: 240px;
+    transition: all 0.3s ease;
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+}
+
+/* Menu chính */
+.nav-menu {
+  display: flex;
+  flex-wrap: nowrap; /*không được xuống dòng*/
+  gap: 30px;
+  align-items: center;
+  white-space: nowrap; /*ngăn văn bản ngắt dòng trong một phần tử*/
+  margin-left: 20px;
+  color: #dac1a3;
+  margin-right: 50px;
+}
+
+.nav-menu a {
+  text-decoration: none;
+  font-weight: bolder;
+  color: #dac1a3;
+  font-size: 16px;
+  position: relative;
+}
+
+
+/* Hiển thị submenu */
+.menu-item {
+  position: relative;
+}
+
+.nav-arrow {
+   width: 25px;
+  height: 40px;
+  vertical-align: middle;
+}
+
+.submenu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #1f1f1f;
+  padding: 10px 0;
+  min-width: 220px;
+  z-index: 9999;
+  border-radius: 3px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.submenu a {
+  display: block;
+  padding: 10px 20px;
+  color: #fff;
+  font-weight: bold;
+  font-size: 14px;
+  white-space: nowrap;
+  border-bottom: 1px solid #333;
+  text-transform: uppercase;
+}
+
+.submenu a:last-child {
+  border-bottom: none;
+}
+
+.menu-item:hover .submenu {
+  display: block;
+}
+
+/* Hover effect */
+.nav-menu a:hover {
+  text-decoration: underline;
+  
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.search-btn,
+.menu-btn {
+  background-color: #d5b259;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.search-icon,
+.menu-icon {
+  color: white;
+  font-size: 14px;
+} *@
+
+/* Section */
+.news-section .container {
+  display: flex;
+  gap: 40px;
+  padding: 40px 20px;
+  max-width: 1200px;
+  align-items: flex-start;
+  margin: 0 auto; 
+}
+
+.news-content {
+  width: 75%;
+}
+
+.sidebar {
+  width: 25%;
+}
+
+
+.sidebar h3 {
+  color: #c9a03f;
+  margin-bottom: 10px;
+  font-size: 28px;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  margin-bottom: 32px;
+  font-weight: 750;
+}
+
+.category-list {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 30px;
+}
+
+.category-list li a {
+  display: block;
+  padding: 10px 0;
+  font-weight: 600;
+  color: #444;
+  text-decoration: none;
+
+}
+
+.category-list li a:hover {
+  color: #c9a03f;
+}
+
+.tags a {
+  display: inline-block;
+  background-color: #FBEED1;
+  color: #222;
+  font-size: 14px;
+  padding: 10px 12px;
+  margin: 15px 5px 0 0;
+  border-radius: 3px;
+  text-decoration: none;
+}
+
+.tags a:hover {
+  background-color: #c9a03f;
+  color: #fff;
+}
+
+.news-content {
+  width: 75%;
+}
+
+.news-content h2 {
+  font-size: 28px;
+  margin-bottom: 20px;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  font-weight: 750;
+}
+
+.news-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.news-card {
+  border: 1px solid #eee;
+  background-color: #fff;
+  border-radius: 5px;
+  padding-bottom: 70px;
+}
+
+.news-card img {
+  width: 100%;
+  height: auto;
+  
+}
+
+.news-card h4 {
+  font-size: 16px;
+  margin: 10px 18px;
+  color: #333;
+}
+
+.news-card p {
+  font-size: 16px;
+  color: #666;
+  margin-left: 18px;
+}
+
+.btn-read {
+  display: inline-block;
+  margin-top: 50px;
+  background-color: #D3B673;
+  color: #fff;
+  padding: 10px 18px;
+  text-decoration: none;
+  font-size: 18px;
+}
+
+.btn-read:hover {
+  background-color: #b1882f;
+}
+
+/* Pagination */
+.pagination {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.pagination a,
+.pagination span {
+  margin: 0 5px;
+  padding: 8px 12px;
+  text-decoration: none;
+  color: #007bff;
+  font-weight: bold;
+}
+
+.pagination a:hover {
+  background-color: #f1e3b4;
+}
+
+
+/* Footer */
+.footer {
+  background-image:linear-gradient(rgba(0,0,0,0.60), rgba(0,0,0,0.60) ), url('/Areas/Toocha/assets/img/hinh-anh-giao-dien/img-footer.png') ; /* thay bằng ảnh của bạn */
+  background-blend-mode: darken;
+  background-size: cover;
+  background-position: center;
+  color: white;
+  /* padding: 60px 40px 20px;
+  font-size: 17px; */
+   padding-top: 60px;
+  padding-bottom: 30px;
+}
+
+.footer-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: space-between;
+  width: 100%;
+  padding: 40px 60px;
+}
+
+.footer-col {
+  flex: 1 1 25%;
+  min-width: 250px;
+  color: white;
+}
+
+.footer-logo {
+  width: 250px;
+  
+}
+
+.logo-col {
+  flex: 0 0 140px;
+}
+
+.footer-col h4 {
+  color: #d8b44b;
+  margin-bottom: 20px;
+  font-size: 24px;
+}
+
+.footer-col p {
+  margin-bottom: 12px;
+}
+
+.footer-col ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-col ul li {
+  margin-bottom: 12px;
+}
+
+.footer-col ul li a {
+  color: white;
+  text-decoration: none;
+}
+
+.footer-col ul li a:hover {
+  text-decoration: underline;
+}
+
+.footer-socials img {
+  margin-right: 10px;
+  color: white;
+  font-size: 20px;
+}
+
+.footer-apps img {
+  height: 35px;
+  margin-right: 10px;
+  margin-top: 15px;
+}
+
+.footer-tick img {
+    height: 60px;
+    margin-top: 15px;
+}
+
+.footer-bottom {
+  width: 100%;
+  text-align: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  margin-top: 30px;
+  padding-top: 20px;
+  font-size: 13px;
+  color: #eee;
+}
+
+  </style>
+<!--Section-->
+<section class="news-section">
+  <div class="container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <h3>DANH MỤC TIN TỨC</h3>
+      <ul class="category-list">
+        <li><a href="#">CÂU CHUYỆN THƯƠNG HIỆU</a></li>
+        <li><a href="#">TIN TỨC KHUYẾN MÃI</a></li>
+        <li><a href="#">SỰ KIỆN</a></li>
+        <li><a href="#">NHƯỢNG QUYỀN TOOCHA</a></li>
+        <li><a href=""></a></li>
+        <li><a href=""></a></li>
+        <li><a href=""></a></li>
+        <li><a href=""></a></li>
+        <li><a href=""></a></li>
+        <li><a href=""></a></li>
+        <li><a href=""></a></li>
+      </ul>
+
+      <h3>TỪ KHÓA</h3>
+      <div class="tags">
+        <a href="#">lịch hoạt động tết</a>
+        <a href="#">partners</a>
+        <a href="#">bộ sưu tập món mới</a>
+        <a href="#">cảm xúc của 3 cung hoàng đạo khi được mời trà sữa</a>
+        <a href="#">thương hiệu trà sữa Việt</a>
+        <a href="#">nông sản Việt</a>
+        <!-- thêm các tag -->
+      </div>
+    </aside>
+
+    <!-- Main News -->
+    <div class="news-content">
+      <h2>TIN TỨC</h2>
+      <div class="news-grid">
+        <div class="news-card">
+          <img src="/Areas/Toocha/assets/img/hinh-anh-giao-dien/img-1.png" alt="News 1">
+          <h4>TOOCHA – Thương hiệu trà sữa Việt cam kết sử dụng nguồn nguyên liệu an toàn, chất lượng</h4>
+          <p>Nguyên liệu đầu vào đảm bảo chất lượng chính là lý do làm nên sự khác biệt của thương hiệu cũng như từng ly đồ uống so với những thương […]</p>
+          <a href="#" class="btn-read margin-left">Xem thêm</a>
+        </div>
+        <!-- thêm các .news-card -->
+         <div class="news-card">
+          <img src="/Areas/Toocha/assets/img/hinh-anh-giao-dien/img-2.png" alt="News 1">
+          <h4>THÔNG BÁO LỊCH HOẠT ĐỘNG TẾT GIÁP THÌN 2024 CỦA TOOCHA</h4>
+          <p>TooCha xin thông báo lịch hoạt động Tết Nguyên Đán 2024 từ ngày 09/02 đến hết ngày 12/02 (tức từ 30 Tết đến hết Mùng 3 Âm Lịch). Trước và […]</p>
+          <a href="#" class="btn-read margin-left">Xem thêm</a>
+        </div>
+
+        <div class="news-card">
+          <img src="/Areas/Toocha/assets/img/hinh-anh-giao-dien/img-3.png" alt="News 1">
+          <h4>TooCha partners with Laughing Cow Cheese to create a new flavor</h4>
+          <p>TooCha has teamed up with Bel Vietnam Co., Ltd., the distributor of Laughing Cow Cheese, to launch a new product: Cheese Boba Milk Tea. The partnership combines high-quality ingredients with […]</p>
+          <a href="#" class="btn-read margin-left">Xem thêm</a>
+        </div>
+
+        <div class="news-card">
+          <img src="/Areas/Toocha/assets/img/hinh-anh-giao-dien/img-4.png" alt="News 1">
+          <h4>TooCha – Thổi hồn nông sản Việt vào từng ly đồ uống</h4>
+          <p>Trà sữa TooCha không đơn thuần là một ly đồ uống, đó còn là hành trình “thuần hóa” cái hồn của nông sản Việt từ các chuyên gia, kết hợp […]</p>
+          <a href="#" class="btn-read margin-left">Xem thêm</a>
+        </div>
+
+        <div class="news-card">
+          <img src="/Areas/Toocha/assets/img/hinh-anh-giao-dien/img-5.png" alt="News 1">
+          <h4>Nhìn lại hành trình 5 năm không ngừng nỗ lực vươn xa biển lớn của thương hiệu trà sữa Việt – TooCha</h4>
+          <p>Trải qua 5 năm phát triển bền vững, TooCha đã khẳng định chất lượng bên cạnh sự miệt mài trên con đường nâng tầm thương hiệu Việt trên thị trường […]</p>
+          <a href="#" class="btn-read margin-left">Xem thêm</a>
+        </div>
+
+        <div class="news-card">
+          <img src="/Areas/Toocha/assets/img/hinh-anh-giao-dien/img-6.png" alt="News 1">
+          <h4>Bật mí phương pháp làm đẹp từ “thần dược”tự nhiên mang tên Dâu tằm</h4>
+          <p>Bật mí phương pháp làm đẹp từ “thần dược” tự nhiên mang tên Dâu tằm Không chỉ là một loại quả để giải khát, những trái dâu tằm chín mọng […]</p>
+          <a href="#" class="btn-read margin-left">Xem thêm</a>
+        </div>
+
+        <div class="news-card">
+          <img src="/Areas/Toocha/assets/img/hinh-anh-giao-dien/img-7.png" alt="News 1">
+          <h4>“Bóc mẽ”cảm xúc của 3 cung hoàng đạo khi bỗng dưng được mời trà sữa</h4>
+          <p>Khi được mời trà sữa, trong khi Bọ Cạp còn đang nghi vấn “tại sao lại mời” thì Sư Tử đã lên đồ lồng lộn trong vòng một nốt nhạc. […]</p>
+          <a href="#" class="btn-read margin-left">Xem thêm</a>
+        </div>
+
+        <div class="news-card">
+          <img src="/Areas/Toocha/assets/img/hinh-anh-giao-dien/img-8.png" alt="News 1">
+          <h4>BỘ SƯU TẬP MÓN MỚI TOOCHA AI MUỐN KHỎE ĐẸP NHẤT ĐỊNH PHẢI THỬ</h4>
+          <p>Ngày 18.10, TooCha trình làng 5 món uống mới thổi bay cơn khát, thanh mát cả tâm hồn với hương vị vô cùng hấp dẫn khiến các tín đồ “healthy” […]</p>
+          <a href="#" class="btn-read margin-left">Xem thêm</a>
+        </div>
+      </div>
+
+      <!-- Pagination -->
+      <div class="pagination">
+        <a href="#">1</a>
+        <a href="#">2</a>
+        <span>...</span>
+        <a href="#">»</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const header = document.querySelector('.header');
+            let lastScrollTop = 0;
+            let isScrolling;
+
+            window.addEventListener('scroll', function () {
+                let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+                // Clear the timeout throughout the scroll
+                window.clearTimeout(isScrolling);
+
+                if (scrollTop > 50) {
+                    // Khi cuộn xuống quá 50px
+                    header.classList.add('header-scrolled');
+
+                    if (scrollTop < lastScrollTop) {
+                        // Cuộn lên
+                        header.classList.add('header-hidden');
+                    } else {
+                        // Cuộn xuống
+                        header.classList.remove('header-hidden');
+                    }
+                } else {
+                    // Khi ở gần đầu trang
+                    header.classList.remove('header-scrolled');
+                    header.classList.remove('header-hidden');
+                }
+
+                lastScrollTop = scrollTop;
+
+                // Set a timeout to run after scrolling ends
+                isScrolling = setTimeout(function () {
+                    // Hiện header sau khi dừng cuộn 150ms
+                    header.classList.remove('header-hidden');
+                }, 150);
+            });
+        });
+    </script>

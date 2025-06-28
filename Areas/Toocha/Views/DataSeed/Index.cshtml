@@ -1,0 +1,173 @@
+@{
+    ViewData["Title"] = "Seed Dữ Liệu";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="mb-0"><i class="fas fa-database"></i> Quản Lý Dữ Liệu</h3>
+                </div>
+                <div class="card-body">
+                    <div class="text-center mb-4">
+                        <i class="fas fa-seedling text-success" style="font-size: 3rem;"></i>
+                        <h4 class="mt-3">Seed Dữ Liệu Mẫu</h4>
+                        <p class="text-muted">Tạo dữ liệu mẫu cho ứng dụng Toocha Tea Shop</p>
+                    </div>
+
+                    <div class="alert alert-info">
+                        <strong><i class="fas fa-info-circle"></i> Lưu ý:</strong>
+                        <ul class="mb-0 mt-2">
+                            <li>Sẽ tạo <strong>8 danh mục</strong> sản phẩm</li>
+                            <li>Sẽ tạo <strong>23+ sản phẩm</strong> với hình ảnh và giá cả</li>
+                            <li>Sẽ tạo <strong>3 sizes</strong> (M, L, XL)</li>
+                            <li>Sẽ tạo <strong>7 toppings</strong> (trân châu, thạch, kem cheese,...)</li>
+                        </ul>
+                    </div>
+
+                    <div id="result-message" style="display: none;"></div>
+
+                    <div class="text-center">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <button id="btn-clear-data" class="btn btn-danger btn-lg px-4 py-3 w-100">
+                                    <i class="fas fa-trash-alt"></i> Xóa Hết Dữ Liệu
+                                </button>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <button id="btn-seed-data" class="btn btn-success btn-lg px-4 py-3 w-100">
+                                    <i class="fas fa-play-circle"></i> Seed Dữ Liệu Ngay
+                                </button>
+                            </div>
+                        </div>
+                        <div id="loading" style="display: none;" class="mt-3">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                            <p class="mt-2" id="loading-text">Đang xử lý...</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer text-muted text-center">
+                    <small>
+                        <i class="fas fa-shield-alt"></i> 
+                        Dữ liệu sẽ chỉ được tạo nếu database hiện tại trống
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            // Xử lý nút xóa dữ liệu
+            $('#btn-clear-data').click(function() {
+                if (!confirm('⚠️ Bạn có chắc chắn muốn xóa HẾT dữ liệu trong database?\n\nHành động này KHÔNG THỂ hoàn tác!')) {
+                    return;
+                }
+
+                // Hiển thị loading
+                $('#loading').show();
+                $('#loading-text').text('Đang xóa dữ liệu...');
+                $('#btn-clear-data').prop('disabled', true);
+                $('#btn-seed-data').prop('disabled', true);
+                $('#result-message').hide();
+
+                // Gọi API xóa dữ liệu
+                $.ajax({
+                    url: '@Url.Action("ClearData", "DataSeed", new { area = "Toocha" })',
+                    type: 'POST',
+                    success: function(response) {
+                        $('#loading').hide();
+                        $('#btn-clear-data').prop('disabled', false);
+                        $('#btn-seed-data').prop('disabled', false);
+                        
+                        if (response.success) {
+                            $('#result-message')
+                                .removeClass('alert-danger alert-warning')
+                                .addClass('alert alert-success')
+                                .html('<i class="fas fa-check-circle"></i> ' + response.message)
+                                .show();
+                        } else {
+                            $('#result-message')
+                                .removeClass('alert-success')
+                                .addClass('alert alert-danger')
+                                .html('<i class="fas fa-times-circle"></i> ' + response.message)
+                                .show();
+                        }
+                    },
+                    error: function() {
+                        $('#loading').hide();
+                        $('#btn-clear-data').prop('disabled', false);
+                        $('#btn-seed-data').prop('disabled', false);
+                        $('#result-message')
+                            .removeClass('alert-success')
+                            .addClass('alert alert-danger')
+                            .html('<i class="fas fa-times-circle"></i> Có lỗi xảy ra khi xóa dữ liệu!')
+                            .show();
+                    }
+                });
+            });
+
+            // Xử lý nút seed dữ liệu
+            $('#btn-seed-data').click(function() {
+                // Hiển thị loading
+                $('#loading').show();
+                $('#loading-text').text('Đang tạo dữ liệu...');
+                $('#btn-seed-data').prop('disabled', true);
+                $('#btn-clear-data').prop('disabled', true);
+                $('#result-message').hide();
+
+                // Gọi API seed dữ liệu
+                $.ajax({
+                    url: '@Url.Action("SeedData", "DataSeed", new { area = "Toocha" })',
+                    type: 'POST',
+                    success: function(response) {
+                        $('#loading').hide();
+                        $('#btn-seed-data').prop('disabled', false);
+                        $('#btn-clear-data').prop('disabled', false);
+                        
+                        if (response.success) {
+                            $('#result-message')
+                                .removeClass('alert-danger')
+                                .addClass('alert alert-success')
+                                .html('<i class="fas fa-check-circle"></i> ' + response.message)
+                                .show();
+                            
+                            // Hiển thị nút đi đến trang Order
+                            setTimeout(function() {
+                                $('#result-message').append(
+                                    '<div class="mt-3">' +
+                                    '<a href="@Url.Action("Index", "Order", new { area = "Toocha" })" class="btn btn-primary">' +
+                                    '<i class="fas fa-shopping-cart"></i> Xem Trang Đặt Hàng' +
+                                    '</a>' +
+                                    '</div>'
+                                );
+                            }, 1000);
+                        } else {
+                            $('#result-message')
+                                .removeClass('alert-success')
+                                .addClass('alert alert-warning')
+                                .html('<i class="fas fa-exclamation-triangle"></i> ' + response.message)
+                                .show();
+                        }
+                    },
+                    error: function() {
+                        $('#loading').hide();
+                        $('#btn-seed-data').prop('disabled', false);
+                        $('#btn-clear-data').prop('disabled', false);
+                        $('#result-message')
+                            .removeClass('alert-success')
+                            .addClass('alert alert-danger')
+                            .html('<i class="fas fa-times-circle"></i> Có lỗi xảy ra khi seed dữ liệu!')
+                            .show();
+                    }
+                });
+            });
+        });
+    </script>
+} 
