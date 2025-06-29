@@ -7,7 +7,6 @@
 
 <link rel="stylesheet" href="@Url.Content("~/Areas/Toocha/assets/css/Franchise/style.css")">
 <link rel="stylesheet" href="~/Areas/Toocha/assets/css/store.css">
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <div class="mainStore clearfix container-fluid">
         <div class="sectionTitleStore">
@@ -87,47 +86,50 @@
    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
 
-    <script type="text/javascript">
+@section Scripts {
+    <script>
         document.addEventListener('DOMContentLoaded', function () {
-                    const header = document.querySelector('.header');
-                    let lastScrollTop = 0;
-                    let isScrolling;
+            const header = document.querySelector('.header');
+            let lastScrollTop = 0;
+            let isScrolling;
 
-                    window.addEventListener('scroll', function () {
-                        let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            window.addEventListener('scroll', function () {
+                let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
 
-                        // Clear the timeout throughout the scroll
-                        window.clearTimeout(isScrolling);
+                // Clear the timeout throughout the scroll
+                window.clearTimeout(isScrolling);
 
-                        if (scrollTop > 50) {
-                            // Khi cuộn xuống quá 50px
-                            header.classList.add('header-scrolled');
+                if (scrollTop > 50) {
+                    // Khi cuộn xuống quá 50px
+                    header.classList.add('header-scrolled');
 
-                            if (scrollTop < lastScrollTop) {
-                                // Cuộn lên
-                                header.classList.add('header-hidden');
-                            } else {
-                                // Cuộn xuống
-                                header.classList.remove('header-hidden');
-                            }
-                        } else {
-                            // Khi ở gần đầu trang
-                            header.classList.remove('header-scrolled');
-                            header.classList.remove('header-hidden');
-                        }
+                    if (scrollTop < lastScrollTop) {
+                        // Cuộn lên
+                        header.classList.add('header-hidden');
+                    } else {
+                        // Cuộn xuống
+                        header.classList.remove('header-hidden');
+                    }
+                } else {
+                    // Khi ở gần đầu trang
+                    header.classList.remove('header-scrolled');
+                    header.classList.remove('header-hidden');
+                }
 
-                        lastScrollTop = scrollTop;
+                lastScrollTop = scrollTop;
 
-                        // Set a timeout to run after scrolling ends
-                        isScrolling = setTimeout(function () {
-                            // Hiện header sau khi dừng cuộn 150ms
-                            header.classList.remove('header-hidden');
-                        }, 150);
-                    });
-                });
+                // Set a timeout to run after scrolling ends
+                isScrolling = setTimeout(function () {
+                    // Hiện header sau khi dừng cuộn 150ms
+                    header.classList.remove('header-hidden');
+                }, 150);
+            });
+        });
+    </script>
+}
 
-    // Store functionality
-    $(document).ready(function() {
+
+    <script type="text/javascript">
         // Store original data
         let allStores = @Html.Raw(Json.Serialize(Model.Select(s => new {
             s.Id,
@@ -223,3 +225,9 @@
         filterStores('ALL', '');
     });
     </script> 
+
+    <style>
+        .header {
+            position: fixed !important;
+        }
+    </style>

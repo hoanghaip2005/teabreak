@@ -1,0 +1,462 @@
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Lịch Sử Hình Thành Toocha";
+    ViewData["HideBanner"] = true;
+}
+
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Be Vietnam Pro', sans-serif;
+        line-height: 1.6;
+        color: #333;
+    }
+
+    .history-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+
+    .container-fluid {
+        padding: 0;
+    }
+
+
+    /* Hero Section */
+    .hero-section {
+        background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+        color: white;
+        padding: 100px 0 80px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .hero-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="tea-pattern" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="1" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23tea-pattern)"/></svg>');
+        opacity: 0.3;
+    }
+
+    .hero-content {
+        position: relative;
+        z-index: 2;
+    }
+
+    .hero-title {
+        font-size: 3.5rem;
+        font-weight: 800;
+        margin-bottom: 20px;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+
+    .hero-subtitle {
+        font-size: 1.3rem;
+        font-weight: 400;
+        max-width: 800px;
+        margin: 0 auto;
+        opacity: 0.95;
+        line-height: 1.8;
+    }
+
+    /* Section Styles */
+    .content-section {
+        padding: 80px 0;
+        position: relative;
+    }
+
+    .content-section:nth-child(even) {
+        background: #f8f9fa;
+    }
+
+    .section-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        text-align: center;
+        margin-bottom: 60px;
+        color: #2c3e50;
+        position: relative;
+    }
+
+    .section-title::after {
+        content: '';
+        position: absolute;
+        bottom: -15px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 4px;
+        background: linear-gradient(90deg, #e74c3c, #f39c12);
+        border-radius: 2px;
+    }
+
+    .section-content {
+        font-size: 1.1rem;
+        line-height: 1.8;
+        margin-bottom: 40px;
+        text-align: justify;
+    }
+
+    /* Origin Section */
+    .origin-section {
+        background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('@Url.Content("~/Areas/Toocha/assets/img/introduce/tea.png")');
+        background-size: cover;
+        background-position: center;
+        color: white;
+    }
+
+    .origin-section .section-title {
+        color: white;
+    }
+
+    .origin-content {
+        background: rgba(255,255,255,0.95);
+        color: #333;
+        padding: 50px;
+        border-radius: 15px;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        backdrop-filter: blur(10px);
+    }
+
+    /* Philosophy Section */
+    .philosophy-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 40px;
+        margin-top: 60px;
+    }
+
+    .philosophy-item {
+        background: white;
+        padding: 40px 30px;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        transition: all 0.3s ease;
+        border-left: 5px solid #e74c3c;
+    }
+
+    .philosophy-item:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    }
+
+    .philosophy-item h3 {
+        font-size: 1.4rem;
+        font-weight: 600;
+        margin-bottom: 15px;
+        color: #2c3e50;
+        display: flex;
+        align-items: center;
+    }
+
+    .philosophy-item h3 i {
+        margin-right: 10px;
+        color: #e74c3c;
+        font-size: 1.2rem;
+    }
+
+    .philosophy-item p {
+        color: #666;
+        line-height: 1.7;
+    }
+
+    /* Vietnam Journey Section */
+    .vietnam-section {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+    }
+
+    .vietnam-section .section-title {
+        color: white;
+    }
+
+    .vietnam-content {
+        background: rgba(255,255,255,0.95);
+        color: #333;
+        padding: 50px;
+        border-radius: 15px;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    }
+
+    /* Commitment Section */
+    .commitment-section {
+        background: linear-gradient(45deg, #2c3e50, #3498db);
+        color: white;
+        text-align: center;
+    }
+
+    .commitment-section .section-title {
+        color: white;
+    }
+
+    .commitment-quote {
+        font-size: 1.8rem;
+        font-weight: 600;
+        font-style: italic;
+        margin: 40px 0;
+        padding: 30px;
+        background: rgba(255,255,255,0.1);
+        border-radius: 15px;
+        border-left: 5px solid #f39c12;
+    }
+
+    .commitment-text {
+        font-size: 1.2rem;
+        line-height: 1.8;
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    /* Timeline Decoration */
+    .timeline-dot {
+        position: absolute;
+        left: 50%;
+        top: -20px;
+        transform: translateX(-50%);
+        width: 40px;
+        height: 40px;
+        background: #e74c3c;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: bold;
+        box-shadow: 0 5px 15px rgba(231, 76, 60, 0.3);
+    }
+
+    /* Responsive Design */
+    @@media (max-width: 768px) {
+        .hero-title {
+            font-size: 2.5rem;
+        }
+
+        .hero-subtitle {
+            font-size: 1.1rem;
+        }
+
+        .section-title {
+            font-size: 2rem;
+        }
+
+        .content-section {
+            padding: 60px 0;
+        }
+
+        .origin-content,
+        .vietnam-content {
+            padding: 30px 20px;
+        }
+
+        .philosophy-grid {
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+
+        .commitment-quote {
+            font-size: 1.4rem;
+        }
+    }
+
+    @@media (max-width: 480px) {
+        .history-container {
+            padding: 0 15px;
+        }
+
+        .hero-title {
+            font-size: 2rem;
+        }
+
+        .philosophy-item {
+            padding: 30px 20px;
+        }
+    }
+
+    /* Animation */
+    .fade-in {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.8s ease;
+    }
+
+    .fade-in.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+</style>
+
+<main>
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="history-container">
+            <div class="hero-content fade-in">
+                <h1 class="hero-title">Toocha - Hành Trình Của Những Tách Trà Được Tạo Tác Từ Trái Tim</h1>
+                <p class="hero-subtitle">
+                    Mỗi ly trà là một tác phẩm, mỗi hương vị là một câu chuyện. Toocha ra đời từ niềm đam mê mang đến những giá trị nguyên bản và chân thật nhất của trà.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Phần 1: Khởi Nguồn Đam Mê -->
+    <section class="content-section origin-section">
+        <div class="timeline-dot">1</div>
+        <div class="history-container">
+            <h2 class="section-title fade-in">Cội Nguồn Từ Xứ Sở Trà Sữa</h2>
+            <div class="origin-content fade-in">
+                <p class="section-content">
+                    Toocha được khai sinh tại Đài Loan, cái nôi của văn hóa trà sữa trân châu. Giữa hàng ngàn thương hiệu, những nhà sáng lập Toocha mang trong mình một khát vọng khác biệt: tạo ra một dòng trà sữa không chỉ để giải khát, mà còn để thưởng thức, để cảm nhận sự tinh túy từ lá trà tươi nguyên bản.
+                </p>
+                <p class="section-content">
+                    Cái tên "Toocha" được lấy cảm hứng từ chữ "Tô Trà" (Tô - 作), trong tiếng Hán có nghĩa là "sáng tạo, làm ra". Tên gọi này thể hiện triết lý cốt lõi của thương hiệu: mỗi ly trà đều được "tô vẽ", được sáng tạo một cách tỉ mỉ và tâm huyết như một tác phẩm nghệ thuật.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Phần 2: Triết Lý Tạo Nên Sự Khác Biệt -->
+    <section class="content-section">
+        <div class="timeline-dot">2</div>
+        <div class="history-container">
+            <h2 class="section-title fade-in">Điều Gì Làm Nên Một Ly Trà Toocha?</h2>
+            <p class="section-content fade-in" style="text-align: center; font-size: 1.2rem; margin-bottom: 60px;">
+                Tại Toocha, chúng tôi tin rằng một ly trà ngon bắt nguồn từ những điều đơn giản nhưng hoàn hảo nhất.
+            </p>
+            
+            <div class="philosophy-grid">
+                <div class="philosophy-item fade-in">
+                    <h3><i class="fas fa-leaf"></i> Lá Trà Tươi Tuyển Chọn</h3>
+                    <p>Chúng tôi chỉ sử dụng những búp trà tươi được tuyển chọn kỹ lưỡng từ các nông trường trà danh tiếng. Trà được ủ mới mỗi 4 tiếng để đảm bảo giữ trọn vẹn hương vị tươi ngon và đậm đà nhất.</p>
+                </div>
+                
+                <div class="philosophy-item fade-in">
+                    <h3><i class="fas fa-seedling"></i> Nguyên Liệu Tự Nhiên</h3>
+                    <p>Toocha nói không với hương liệu nhân tạo. Vị ngọt của trà đến từ đường mía tự nhiên, vị béo đến từ sữa chất lượng cao, và hương thơm đến từ hoa quả tươi.</p>
+                </div>
+                
+                <div class="philosophy-item fade-in">
+                    <h3><i class="fas fa-hand-paper"></i> Sự Sáng Tạo Thủ Công</h3>
+                    <p>Từ những viên trân châu dẻo dai đến lớp kem phô mai béo ngậy, tất cả đều được chúng tôi chuẩn bị thủ công mỗi ngày, mang đến trải nghiệm độc đáo và chất lượng không thể sao chép.</p>
+                </div>
+                
+                <div class="philosophy-item fade-in">
+                    <h3><i class="fas fa-heart"></i> Pha Chế Bằng Cả Trái Tim</h3>
+                    <p>Đội ngũ của Toocha được đào tạo không chỉ về kỹ năng pha chế, mà còn về tình yêu và sự trân trọng đối với từng ly trà trao đến tay khách hàng.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Phần 3: Hành Trình Đến Việt Nam -->
+    <section class="content-section vietnam-section">
+        <div class="timeline-dot">3</div>
+        <div class="history-container">
+            <h2 class="section-title fade-in">Mang Tinh Hoa Trà Đài Loan Đến Gần Bạn Hơn</h2>
+            <div class="vietnam-content fade-in">
+                <p class="section-content">
+                    Năm 2017, Toocha chính thức đặt chân đến Việt Nam với mong muốn lan tỏa tình yêu trà sữa chân chính đến những tâm hồn đồng điệu.
+                </p>
+                <p class="section-content">
+                    Hiểu rằng khẩu vị của người Việt rất tinh tế, Toocha không ngừng nghiên cứu và phát triển để mang đến những sản phẩm vừa giữ được nét đặc trưng của trà Đài Loan, vừa phù hợp với văn hóa thưởng thức của người Việt Nam.
+                </p>
+                <p class="section-content">
+                    Sự đón nhận nồng nhiệt của các bạn chính là động lực lớn nhất để Toocha tiếp tục mở rộng, phát triển và hoàn thiện mỗi ngày.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Phần 4: Lời Cam Kết -->
+    <section class="content-section commitment-section">
+        <div class="timeline-dot">4</div>
+        <div class="history-container">
+            <h2 class="section-title fade-in">Cam Kết Từ Trái Tim</h2>
+            <div class="fade-in">
+                <p class="commitment-text">
+                    Hành trình của Toocha vẫn đang tiếp tục. Chúng tôi cam kết sẽ luôn giữ vững triết lý ban đầu:
+                </p>
+                <div class="commitment-quote">
+                    "Lấy chất lượng làm gốc, lấy sự tận tâm làm kim chỉ nam."
+                </div>
+                <p class="commitment-text">
+                    Mỗi ly trà bạn cầm trên tay không chỉ là một thức uống, đó là tâm huyết, là câu chuyện và là lời cảm ơn chân thành mà Toocha muốn gửi đến bạn.
+                </p>
+                <p class="commitment-text" style="margin-top: 40px; font-weight: 600; font-size: 1.3rem;">
+                    Cảm ơn đã đồng hành cùng Toocha!
+                </p>
+            </div>
+        </div>
+    </section>
+</main>
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animation on scroll
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, observerOptions);
+
+            // Observe all fade-in elements
+            document.querySelectorAll('.fade-in').forEach(el => {
+                observer.observe(el);
+            });
+
+            // Header scroll behavior
+            const header = document.querySelector('.header');
+            let lastScrollTop = 0;
+            let isScrolling;
+
+            window.addEventListener('scroll', function() {
+                let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+                window.clearTimeout(isScrolling);
+
+                if (scrollTop > 50) {
+                    header?.classList.add('header-scrolled');
+
+                    if (scrollTop < lastScrollTop) {
+                        header?.classList.add('header-hidden');
+                    } else {
+                        header?.classList.remove('header-hidden');
+                    }
+                } else {
+                    header?.classList.remove('header-scrolled');
+                    header?.classList.remove('header-hidden');
+                }
+
+                lastScrollTop = scrollTop;
+
+                isScrolling = setTimeout(function() {
+                    header?.classList.remove('header-hidden');
+                }, 150);
+            });
+        });
+    </script>
+} 

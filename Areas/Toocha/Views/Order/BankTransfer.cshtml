@@ -1,0 +1,2065 @@
+@model dynamic
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Thanh toán trực tuyến - TOOCHA TEA</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/Areas/Toocha/assets/css/order.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <script src="https://kit.fontawesome.com/5ca428eb12.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    @Html.AntiForgeryToken()
+    
+    <header class="header">
+        <a href="/Toocha/Order" class="logo">
+            <i class="fas fa-arrow-left mr-2"></i>
+            TOOCHA TEA
+        </a>
+        <div class="header-title">
+            <h4 class="mb-0">Thanh toán trực tuyến</h4>
+        </div>
+    </header>
+
+    <div class="bank-transfer-container">
+        <div class="container-fluid">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <div class="bank-transfer-content">
+                        <!-- Order Summary Card -->
+                        <div class="card order-summary-card">
+                            <div class="card-header gradient-header">
+                                <h5 class="card-title mb-0">
+                                    <i class="fas fa-receipt mr-2"></i>
+                                    Thông tin đơn hàng
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="order-info">
+                                    <div class="order-row">
+                                        <span class="order-label">Mã đơn hàng:</span>
+                                        <span class="order-value order-id" id="orderIdDisplay">#000001</span>
+                                    </div>
+                                    <div class="order-row">
+                                        <span class="order-label">Khách hàng:</span>
+                                        <span class="order-value" id="customerNameDisplay">Nguyễn Văn A</span>
+                                    </div>
+                                    <div class="order-row">
+                                        <span class="order-label">Số điện thoại:</span>
+                                        <span class="order-value" id="customerPhoneDisplay">0987654321</span>
+                                    </div>
+                                    <div class="order-row">
+                                        <span class="order-label">Địa chỉ giao hàng:</span>
+                                        <span class="order-value" id="customerAddressDisplay">123 Đường ABC, Quận 1, TP.HCM</span>
+                                    </div>
+                                    <div class="order-row total-row">
+                                        <span class="order-label">Tổng thanh toán:</span>
+                                        <span class="order-value total-amount" id="totalAmountDisplay">150,000đ</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Payment Method Selection -->
+                        <div class="card payment-method-card">
+                            <div class="card-header gradient-header">
+                                <h5 class="card-title mb-0">
+                                    <i class="fas fa-credit-card mr-2"></i>
+                                    Chọn phương thức thanh toán
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="payment-methods-grid">
+                                    <div class="payment-method-item active" data-method="bank">
+                                        <div class="payment-icon bank-icon">
+                                            <i class="fas fa-university"></i>
+                                        </div>
+                                        <div class="payment-info">
+                                            <h6>Chuyển khoản ngân hàng</h6>
+                                            <small>Vietcombank, ACB, Techcombank...</small>
+                                        </div>
+                                        <div class="payment-badge">
+                                            <span class="badge badge-success">Miễn phí</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="payment-method-item" data-method="momo">
+                                        <div class="payment-icon momo-icon">
+                                            <i class="fas fa-mobile-alt"></i>
+                                        </div>
+                                        <div class="payment-info">
+                                            <h6>Ví MoMo</h6>
+                                            <small>Thanh toán qua ví điện tử MoMo</small>
+                                        </div>
+                                        <div class="payment-badge">
+                                            <span class="badge badge-info">Nhanh chóng</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="payment-method-item" data-method="zalopay">
+                                        <div class="payment-icon zalopay-icon">
+                                            <i class="fas fa-wallet"></i>
+                                        </div>
+                                        <div class="payment-info">
+                                            <h6>ZaloPay</h6>
+                                            <small>Thanh toán qua ví ZaloPay</small>
+                                        </div>
+                                        <div class="payment-badge">
+                                            <span class="badge badge-primary">Ưu đãi</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="payment-method-item" data-method="vnpay">
+                                        <div class="payment-icon vnpay-icon">
+                                            <i class="fas fa-credit-card"></i>
+                                        </div>
+                                        <div class="payment-info">
+                                            <h6>VNPay</h6>
+                                            <small>Thẻ ATM, Visa, MasterCard</small>
+                                        </div>
+                                        <div class="payment-badge">
+                                            <span class="badge badge-warning">An toàn</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <!-- Payment Details Card -->
+                            <div class="col-lg-6">
+                                <!-- Bank Transfer Section -->
+                                <div class="card payment-details-card" id="bankDetails">
+                                    <div class="card-header gradient-header">
+                                        <h5 class="card-title mb-0">
+                                            <i class="fas fa-university mr-2"></i>
+                                            Thông tin chuyển khoản
+                                        </h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="bank-details">
+                                            <div class="bank-item">
+                                                <label>Ngân hàng:</label>
+                                                <div class="bank-value">
+                                                    <strong>Ngân hàng TMCP Ngoại Thương Việt Nam (Vietcombank)</strong>
+                                                    <button class="btn-copy" onclick="copyToClipboard('Vietcombank')" title="Copy">
+                                                        <i class="fas fa-copy"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="bank-item">
+                                                <label>Số tài khoản:</label>
+                                                <div class="bank-value">
+                                                    <strong>1021796868</strong>
+                                                    <button class="btn-copy" onclick="copyToClipboard('1021796868')" title="Copy số tài khoản">
+                                                        <i class="fas fa-copy"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="bank-item">
+                                                <label>Chủ tài khoản:</label>
+                                                <div class="bank-value">
+                                                    <strong>CONG TY TNHH TOOCHA TEA</strong>
+                                                    <button class="btn-copy" onclick="copyToClipboard('CONG TY TNHH TOOCHA TEA')" title="Copy tên tài khoản">
+                                                        <i class="fas fa-copy"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="bank-item">
+                                                <label>Số tiền:</label>
+                                                <div class="bank-value amount-highlight">
+                                                    <strong id="transferAmount">150,000đ</strong>
+                                                    <button class="btn-copy" onclick="copyToClipboard('150000')" title="Copy số tiền">
+                                                        <i class="fas fa-copy"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="bank-item">
+                                                <label>Nội dung chuyển khoản:</label>
+                                                <div class="bank-value transfer-content">
+                                                    <strong id="transferContent">TOOCHA ORDER 000001</strong>
+                                                    <button class="btn-copy" onclick="copyToClipboard(document.getElementById('transferContent').textContent)" title="Copy nội dung">
+                                                        <i class="fas fa-copy"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- E-Wallet Details (Hidden initially) -->
+                                <div class="card payment-details-card" id="ewalletDetails" style="display: none;">
+                                    <div class="card-header gradient-header">
+                                        <h5 class="card-title mb-0">
+                                            <i class="fas fa-mobile-alt mr-2"></i>
+                                            <span id="ewalletTitle">Thanh toán ví điện tử</span>
+                                        </h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="ewallet-instructions">
+                                            <h6>Hướng dẫn thanh toán:</h6>
+                                            <ol id="ewalletSteps">
+                                                <li>Mở ứng dụng ví điện tử trên điện thoại</li>
+                                                <li>Chọn "Quét mã QR" hoặc "Thanh toán QR"</li>
+                                                <li>Quét mã QR bên phải để thanh toán</li>
+                                                <li>Xác nhận thông tin và hoàn tất thanh toán</li>
+                                            </ol>
+                                        </div>
+                                        
+                                        <div class="payment-amount">
+                                            <label>Số tiền thanh toán:</label>
+                                            <div class="amount-display">
+                                                <strong id="ewalletAmount">150,000đ</strong>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- QR Code Section -->
+                            <div class="col-lg-6">
+                                <div class="card qr-code-card">
+                                    <div class="card-header gradient-header">
+                                        <h5 class="card-title mb-0">
+                                            <i class="fas fa-qrcode mr-2"></i>
+                                            <span id="qrTitle">QR Code chuyển khoản</span>
+                                        </h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="qr-section">
+                                            <div class="qr-container">
+                                                <div class="qr-placeholder" id="qrCodeContainer">
+                                                    <div class="qr-loading">
+                                                        <i class="fas fa-spinner fa-spin"></i>
+                                                        <p>Đang tạo mã QR...</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="qr-note">
+                                                <i class="fas fa-info-circle"></i>
+                                                <span id="qrNote">Quét mã QR để chuyển khoản nhanh chóng</span>
+                                            </div>
+                                            
+                                            <!-- QR Download Button -->
+                                            <div class="qr-actions" style="display: none;">
+                                                <button class="btn btn-outline-primary btn-download-qr" onclick="downloadQR()">
+                                                    <i class="fas fa-download mr-2"></i>
+                                                    Tải xuống QR
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Upload Proof Section (Only for bank transfer) -->
+                                <div class="card upload-proof-card" id="uploadSection">
+                                    <div class="card-header gradient-header">
+                                        <h5 class="card-title mb-0">
+                                            <i class="fas fa-camera mr-2"></i>
+                                            Xác nhận thanh toán
+                                        </h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="upload-section">
+                                            <div class="upload-instructions">
+                                                <h6>Hướng dẫn xác nhận:</h6>
+                                                <ol>
+                                                    <li>Thực hiện chuyển khoản theo thông tin bên trái</li>
+                                                    <li>Chụp ảnh màn hình/biên lai chuyển khoản</li>
+                                                    <li>Upload ảnh để xác nhận thanh toán</li>
+                                                    <li>Đơn hàng sẽ được xác nhận sau khi kiểm tra</li>
+                                                </ol>
+                                            </div>
+
+                                            <div class="upload-area" id="uploadArea">
+                                                <div class="upload-content">
+                                                    <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                                                    <h6>Tải lên ảnh chuyển khoản</h6>
+                                                    <p>Kéo thả ảnh vào đây hoặc click để chọn file</p>
+                                                    <p class="file-types">Hỗ trợ: JPG, PNG, PDF (tối đa 5MB)</p>
+                                                </div>
+                                                <input type="file" id="paymentProof" accept="image/*,.pdf" multiple>
+                                            </div>
+
+                                            <div class="uploaded-files" id="uploadedFiles" style="display: none;">
+                                                <h6>Files đã upload:</h6>
+                                                <div class="files-list" id="filesList"></div>
+                                            </div>
+
+                                            <div class="form-group mt-3">
+                                                <label for="paymentNote">Ghi chú thêm (tùy chọn):</label>
+                                                <textarea class="form-control" id="paymentNote" rows="3" 
+                                                    placeholder="Thêm ghi chú về giao dịch chuyển khoản..."></textarea>
+                                            </div>
+
+                                            <div class="action-buttons">
+                                                <button type="button" class="btn btn-confirm-payment" id="btnConfirmPayment" disabled>
+                                                    <i class="fas fa-check mr-2"></i>
+                                                    Xác nhận đã chuyển khoản
+                                                </button>
+                                                <button type="button" class="btn btn-back-to-order" onclick="window.history.back()">
+                                                    <i class="fas fa-arrow-left mr-2"></i>
+                                                    Quay lại đặt hàng
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- E-wallet Payment Actions (Hidden initially) -->
+                                <div class="card ewallet-actions-card" id="ewalletActions" style="display: none;">
+                                    <div class="card-body">
+                                        <div class="payment-status" id="paymentStatus">
+                                            <div class="status-waiting">
+                                                <i class="fas fa-clock text-warning"></i>
+                                                <h6>Đang chờ thanh toán</h6>
+                                                <p>Vui lòng quét mã QR và hoàn tất thanh toán trong ứng dụng</p>
+                                                <div class="countdown-timer">
+                                                    <span id="countdown">05:00</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="action-buttons mt-3">
+                                            <button type="button" class="btn btn-check-payment" id="btnCheckPayment">
+                                                <i class="fas fa-sync mr-2"></i>
+                                                Kiểm tra thanh toán
+                                            </button>
+                                            <button type="button" class="btn btn-back-to-order" onclick="window.history.back()">
+                                                <i class="fas fa-arrow-left mr-2"></i>
+                                                Quay lại đặt hàng
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Support Card -->
+                                <div class="card support-card mt-3">
+                                    <div class="card-body">
+                                        <h6><i class="fas fa-headset mr-2"></i>Cần hỗ trợ?</h6>
+                                        <div class="support-contacts">
+                                            <div class="support-item">
+                                                <i class="fas fa-phone"></i>
+                                                <span>Hotline: <strong>1900-xxxx</strong></span>
+                                            </div>
+                                            <div class="support-item">
+                                                <i class="fab fa-facebook"></i>
+                                                <span>Facebook: <strong>TOOCHA TEA</strong></span>
+                                            </div>
+                                            <div class="support-item">
+                                                <i class="fas fa-envelope"></i>
+                                                <span>Email: <strong>support@toochatea.com</strong></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- QR Code Library -->
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+
+    <style>
+        .bank-transfer-container {
+            background: #f8f9fa;
+            min-height: 100vh;
+            padding: 20px 0;
+        }
+
+        .bank-transfer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            color: white;
+            padding: 15px 0;
+            margin-bottom: 20px;
+        }
+
+        .header .logo {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .header .logo:hover {
+            color: white;
+            text-decoration: none;
+        }
+
+        .header-title {
+            text-align: center;
+            flex: 1;
+        }
+
+        .card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .gradient-header {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 15px 20px;
+        }
+
+        .gradient-header .card-title {
+            font-weight: 600;
+        }
+
+        .card-body {
+            padding: 25px;
+        }
+
+        /* Payment Method Selection Styles */
+        .payment-method-card {
+            margin-bottom: 25px;
+        }
+
+        .payment-methods-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .payment-method-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: white;
+            position: relative;
+        }
+
+        .payment-method-item:hover {
+            border-color: #667eea;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.2);
+        }
+
+        .payment-method-item.active {
+            border-color: #667eea;
+            background: linear-gradient(135deg, #f8f9ff, #e8f2ff);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .payment-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .bank-icon {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+
+        .momo-icon {
+            background: linear-gradient(135deg, #d63384, #e91e63);
+        }
+
+        .zalopay-icon {
+            background: linear-gradient(135deg, #0d6efd, #0dcaf0);
+        }
+
+        .vnpay-icon {
+            background: linear-gradient(135deg, #fd7e14, #ffc107);
+        }
+
+        .payment-info {
+            flex: 1;
+        }
+
+        .payment-info h6 {
+            margin: 0 0 4px 0;
+            font-weight: 600;
+            color: #333;
+            font-size: 1rem;
+        }
+
+        .payment-info small {
+            color: #666;
+            font-size: 0.85rem;
+        }
+
+        .payment-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+        }
+
+        .payment-badge .badge {
+            font-size: 0.7rem;
+            padding: 4px 8px;
+        }
+
+        /* Order Summary Styles */
+        .order-summary-card {
+            margin-bottom: 25px;
+        }
+
+        .order-info {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .order-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .order-row:last-child {
+            border-bottom: none;
+        }
+
+        .order-row.total-row {
+            background: linear-gradient(135deg, #ffa726, #ff9800);
+            color: white;
+            margin: 10px -10px -10px -10px;
+            padding: 15px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .order-label {
+            font-weight: 500;
+            color: #555;
+        }
+
+        .order-value {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .order-id {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.9rem;
+        }
+
+        .total-amount {
+            font-size: 1.2rem;
+            color: white !important;
+        }
+
+        /* Payment Method Selection Styles */
+        .payment-method-card {
+            margin-bottom: 25px;
+        }
+
+        .payment-methods-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .payment-method-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: white;
+            position: relative;
+        }
+
+        .payment-method-item:hover {
+            border-color: #667eea;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.2);
+        }
+
+        .payment-method-item.active {
+            border-color: #667eea;
+            background: linear-gradient(135deg, #f8f9ff, #e8f2ff);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .payment-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .bank-icon {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+
+        .momo-icon {
+            background: linear-gradient(135deg, #d63384, #e91e63);
+        }
+
+        .zalopay-icon {
+            background: linear-gradient(135deg, #0d6efd, #0dcaf0);
+        }
+
+        .vnpay-icon {
+            background: linear-gradient(135deg, #fd7e14, #ffc107);
+        }
+
+        .payment-info {
+            flex: 1;
+        }
+
+        .payment-info h6 {
+            margin: 0 0 4px 0;
+            font-weight: 600;
+            color: #333;
+            font-size: 1rem;
+        }
+
+        .payment-info small {
+            color: #666;
+            font-size: 0.85rem;
+        }
+
+        .payment-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+        }
+
+        .payment-badge .badge {
+            font-size: 0.7rem;
+            padding: 4px 8px;
+        }
+
+        /* Payment Details Cards */
+        .payment-details-card {
+            transition: all 0.3s ease;
+        }
+
+        .ewallet-instructions {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .ewallet-instructions h6 {
+            color: #1976d2;
+            margin-bottom: 10px;
+        }
+
+        .ewallet-instructions ol {
+            margin: 0;
+            padding-left: 20px;
+        }
+
+        .ewallet-instructions li {
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .payment-amount {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .amount-display {
+            margin-top: 10px;
+        }
+
+        .amount-display strong {
+            font-size: 1.8rem;
+            color: #28a745;
+            font-weight: 700;
+        }
+
+        /* E-wallet Actions Styles */
+        .payment-status {
+            text-align: center;
+            padding: 20px;
+            background: #fff3cd;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .status-waiting {
+            color: #856404;
+        }
+
+        .status-waiting i {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .status-waiting h6 {
+            margin: 10px 0;
+            font-weight: 600;
+        }
+
+        .countdown-timer {
+            margin-top: 15px;
+            padding: 10px;
+            background: rgba(255,255,255,0.8);
+            border-radius: 8px;
+        }
+
+        .countdown-timer span {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #dc3545;
+        }
+
+        .btn-check-payment {
+            background: linear-gradient(135deg, #17a2b8, #20c997);
+            border: none;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-right: 10px;
+        }
+
+        .btn-check-payment:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(23, 162, 184, 0.3);
+            color: white;
+        }
+
+        /* QR Download Button */
+        .qr-actions {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .btn-download-qr {
+            border-radius: 20px;
+            padding: 8px 16px;
+            font-size: 0.9rem;
+        }
+
+        /* Bank Information Styles */
+        .bank-details {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .bank-item {
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .bank-item:last-child {
+            margin-bottom: 0;
+            border-bottom: none;
+        }
+
+        .bank-item label {
+            display: block;
+            font-weight: 600;
+            color: #555;
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+        }
+
+        .bank-value {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: white;
+            padding: 10px 15px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+        }
+
+        .bank-value strong {
+            color: #333;
+            font-family: 'Courier New', monospace;
+        }
+
+        .amount-highlight {
+            background: linear-gradient(135deg, #fff3e0, #ffecb3) !important;
+            border-color: #ff9800 !important;
+        }
+
+        .amount-highlight strong {
+            color: #f57c00 !important;
+            font-size: 1.1rem;
+        }
+
+        .transfer-content {
+            background: linear-gradient(135deg, #e8f5e8, #c8e6c9) !important;
+            border-color: #4caf50 !important;
+        }
+
+        .transfer-content strong {
+            color: #2e7d32 !important;
+        }
+
+        .btn-copy {
+            background: none;
+            border: none;
+            color: #007bff;
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-copy:hover {
+            background: #007bff;
+            color: white;
+            transform: scale(1.1);
+        }
+
+        /* QR Code Styles */
+        .qr-section {
+            text-align: center;
+        }
+
+        .qr-section h6 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .qr-container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            border: 2px dashed #ddd;
+        }
+
+        .qr-placeholder {
+            min-height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .qr-loading {
+            text-align: center;
+            color: #666;
+        }
+
+        .qr-loading i {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: #007bff;
+        }
+
+        .qr-note {
+            margin-top: 10px;
+            font-size: 0.85rem;
+            color: #666;
+        }
+
+        /* Upload Styles */
+        .upload-instructions {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .upload-instructions h6 {
+            color: #1976d2;
+            margin-bottom: 10px;
+        }
+
+        .upload-instructions ol {
+            margin: 0;
+            padding-left: 20px;
+        }
+
+        .upload-instructions li {
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .upload-area {
+            position: relative;
+            border: 3px dashed #ddd;
+            border-radius: 10px;
+            padding: 40px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #fafafa;
+        }
+
+        .upload-area:hover {
+            border-color: #007bff;
+            background: #f0f8ff;
+        }
+
+        .upload-area.dragover {
+            border-color: #28a745;
+            background: #f0fff0;
+        }
+
+        .upload-content {
+            pointer-events: none;
+        }
+
+        .upload-icon {
+            font-size: 3rem;
+            color: #007bff;
+            margin-bottom: 15px;
+        }
+
+        .upload-area h6 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .upload-area p {
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .file-types {
+            font-size: 0.8rem;
+            color: #999;
+        }
+
+        .upload-area input[type="file"] {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .uploaded-files {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+
+        .files-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .file-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: white;
+            padding: 10px 15px;
+            border-radius: 6px;
+            border: 1px solid #ddd;
+        }
+
+        .file-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .file-icon {
+            color: #28a745;
+            font-size: 1.2rem;
+        }
+
+        .file-name {
+            font-weight: 500;
+            color: #333;
+        }
+
+        .file-size {
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        .btn-remove-file {
+            background: none;
+            border: none;
+            color: #dc3545;
+            cursor: pointer;
+            padding: 4px;
+            border-radius: 4px;
+        }
+
+        .btn-remove-file:hover {
+            background: #dc3545;
+            color: white;
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .btn-confirm-payment {
+            flex: 1;
+            background: linear-gradient(135deg, #28a745, #20c997);
+            border: none;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-confirm-payment:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(40, 167, 69, 0.3);
+        }
+
+        .btn-confirm-payment:disabled {
+            background: #6c757d;
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+
+        .btn-back-to-order {
+            background: #6c757d;
+            border: none;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-back-to-order:hover {
+            background: #5a6268;
+            transform: translateY(-2px);
+        }
+
+        /* Support Card */
+        .support-card {
+            background: linear-gradient(135deg, #fff3e0, #ffecb3);
+        }
+
+        .support-card h6 {
+            color: #f57c00;
+            margin-bottom: 15px;
+        }
+
+        .support-contacts {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .support-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #333;
+        }
+
+        .support-item i {
+            width: 20px;
+            color: #f57c00;
+        }
+
+        /* Toast Styles */
+        .toast-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+        }
+
+        .toast-notification {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.12);
+            padding: 12px 15px;
+            margin-bottom: 10px;
+            min-width: 280px;
+            max-width: 320px;
+            transform: translateX(350px);
+            opacity: 0;
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            border-left: 4px solid #28a745;
+        }
+
+        .toast-notification.show {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .toast-notification.hide {
+            transform: translateX(350px);
+            opacity: 0;
+        }
+
+        /* Responsive */
+        @@media (max-width: 768px) {
+            .bank-transfer-content {
+                padding: 0 15px;
+            }
+            
+            .card-body {
+                padding: 15px;
+            }
+            
+            .order-info {
+                padding: 15px;
+            }
+            
+            .bank-details {
+                padding: 15px;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .support-contacts {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+
+    <script>
+        $(document).ready(function() {
+            // Lấy dữ liệu đơn hàng từ URL parameters hoặc localStorage
+            loadOrderData();
+            
+            // Khởi tạo payment method selection
+            initializePaymentMethods();
+            
+            // Khởi tạo upload functionality
+            initializeFileUpload();
+            
+            // Tạo QR code
+            generateQRCode();
+            
+            // Xử lý xác nhận thanh toán
+            $('#btnConfirmPayment').on('click', confirmPayment);
+            
+            // Xử lý kiểm tra thanh toán e-wallet
+            $('#btnCheckPayment').on('click', checkPaymentStatus);
+        });
+
+        // Khởi tạo payment methods
+        function initializePaymentMethods() {
+            // Xử lý click chọn phương thức thanh toán
+            $('.payment-method-item').on('click', function() {
+                const method = $(this).data('method');
+                
+                // Remove active class from all items
+                $('.payment-method-item').removeClass('active');
+                
+                // Add active class to clicked item
+                $(this).addClass('active');
+                
+                // Switch payment details
+                switchPaymentMethod(method);
+            });
+        }
+
+        // Chuyển đổi phương thức thanh toán
+        function switchPaymentMethod(method) {
+            // Hide all details cards
+            $('#bankDetails, #ewalletDetails').hide();
+            $('#uploadSection, #ewalletActions').hide();
+            $('.qr-actions').hide();
+            
+            // Clear existing QR
+            $('#qrCodeContainer').html(`
+                <div class="qr-loading">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    <p>Đang chuyển đổi...</p>
+                </div>
+            `);
+            
+            if (method === 'bank') {
+                $('#bankDetails, #uploadSection').show();
+                $('#qrTitle').text('QR Code chuyển khoản');
+                $('#qrNote').text('Quét mã QR để chuyển khoản nhanh chóng');
+                
+                // Generate bank QR
+                setTimeout(() => {
+                    generateQRCode(); // This will create VietQR
+                }, 500);
+            } else {
+                $('#ewalletDetails, #ewalletActions').show();
+                updateEwalletDetails(method);
+                
+                // Generate e-wallet QR
+                setTimeout(() => {
+                    generateEwalletQRCode(method);
+                    startCountdown();
+                }, 500);
+            }
+        }
+
+        // Cập nhật thông tin e-wallet
+        function updateEwalletDetails(method) {
+            const methodInfo = {
+                'momo': {
+                    title: 'Thanh toán MoMo',
+                    qrTitle: 'QR Code MoMo',
+                    steps: [
+                        'Mở ứng dụng MoMo trên điện thoại',
+                        'Chọn "Quét mã QR" từ màn hình chính',
+                        'Quét mã QR bên phải để thanh toán',
+                        'Nhập mã PIN và xác nhận thanh toán'
+                    ]
+                },
+                'zalopay': {
+                    title: 'Thanh toán ZaloPay',
+                    qrTitle: 'QR Code ZaloPay',
+                    steps: [
+                        'Mở ứng dụng ZaloPay trên điện thoại',
+                        'Chọn "Quét QR" từ menu chính',
+                        'Quét mã QR bên phải để thanh toán',
+                        'Nhập mật khẩu và hoàn tất thanh toán'
+                    ]
+                },
+                'vnpay': {
+                    title: 'Thanh toán VNPay',
+                    qrTitle: 'QR Code VNPay',
+                    steps: [
+                        'Mở ứng dụng ngân hàng có hỗ trợ VNPay QR',
+                        'Chọn "Quét mã QR" hoặc "VNPay QR"',
+                        'Quét mã QR bên phải để thanh toán',
+                        'Xác nhận thông tin và hoàn tất giao dịch'
+                    ]
+                }
+            };
+            
+            const info = methodInfo[method];
+            $('#ewalletTitle').text(info.title);
+            $('#qrTitle').text(info.qrTitle);
+            
+            // Update steps
+            const stepsHtml = info.steps.map(step => `<li>${step}</li>`).join('');
+            $('#ewalletSteps').html(stepsHtml);
+            
+            // Update amount display
+            if (window.currentOrderData) {
+                $('#ewalletAmount').text(window.currentOrderData.totalAmount.toLocaleString('vi-VN') + 'đ');
+            }
+        }
+
+        // Load thông tin đơn hàng
+        function loadOrderData() {
+            // Lấy thông tin đơn hàng từ sessionStorage
+            const orderInfoStr = sessionStorage.getItem('orderInfo');
+            
+            if (!orderInfoStr) {
+                // Nếu không có thông tin đơn hàng, chuyển về trang đặt hàng
+                showToast('Lỗi!', 'Không tìm thấy thông tin đơn hàng. Đang chuyển về trang đặt hàng...', 'error', 3000);
+                setTimeout(() => {
+                    window.location.href = '/Toocha/Order';
+                }, 3000);
+                return;
+            }
+            
+            try {
+                const orderData = JSON.parse(orderInfoStr);
+                
+                // Định dạng mã đơn hàng
+                const formattedOrderId = '#' + orderData.orderId.toString().padStart(6, '0');
+                
+                // Cập nhật thông tin trên giao diện
+                $('#orderIdDisplay').text(formattedOrderId);
+                $('#customerNameDisplay').text(orderData.customerName);
+                $('#customerPhoneDisplay').text(orderData.customerPhone);
+                $('#customerAddressDisplay').text(orderData.customerAddress);
+                $('#totalAmountDisplay').text(orderData.totalAmount.toLocaleString('vi-VN') + 'đ');
+                $('#transferAmount').text(orderData.totalAmount.toLocaleString('vi-VN') + 'đ');
+                $('#transferContent').text(`TOOCHA ORDER ${orderData.orderId.toString().padStart(6, '0')}`);
+                
+                // Update copy button cho số tiền (chỉ số, không có dấu phẩy)
+                $('.amount-highlight .btn-copy').attr('onclick', `copyToClipboard('${orderData.totalAmount}')`);
+                
+                // Hiển thị thông tin cửa hàng nếu có
+                if (orderData.storeName) {
+                    const storeInfo = `${orderData.storeName} (${orderData.distance}km)`;
+                    const shippingInfo = orderData.shippingFee === 0 ? 
+                        'Miễn phí giao hàng' : 
+                        `Phí giao hàng: ${orderData.shippingFee.toLocaleString('vi-VN')}đ`;
+                    
+                    // Thêm thông tin cửa hàng vào địa chỉ giao hàng
+                    const fullAddress = `${orderData.customerAddress}<br><small class="text-muted">Giao từ: ${storeInfo} • ${shippingInfo}</small>`;
+                    $('#customerAddressDisplay').html(fullAddress);
+                }
+                
+                // Lưu dữ liệu để sử dụng trong các function khác
+                window.currentOrderData = orderData;
+                
+            } catch (error) {
+                console.error('Error parsing order data:', error);
+                showToast('Lỗi!', 'Dữ liệu đơn hàng không hợp lệ. Đang chuyển về trang đặt hàng...', 'error', 3000);
+                setTimeout(() => {
+                    window.location.href = '/Toocha/Order';
+                }, 3000);
+            }
+        }
+
+        // Khởi tạo upload functionality
+        function initializeFileUpload() {
+            const uploadArea = $('#uploadArea');
+            const fileInput = $('#paymentProof');
+            let uploadedFiles = [];
+
+            // Click to select files
+            uploadArea.on('click', function() {
+                fileInput.click();
+            });
+
+            // Drag and drop functionality
+            uploadArea.on('dragover', function(e) {
+                e.preventDefault();
+                $(this).addClass('dragover');
+            });
+
+            uploadArea.on('dragleave', function(e) {
+                e.preventDefault();
+                $(this).removeClass('dragover');
+            });
+
+            uploadArea.on('drop', function(e) {
+                e.preventDefault();
+                $(this).removeClass('dragover');
+                
+                const files = e.originalEvent.dataTransfer.files;
+                handleFiles(files);
+            });
+
+            // File input change
+            fileInput.on('change', function() {
+                handleFiles(this.files);
+            });
+
+            function handleFiles(files) {
+                for (let file of files) {
+                    if (validateFile(file)) {
+                        uploadedFiles.push(file);
+                        addFileToList(file);
+                    }
+                }
+                updateUploadState();
+            }
+
+            function validateFile(file) {
+                const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg', 'application/pdf'];
+                const maxSize = 5 * 1024 * 1024; // 5MB
+
+                if (!allowedTypes.includes(file.type)) {
+                    showToast('Lỗi!', 'Chỉ hỗ trợ file JPG, PNG, PDF', 'error');
+                    return false;
+                }
+
+                if (file.size > maxSize) {
+                    showToast('Lỗi!', 'File không được vượt quá 5MB', 'error');
+                    return false;
+                }
+
+                return true;
+            }
+
+            function addFileToList(file) {
+                const fileId = 'file_' + Date.now();
+                const fileSize = (file.size / 1024 / 1024).toFixed(2) + ' MB';
+                const fileIcon = file.type.includes('image') ? 'fa-image' : 'fa-file-pdf';
+
+                const fileHtml = `
+                    <div class="file-item" data-file-id="${fileId}">
+                        <div class="file-info">
+                            <i class="fas ${fileIcon} file-icon"></i>
+                            <div>
+                                <div class="file-name">${file.name}</div>
+                                <div class="file-size">${fileSize}</div>
+                            </div>
+                        </div>
+                        <button class="btn-remove-file" onclick="removeFile('${fileId}')">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                `;
+
+                $('#filesList').append(fileHtml);
+                $('#uploadedFiles').show();
+            }
+
+            // Remove file function (global scope)
+            window.removeFile = function(fileId) {
+                const index = uploadedFiles.findIndex(file => 'file_' + Date.now() === fileId);
+                if (index > -1) {
+                    uploadedFiles.splice(index, 1);
+                }
+                
+                $(`.file-item[data-file-id="${fileId}"]`).remove();
+                
+                if (uploadedFiles.length === 0) {
+                    $('#uploadedFiles').hide();
+                }
+                
+                updateUploadState();
+            };
+
+            function updateUploadState() {
+                const hasFiles = uploadedFiles.length > 0;
+                $('#btnConfirmPayment').prop('disabled', !hasFiles);
+                
+                if (hasFiles) {
+                    showToast('Thành công!', `Đã upload ${uploadedFiles.length} file`, 'success', 2000);
+                }
+            }
+        }
+
+        // Tạo QR Code - VietQR cho chuyển khoản ngân hàng
+        function generateQRCode() {
+            const qrContainer = $('#qrCodeContainer');
+            
+            // Đợi dữ liệu đơn hàng được load
+            if (!window.currentOrderData) {
+                setTimeout(() => generateQRCode(), 500);
+                return;
+            }
+            
+            qrContainer.html(`
+                <div class="qr-loading">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    <p>Đang tạo mã QR VietQR...</p>
+                </div>
+            `);
+
+            // Thông tin ngân hàng VietQR
+            const bankInfo = {
+                bankId: '970436', // Mã ngân hàng Vietcombank
+                accountNo: '1021796868',
+                template: 'compact2',
+                amount: window.currentOrderData.totalAmount,
+                description: $('#transferContent').text(),
+                accountName: 'CONG TY TNHH TOOCHA TEA'
+            };
+
+            // Tạo URL VietQR API
+            const vietqrUrl = `https://img.vietqr.io/image/${bankInfo.bankId}-${bankInfo.accountNo}-${bankInfo.template}.png?amount=${bankInfo.amount}&addInfo=${encodeURIComponent(bankInfo.description)}&accountName=${encodeURIComponent(bankInfo.accountName)}`;
+
+            // Simulate loading time và tạo QR
+            setTimeout(() => {
+                const qrImage = new Image();
+                qrImage.onload = function() {
+                    qrContainer.html(`
+                        <div style="text-align: center;">
+                            <img src="${vietqrUrl}" alt="VietQR Code" style="max-width: 200px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);" />
+                            <div style="margin-top: 10px; font-size: 0.8rem; color: #666;">
+                                <i class="fas fa-shield-alt" style="color: #28a745;"></i>
+                                Mã QR được tạo bởi VietQR
+                            </div>
+                        </div>
+                    `);
+                    
+                    // Lưu QR data để download
+                    window.currentQRData = vietqrUrl;
+                    $('.qr-actions').show();
+                    
+                    showToast('Thành công!', 'Đã tạo mã QR VietQR. Quét để chuyển khoản nhanh chóng!', 'success', 3000);
+                };
+                
+                qrImage.onerror = function() {
+                    // Fallback to basic QR if VietQR fails
+                    console.log('VietQR failed, using basic QR...');
+                    generateBasicQRCode(bankInfo);
+                };
+                
+                qrImage.src = vietqrUrl;
+            }, 1000);
+        }
+
+        // Tạo QR Code cơ bản khi VietQR không khả dụng
+        function generateBasicQRCode(bankInfo) {
+            const qrContainer = $('#qrCodeContainer');
+            const qrData = `Ngân hàng: Vietcombank\nSTK: ${bankInfo.accountNo}\nSố tiền: ${bankInfo.amount.toLocaleString('vi-VN')}đ\nNội dung: ${bankInfo.description}\nChủ TK: ${bankInfo.accountName}`;
+
+            QRCode.toCanvas(qrData, {
+                width: 200,
+                height: 200,
+                colorDark: '#333',
+                colorLight: '#fff',
+                correctLevel: QRCode.CorrectLevel.M,
+                margin: 2
+            }, function(error, canvas) {
+                if (error) {
+                    console.error('QR Code generation error:', error);
+                    qrContainer.html(`
+                        <div class="qr-error">
+                            <i class="fas fa-exclamation-triangle" style="color: #dc3545; font-size: 2rem; margin-bottom: 10px;"></i>
+                            <p style="color: #dc3545; margin: 0;">Không thể tạo mã QR</p>
+                            <p style="color: #666; font-size: 0.8rem; margin: 5px 0 0 0;">Vui lòng chuyển khoản thủ công theo thông tin bên trái</p>
+                        </div>
+                    `);
+                } else {
+                    qrContainer.empty().append(canvas);
+                    window.currentQRData = canvas.toDataURL();
+                    $('.qr-actions').show();
+                    
+                    // Thêm hiệu ứng xuất hiện
+                    $(canvas).css({
+                        'opacity': '0',
+                        'transform': 'scale(0.8)'
+                    }).animate({
+                        'opacity': '1'
+                    }, 300).css({
+                        'transform': 'scale(1)',
+                        'transition': 'transform 0.3s ease'
+                    });
+                    
+                    showToast('Thông báo', 'Đã tạo mã QR cơ bản. Một số ứng dụng ngân hàng có thể không hỗ trợ quét mã này.', 'info', 4000);
+                }
+            });
+        }
+
+        // Download QR Code
+        window.downloadQR = function() {
+            if (!window.currentQRData) {
+                showToast('Lỗi!', 'Không có mã QR để tải xuống', 'error');
+                return;
+            }
+
+            const link = document.createElement('a');
+            link.download = `toocha-qr-${window.currentOrderData ? window.currentOrderData.orderId.toString().padStart(6, '0') : Date.now()}.png`;
+            
+            if (window.currentQRData.startsWith('http')) {
+                // For VietQR URL - fetch and download
+                fetch(window.currentQRData)
+                    .then(response => response.blob())
+                    .then(blob => {
+                        const url = window.URL.createObjectURL(blob);
+                        link.href = url;
+                        link.click();
+                        window.URL.revokeObjectURL(url);
+                        showToast('Thành công!', 'Đã tải xuống mã QR', 'success', 2000);
+                    })
+                    .catch(() => {
+                        link.href = window.currentQRData;
+                        link.target = '_blank';
+                        link.click();
+                    });
+            } else {
+                // For canvas data URL
+                link.href = window.currentQRData;
+                link.click();
+                showToast('Thành công!', 'Đã tải xuống mã QR', 'success', 2000);
+            }
+        };
+
+        // Tạo QR Code cho chuyển khoản ngân hàng (VietQR)
+        function generateBankQRCode() {
+            const qrContainer = $('#qrCodeContainer');
+            
+            // Đợi dữ liệu đơn hàng được load
+            if (!window.currentOrderData) {
+                setTimeout(() => generateBankQRCode(), 500);
+                return;
+            }
+            
+            qrContainer.html(`
+                <div class="qr-loading">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    <p>Đang tạo mã QR VietQR...</p>
+                </div>
+            `);
+
+            // Tạo VietQR theo chuẩn Napas
+            const bankInfo = {
+                bankId: '970436', // Mã ngân hàng Vietcombank
+                accountNo: '1021796868',
+                template: 'compact2',
+                amount: window.currentOrderData.totalAmount,
+                description: $('#transferContent').text(),
+                accountName: 'CONG TY TNHH TOOCHA TEA'
+            };
+
+            // Tạo URL VietQR API
+            const vietqrUrl = `https://img.vietqr.io/image/${bankInfo.bankId}-${bankInfo.accountNo}-${bankInfo.template}.png?amount=${bankInfo.amount}&addInfo=${encodeURIComponent(bankInfo.description)}&accountName=${encodeURIComponent(bankInfo.accountName)}`;
+
+            // Tạo QR code với URL VietQR
+            setTimeout(() => {
+                const qrImage = new Image();
+                qrImage.onload = function() {
+                    qrContainer.html(`
+                        <img src="${vietqrUrl}" alt="VietQR Code" style="max-width: 200px; border-radius: 10px;" />
+                    `);
+                    
+                    // Lưu QR data để download
+                    window.currentQRData = vietqrUrl;
+                    $('.qr-actions').show();
+                };
+                
+                qrImage.onerror = function() {
+                    // Fallback to basic QR if VietQR fails
+                    generateBasicQRCode(bankInfo);
+                };
+                
+                qrImage.src = vietqrUrl;
+            }, 1000);
+        }
+
+        // Tạo QR Code cơ bản khi VietQR không khả dụng
+        function generateBasicQRCode(bankInfo) {
+            const qrContainer = $('#qrCodeContainer');
+            const qrData = `Bank: ${bankInfo.accountNo}\nAmount: ${bankInfo.amount}\nContent: ${bankInfo.description}`;
+
+            QRCode.toCanvas(qrData, {
+                width: 200,
+                height: 200,
+                colorDark: '#333',
+                colorLight: '#fff',
+                correctLevel: QRCode.CorrectLevel.M,
+                margin: 2
+            }, function(error, canvas) {
+                if (error) {
+                    console.error('QR Code generation error:', error);
+                    qrContainer.html(`
+                        <div class="qr-error">
+                            <i class="fas fa-exclamation-triangle" style="color: #dc3545; font-size: 2rem; margin-bottom: 10px;"></i>
+                            <p style="color: #dc3545; margin: 0;">Không thể tạo mã QR</p>
+                            <p style="color: #666; font-size: 0.8rem; margin: 5px 0 0 0;">Vui lòng chuyển khoản thủ công</p>
+                        </div>
+                    `);
+                } else {
+                    qrContainer.empty().append(canvas);
+                    window.currentQRData = canvas.toDataURL();
+                    $('.qr-actions').show();
+                }
+            });
+        }
+
+        // Tạo QR Code cho e-wallet
+        function generateEwalletQRCode(method) {
+            const qrContainer = $('#qrCodeContainer');
+            
+            if (!window.currentOrderData) {
+                setTimeout(() => generateEwalletQRCode(method), 500);
+                return;
+            }
+            
+            qrContainer.html(`
+                <div class="qr-loading">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    <p>Đang tạo mã thanh toán...</p>
+                </div>
+            `);
+
+            // Simulate API call to create payment QR
+            setTimeout(() => {
+                createEwalletPayment(method);
+            }, 1500);
+        }
+
+        // Tạo payment request cho e-wallet (simulation)
+        function createEwalletPayment(method) {
+            const qrContainer = $('#qrCodeContainer');
+            const orderData = window.currentOrderData;
+            
+            const paymentData = {
+                method: method,
+                amount: orderData.totalAmount,
+                orderId: orderData.orderId,
+                description: `TOOCHA ORDER ${orderData.orderId.toString().padStart(6, '0')}`,
+                returnUrl: window.location.href,
+                notifyUrl: '/Toocha/Order/PaymentCallback'
+            };
+
+            console.log(`Creating ${method} payment:`, paymentData);
+            
+            // Tạo QR data cho từng loại ví
+            let qrData = '';
+            switch(method) {
+                case 'momo':
+                    qrData = JSON.stringify({
+                        action: 'payWithApp',
+                        amount: paymentData.amount,
+                        description: paymentData.description,
+                        orderId: paymentData.orderId,
+                        merchantName: 'TOOCHA TEA'
+                    });
+                    break;
+                case 'zalopay':
+                    qrData = JSON.stringify({
+                        app_id: 'zalopay',
+                        amount: paymentData.amount,
+                        description: paymentData.description,
+                        order_id: paymentData.orderId
+                    });
+                    break;
+                case 'vnpay':
+                    qrData = `vnpay://pay?amount=${paymentData.amount}&orderId=${paymentData.orderId}&desc=${encodeURIComponent(paymentData.description)}`;
+                    break;
+                default:
+                    qrData = `${method}://pay?amount=${paymentData.amount}&orderId=${paymentData.orderId}&desc=${encodeURIComponent(paymentData.description)}`;
+            }
+            
+            QRCode.toCanvas(qrData, {
+                width: 220,
+                height: 220,
+                colorDark: getMethodColor(method),
+                colorLight: '#fff',
+                correctLevel: QRCode.CorrectLevel.M,
+                margin: 3
+            }, function(error, canvas) {
+                if (error) {
+                    console.error(`${method} QR error:`, error);
+                    qrContainer.html(`
+                        <div class="qr-error">
+                            <i class="fas fa-exclamation-triangle" style="color: #dc3545; font-size: 2rem; margin-bottom: 10px;"></i>
+                            <p style="color: #dc3545; margin: 0;">Không thể tạo mã thanh toán ${method.toUpperCase()}</p>
+                            <p style="color: #666; font-size: 0.8rem; margin: 5px 0 0 0;">Vui lòng thử lại sau</p>
+                        </div>
+                    `);
+                } else {
+                    // Tạo wrapper đẹp
+                    const qrWrapper = document.createElement('div');
+                    qrWrapper.style.cssText = `
+                        text-align: center;
+                        padding: 15px;
+                        background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+                        border-radius: 15px;
+                        box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+                    `;
+                    
+                    // Style canvas
+                    canvas.style.cssText = `
+                        border-radius: 10px;
+                        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+                        border: 3px solid ${getMethodColor(method)};
+                    `;
+                    
+                    qrWrapper.appendChild(canvas);
+                    
+                    // Badge
+                    const badge = document.createElement('div');
+                    badge.style.cssText = `
+                        margin-top: 10px;
+                        padding: 5px 15px;
+                        background: ${getMethodColor(method)};
+                        color: white;
+                        border-radius: 20px;
+                        font-size: 0.8rem;
+                        font-weight: 600;
+                        display: inline-block;
+                        text-transform: uppercase;
+                    `;
+                    badge.textContent = `${method} Payment`;
+                    qrWrapper.appendChild(badge);
+                    
+                    // Security note
+                    const note = document.createElement('div');
+                    note.style.cssText = `
+                        margin-top: 8px;
+                        font-size: 0.75rem;
+                        color: #666;
+                    `;
+                    note.innerHTML = `<i class="fas fa-shield-alt" style="color: #28a745;"></i> Mã QR an toàn`;
+                    qrWrapper.appendChild(note);
+                    
+                    qrContainer.empty().append(qrWrapper);
+                    window.currentQRData = canvas.toDataURL();
+                    $('.qr-actions').show();
+                    
+                    // Animation
+                    $(qrWrapper).css({
+                        'opacity': '0',
+                        'transform': 'scale(0.8)'
+                    }).animate({
+                        'opacity': '1'
+                    }, 400).css({
+                        'transform': 'scale(1)',
+                        'transition': 'transform 0.4s ease'
+                    });
+                    
+                    showToast('Thành công!', `Đã tạo mã QR ${method.toUpperCase()}. Vui lòng quét để thanh toán.`, 'success', 3000);
+                }
+            });
+        }
+
+        // Lấy màu cho từng phương thức
+        function getMethodColor(method) {
+            const colors = {
+                'momo': '#d63384',
+                'zalopay': '#0d6efd', 
+                'vnpay': '#fd7e14'
+            };
+            return colors[method] || '#333';
+        }
+
+        // Countdown timer cho e-wallet
+        function startCountdown() {
+            let timeLeft = 300; // 5 minutes
+            const countdownElement = $('#countdown');
+            
+            const timer = setInterval(() => {
+                const minutes = Math.floor(timeLeft / 60);
+                const seconds = timeLeft % 60;
+                
+                countdownElement.text(`${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`);
+                
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    $('#paymentStatus').html(`
+                        <div class="status-expired">
+                            <i class="fas fa-times-circle text-danger"></i>
+                            <h6>Hết thời gian thanh toán</h6>
+                            <p>Vui lòng tạo lại mã QR để tiếp tục</p>
+                            <button class="btn btn-primary" onclick="location.reload()">Tạo lại</button>
+                        </div>
+                    `);
+                }
+                
+                timeLeft--;
+            }, 1000);
+            
+            // Save timer ID để có thể clear khi cần
+            window.paymentTimer = timer;
+        }
+
+        // Kiểm tra trạng thái thanh toán
+        function checkPaymentStatus() {
+            const button = $('#btnCheckPayment');
+            const originalText = button.html();
+            
+            button.html('<i class="fas fa-spinner fa-spin mr-2"></i>Đang kiểm tra...');
+            button.prop('disabled', true);
+            
+            // Simulate payment check
+            setTimeout(() => {
+                // Mock random result for demo
+                const isPaid = Math.random() > 0.7; // 30% chance of being paid
+                
+                if (isPaid) {
+                    // Payment successful
+                    clearInterval(window.paymentTimer);
+                    $('#paymentStatus').html(`
+                        <div class="status-success">
+                            <i class="fas fa-check-circle text-success"></i>
+                            <h6>Thanh toán thành công!</h6>
+                            <p>Đơn hàng của bạn đã được xác nhận và đang được xử lý</p>
+                        </div>
+                    `);
+                    
+                    showToast('Thành công!', 'Thanh toán đã được xác nhận!', 'success', 5000);
+                    
+                    // Redirect after delay
+                    setTimeout(() => {
+                        window.location.href = '/Toocha/Order';
+                    }, 3000);
+                    
+                } else {
+                    // Payment not found
+                    button.html(originalText);
+                    button.prop('disabled', false);
+                    
+                    showToast('Thông báo', 'Chưa nhận được thanh toán. Vui lòng thử lại sau.', 'info', 3000);
+                }
+            }, 2000);
+        }
+
+        // Copy to clipboard function
+        window.copyToClipboard = function(text) {
+            navigator.clipboard.writeText(text).then(function() {
+                showToast('Đã copy!', `Đã sao chép: ${text}`, 'success', 2000);
+            }).catch(function(err) {
+                // Fallback for older browsers
+                const textArea = document.createElement('textarea');
+                textArea.value = text;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                showToast('Đã copy!', `Đã sao chép: ${text}`, 'success', 2000);
+            });
+        };
+
+        // Xác nhận thanh toán
+        function confirmPayment() {
+            const button = $('#btnConfirmPayment');
+            const originalText = button.html();
+            
+            // Kiểm tra có file được upload chưa
+            const uploadedFiles = $('.file-item').length;
+            if (uploadedFiles === 0) {
+                showToast('Thông báo', 'Vui lòng upload ảnh chuyển khoản trước khi xác nhận', 'error', 3000);
+                return;
+            }
+            
+            // Kiểm tra có thông tin đơn hàng không
+            if (!window.currentOrderData) {
+                showToast('Lỗi!', 'Không tìm thấy thông tin đơn hàng', 'error', 3000);
+                return;
+            }
+            
+            // Loading state
+            button.html('<i class="fas fa-spinner fa-spin mr-2"></i>Đang xử lý...');
+            button.prop('disabled', true);
+
+            // Chuẩn bị dữ liệu gửi lên server
+            const paymentData = {
+                orderId: window.currentOrderData.orderId,
+                paymentMethod: 'bank_transfer',
+                paymentNote: $('#paymentNote').val().trim(),
+                bankAccount: '1234567890',
+                bankName: 'Vietcombank',
+                transferAmount: window.currentOrderData.totalAmount,
+                transferContent: $('#transferContent').text(),
+                numberOfProofFiles: uploadedFiles
+            };
+
+            // Gọi API xác nhận thanh toán
+            $.ajax({
+                url: '/Toocha/Order/ConfirmBankTransfer',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(paymentData),
+                success: function(response) {
+                    if (response.success) {
+                        // Success
+                        button.html('<i class="fas fa-check mr-2"></i>Đã xác nhận!');
+                        button.css('background', 'linear-gradient(135deg, #28a745, #20c997)');
+                        
+                        showToast(
+                            'Xác nhận thành công!', 
+                            `Cảm ơn ${window.currentOrderData.customerName}! Đơn hàng #${window.currentOrderData.orderId.toString().padStart(6, '0')} đã được ghi nhận. Chúng tôi sẽ kiểm tra và xác nhận thanh toán trong vòng 5-10 phút.`, 
+                            'success', 
+                            8000
+                        );
+
+                        // Xóa thông tin đơn hàng khỏi sessionStorage
+                        sessionStorage.removeItem('orderInfo');
+                        
+                        // Redirect sau 3 giây
+                        setTimeout(() => {
+                            // Chuyển về trang chủ hoặc trang lịch sử đơn hàng
+                            window.location.href = '/Toocha/Order';
+                        }, 3000);
+                        
+                    } else {
+                        // Error from server
+                        button.html('<i class="fas fa-exclamation-triangle mr-2"></i>Có lỗi xảy ra');
+                        button.css('background', 'linear-gradient(135deg, #dc3545, #c82333)');
+                        
+                        showToast('Lỗi!', response.message || 'Có lỗi xảy ra khi xác nhận thanh toán', 'error', 5000);
+                        
+                        // Reset button sau delay
+                        setTimeout(() => {
+                            button.html(originalText);
+                            button.prop('disabled', false);
+                            button.css('background', '');
+                        }, 3000);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    // AJAX Error
+                    console.error('Payment confirmation error:', error);
+                    button.html('<i class="fas fa-exclamation-triangle mr-2"></i>Kết nối thất bại');
+                    button.css('background', 'linear-gradient(135deg, #dc3545, #c82333)');
+                    
+                    showToast('Lỗi kết nối!', 'Không thể kết nối đến server. Vui lòng thử lại sau.', 'error', 5000);
+                    
+                    // Reset button sau delay
+                    setTimeout(() => {
+                        button.html(originalText);
+                        button.prop('disabled', false);
+                        button.css('background', '');
+                    }, 3000);
+                }
+            });
+        }
+
+        // Toast notification function
+        function showToast(title, message, type = 'success', duration = 3000) {
+            const toastId = 'toast_' + Date.now();
+            const iconClass = type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle';
+            const borderColor = type === 'success' ? '#28a745' : '#dc3545';
+            
+            const toastHtml = `
+                <div id="${toastId}" class="toast-notification" style="border-left-color: ${borderColor};">
+                    <div style="display: flex; align-items: flex-start; gap: 10px;">
+                        <i class="fas ${iconClass}" style="color: ${borderColor}; margin-top: 2px;"></i>
+                        <div style="flex: 1;">
+                            <div style="font-weight: 600; margin-bottom: 4px;">${title}</div>
+                            <div style="font-size: 13px; color: #666;">${message}</div>
+                        </div>
+                        <button onclick="hideToast('${toastId}')" style="background: none; border: none; font-size: 16px; color: #999; cursor: pointer;">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            $('#toast-container').append(toastHtml);
+            
+            setTimeout(() => {
+                $(`#${toastId}`).addClass('show');
+            }, 100);
+            
+            setTimeout(() => {
+                hideToast(toastId);
+            }, duration);
+            
+            return toastId;
+        }
+
+        function hideToast(toastId) {
+            const toast = $(`#${toastId}`);
+            toast.removeClass('show').addClass('hide');
+            setTimeout(() => {
+                toast.remove();
+            }, 300);
+        }
+    </script>
+</body>
+</html> 

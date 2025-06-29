@@ -11,10 +11,10 @@ namespace App.Models.Toocha
         [Key]
         public int Id { get; set; }
 
-        public string UserId { get; set; }
+        public string? UserId { get; set; }
 
         [ForeignKey("UserId")]
-        public virtual AppUser User { get; set; }
+        public virtual AppUser? User { get; set; }
 
         [Display(Name = "Ngày đặt")]
         public DateTime OrderDate { get; set; }
@@ -71,5 +71,9 @@ namespace App.Models.Toocha
 
         [Display(Name = "Kinh độ giao hàng")]
         public double? DeliveryLongitude { get; set; }
+
+        [StringLength(1000)]
+        [Display(Name = "Ghi chú đơn hàng")]
+        public string? Notes { get; set; }
     }
 }

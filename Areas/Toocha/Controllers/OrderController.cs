@@ -517,6 +517,73 @@ public class OrderController : Controller
             });
         }
     }
+
+    // ===== BANK TRANSFER PAYMENT =====
+
+    [HttpGet]
+    public IActionResult BankTransfer()
+    {
+        // Không yêu cầu authentication cho trang thanh toán chuyển khoản
+        // Thông tin đơn hàng sẽ được load từ sessionStorage trong JavaScript
+        return View();
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> ConfirmBankTransfer([FromBody] ConfirmBankTransferRequest request)
+    {
+        try
+        {
+            // Kiểm tra đơn hàng tồn tại
+            var order = await _context.Orders.FindAsync(request.OrderId);
+            if (order == null)
+            {
+                return Json(new { success = false, message = "Không tìm thấy đơn hàng" });
+            }
+
+            // Kiểm tra đơn hàng chưa được thanh toán
+            if (order.IsPaid)
+            {
+                return Json(new { success = false, message = "Đơn hàng này đã được thanh toán" });
+            }
+
+            // Cập nhật thông tin thanh toán
+            order.PaymentMethod = "bank_transfer";
+            // Không đánh dấu đã thanh toán ngay, chờ admin xác nhận
+            // order.IsPaid = false; // Giữ nguyên false, chờ admin kiểm tra
+
+            // Tạo ghi chú thanh toán (có thể mở rộng sau này để lưu vào bảng riêng)
+            var currentNotes = order.Notes ?? "";
+            var paymentNote = $"[BANK_TRANSFER] {DateTime.Now:yyyy-MM-dd HH:mm:ss} - ";
+            paymentNote += $"Ngân hàng: {request.BankName}, ";
+            paymentNote += $"STK: {request.BankAccount}, ";
+            paymentNote += $"Số tiền: {request.TransferAmount:N0}đ, ";
+            paymentNote += $"Nội dung: {request.TransferContent}";
+            
+            if (!string.IsNullOrWhiteSpace(request.PaymentNote))
+            {
+                paymentNote += $", Ghi chú: {request.PaymentNote}";
+            }
+            
+            paymentNote += $", Số file đính kèm: {request.NumberOfProofFiles}";
+
+            order.Notes = string.IsNullOrWhiteSpace(currentNotes) ? paymentNote : currentNotes + "\n" + paymentNote;
+
+            await _context.SaveChangesAsync();
+
+            return Json(new { 
+                success = true, 
+                message = "Xác nhận thanh toán thành công! Đơn hàng sẽ được xử lý sau khi kiểm tra chuyển khoản.",
+                orderId = order.Id
+            });
+        }
+        catch (Exception ex)
+        {
+            return Json(new { 
+                success = false, 
+                message = "Có lỗi xảy ra: " + ex.Message
+            });
+        }
+    }
 }
 
 // DTO Classes for shipping
@@ -571,4 +638,17 @@ public class OrderOptionsRequest
     public string Sugar { get; set; }
     public string Ice { get; set; }
     public List<string> Toppings { get; set; }
+}
+
+// DTO Classes for bank transfer
+public class ConfirmBankTransferRequest
+{
+    public int OrderId { get; set; }
+    public string PaymentMethod { get; set; }
+    public string PaymentNote { get; set; }
+    public string BankAccount { get; set; }
+    public string BankName { get; set; }
+    public decimal TransferAmount { get; set; }
+    public string TransferContent { get; set; }
+    public int NumberOfProofFiles { get; set; }
 }

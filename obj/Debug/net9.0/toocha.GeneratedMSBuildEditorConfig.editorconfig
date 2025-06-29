@@ -232,6 +232,14 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcVG9vY2hhXFZpZXdzXEZyYW5jaGlzZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Workspace/toocha/Areas/Toocha/Views/History/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcVG9vY2hhXFZpZXdzXEhpc3RvcnlcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Workspace/toocha/Areas/Toocha/Views/History/SuMenh.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcVG9vY2hhXFZpZXdzXEhpc3RvcnlcU3VNZW5oLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Workspace/toocha/Areas/Toocha/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcVG9vY2hhXFZpZXdzXEhvbWVcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -242,6 +250,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Workspace/toocha/Areas/Toocha/Views/News/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcVG9vY2hhXFZpZXdzXE5ld3NcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Workspace/toocha/Areas/Toocha/Views/Order/BankTransfer.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcVG9vY2hhXFZpZXdzXE9yZGVyXEJhbmtUcmFuc2Zlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Workspace/toocha/Areas/Toocha/Views/Order/Index.cshtml]

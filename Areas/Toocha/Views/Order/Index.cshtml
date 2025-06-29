@@ -2329,36 +2329,70 @@
                                 'Miễn phí giao hàng' : 
                                 `Phí giao hàng: ${response.shippingFee.toLocaleString('vi-VN')}đ`;
                             
-                            showToast(
-                                'Đặt hàng thành công!', 
-                                `Cảm ơn ${orderData.customerName}! Mã đơn hàng: #${response.orderId.toString().padStart(6, '0')}
-                                <br>Cửa hàng: ${response.storeName} (${response.distance} km)
-                                <br>${shippingText}
-                                <br>Tổng thanh toán: ${response.totalWithShipping.toLocaleString('vi-VN')}đ`,
-                                'success',
-                                8000
-                            );
+                            // Kiểm tra phương thức thanh toán
+                            const paymentMethod = $('input[name="paymentMethod"]:checked').val();
                             
-                            // Clear cart và đóng modal
-                            setTimeout(() => {
-                                cart = [];
-                                selectedStore = null;
-                                currentShippingFee = 0;
-                                updateCartDisplay();
-                                $('#checkoutModal').modal('hide');
+                            if (paymentMethod === 'online') {
+                                // Chuyển khoản ngân hàng - chuyển đến trang thanh toán
+                                showToast(
+                                    'Đặt hàng thành công!', 
+                                    'Đang chuyển đến trang thanh toán chuyển khoản...', 
+                                    'success', 
+                                    3000
+                                );
                                 
-                                // Reset form và store selection
-                                $('#checkoutForm')[0].reset();
-                                $('#storeSelectionGroup').hide();
-                                $('#selectedStoreName').text('Chọn cửa hàng gần nhất');
-                                $('#btnStoreSelector').removeClass('active');
-                                $('#storeDropdown').hide();
+                                // Lưu thông tin đơn hàng vào sessionStorage để truyền sang trang thanh toán
+                                const orderInfo = {
+                                    orderId: response.orderId,
+                                    customerName: orderData.customerName,
+                                    customerPhone: orderData.customerPhone,
+                                    customerAddress: orderData.customerAddress,
+                                    totalAmount: response.totalWithShipping,
+                                    storeName: response.storeName,
+                                    distance: response.distance,
+                                    shippingFee: response.shippingFee
+                                };
+                                sessionStorage.setItem('orderInfo', JSON.stringify(orderInfo));
                                 
-                                // Reset button
-                                button.html(originalText);
-                                button.prop('disabled', false);
-                                button.css('background', '');
-                            }, 3000);
+                                // Chuyển đến trang thanh toán sau 2 giây
+                                setTimeout(() => {
+                                    window.location.href = '/Toocha/Order/BankTransfer';
+                                }, 2000);
+                                
+                            } else {
+                                // Thanh toán khi nhận hàng - hiển thị thông báo thành công
+                                showToast(
+                                    'Đặt hàng thành công!', 
+                                    `Cảm ơn ${orderData.customerName}! Mã đơn hàng: #${response.orderId.toString().padStart(6, '0')}
+                                    <br>Cửa hàng: ${response.storeName} (${response.distance} km)
+                                    <br>${shippingText}
+                                    <br>Tổng thanh toán: ${response.totalWithShipping.toLocaleString('vi-VN')}đ
+                                    <br><strong>Thanh toán khi nhận hàng</strong>`,
+                                    'success',
+                                    8000
+                                );
+                                
+                                // Clear cart và đóng modal sau thời gian hiển thị toast
+                                setTimeout(() => {
+                                    cart = [];
+                                    selectedStore = null;
+                                    currentShippingFee = 0;
+                                    updateCartDisplay();
+                                    $('#checkoutModal').modal('hide');
+                                    
+                                    // Reset form và store selection
+                                    $('#checkoutForm')[0].reset();
+                                    $('#storeSelectionGroup').hide();
+                                    $('#selectedStoreName').text('Chọn cửa hàng gần nhất');
+                                    $('#btnStoreSelector').removeClass('active');
+                                    $('#storeDropdown').hide();
+                                    
+                                    // Reset button
+                                    button.html(originalText);
+                                    button.prop('disabled', false);
+                                    button.css('background', '');
+                                }, 3000);
+                            }
                         } else {
                             // Error
                             button.html('<i class="fas fa-exclamation-triangle mr-2"></i>Có lỗi xảy ra');
