@@ -1,0 +1,115 @@
+@model App.Areas.Admin.Controllers.ManageUserRolesViewModel
+
+@{
+    ViewData["Title"] = "Quản lý quyền người dùng";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        <i class="fas fa-user-cog"></i>
+                        Quản lý quyền người dùng: <strong>@Model.UserName</strong>
+                    </h3>
+                    <div class="card-tools">
+                        <a href="@Url.Action("Index")" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left"></i> Quay lại
+                        </a>
+                    </div>
+                </div>
+                <div class="card-body">
+                    @if (TempData["StatusMessage"] != null)
+                    {
+                        <div class="alert alert-info alert-dismissible fade show" role="alert">
+                            @TempData["StatusMessage"]
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                    }
+
+                    <form method="post" asp-action="ManageRoles" asp-route-id="@Model.UserId">
+                        @Html.AntiForgeryToken()
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h5 class="card-title">Quyền hiện tại</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        @if (Model.UserRoles.Any())
+                                        {
+                                            @foreach (var role in Model.UserRoles)
+                                            {
+                                                <span class="badge badge-@(role == "Administrator" ? "danger" : role == "Editor" ? "warning" : "info") me-1">
+                                                    @role
+                                                </span>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <em class="text-muted">Chưa có quyền nào</em>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h5 class="card-title">Cập nhật quyền</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        @if (Model.AllRoles.Any())
+                                        {
+                                            @foreach (var role in Model.AllRoles)
+                                            {
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" 
+                                                           name="selectedRoles" value="@role" 
+                                                           id="role_@role"
+                                                           @(Model.UserRoles.Contains(role) ? "checked" : "") />
+                                                    <label class="form-check-label" for="role_@role">
+                                                        <span class="badge badge-@(role == "Administrator" ? "danger" : role == "Editor" ? "warning" : "info")">
+                                                            @role
+                                                        </span>
+                                                        @if (role == "Administrator")
+                                                        {
+                                                            <small class="text-muted">- Toàn quyền hệ thống</small>
+                                                        }
+                                                        else if (role == "Editor")
+                                                        {
+                                                            <small class="text-muted">- Quản lý nội dung</small>
+                                                        }
+                                                        else
+                                                        {
+                                                            <small class="text-muted">- Quyền cơ bản</small>
+                                                        }
+                                                    </label>
+                                                </div>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <em class="text-muted">Không có quyền nào để gán</em>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-3">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save"></i> Cập nhật quyền
+                            </button>
+                            <a href="@Url.Action("Index")" class="btn btn-secondary">
+                                <i class="fas fa-times"></i> Hủy bỏ
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 

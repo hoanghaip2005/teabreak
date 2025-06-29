@@ -1,0 +1,184 @@
+@model IEnumerable<Product>
+@{
+    ViewData["Title"] = "Quản lý Sản phẩm";
+}
+
+<div class="row">
+    <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h2 class="mb-1">Quản lý Sản phẩm</h2>
+                <p class="text-muted mb-0">Quản lý tất cả sản phẩm trong hệ thống</p>
+            </div>
+            <a href="/Admin/Product/Create" class="admin-btn admin-btn-success">
+                <i class="fas fa-plus me-2"></i>Thêm sản phẩm mới
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Search and Filter -->
+<div class="row mb-4">
+    <div class="col-md-4">
+        <form method="get" class="d-flex">
+            <input type="text" name="search" value="@ViewBag.Search" class="form-control me-2" placeholder="Tìm kiếm sản phẩm...">
+            <button type="submit" class="admin-btn admin-btn-primary">
+                <i class="fas fa-search"></i>
+            </button>
+        </form>
+    </div>
+    <div class="col-md-4">
+        <form method="get">
+            @if (!string.IsNullOrEmpty(ViewBag.Search?.ToString()))
+            {
+                <input type="hidden" name="search" value="@ViewBag.Search">
+            }
+            <select name="categoryId" class="form-select" onchange="this.form.submit()">
+                <option value="">Tất cả danh mục</option>
+                @foreach (var item in (SelectList)ViewBag.Categories)
+                {
+                    <option value="@item.Value" selected="@(item.Selected)">@item.Text</option>
+                }
+            </select>
+        </form>
+    </div>
+    <div class="col-md-4 text-end">
+        <span class="text-muted">Tổng: <strong>@ViewBag.TotalItems</strong> sản phẩm</span>
+    </div>
+</div>
+
+<!-- Products Table -->
+<div class="admin-table">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th style="width: 60px;">#</th>
+                <th style="width: 80px;">Hình ảnh</th>
+                <th>Tên sản phẩm</th>
+                <th>Danh mục</th>
+                <th style="width: 120px;">Giá</th>
+                <th style="width: 100px;">Tồn kho</th>
+                <th style="width: 100px;">Trạng thái</th>
+                <th style="width: 150px;" class="text-center">Thao tác</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Any())
+            {
+                @foreach (var product in Model)
+                {
+                    <tr>
+                        <td>@product.Id</td>
+                        <td>
+                            <img src="@(string.IsNullOrEmpty(product.Image) ? "/img/no-image.png" : product.Image)" 
+                                 alt="@product.Name" class="img-thumbnail" style="width: 50px; height: 50px; object-fit: cover;">
+                        </td>
+                        <td>
+                            <div>
+                                <strong>@product.Name</strong>
+                                @if (!string.IsNullOrEmpty(product.Description))
+                                {
+                                    <br><small class="text-muted">@(product.Description.Length > 50 ? product.Description.Substring(0, 50) + "..." : product.Description)</small>
+                                }
+                            </div>
+                        </td>
+                        <td>
+                            <span class="badge bg-secondary">@product.Category?.Name</span>
+                        </td>
+                        <td>
+                            <div>
+                                @if (product.SalePrice.HasValue && product.SalePrice < product.Price)
+                                {
+                                    <span class="text-decoration-line-through text-muted">@product.Price.ToString("N0") ₫</span><br>
+                                    <strong class="text-danger">@product.SalePrice?.ToString("N0") ₫</strong>
+                                }
+                                else
+                                {
+                                    <strong>@product.Price.ToString("N0") ₫</strong>
+                                }
+                            </div>
+                        </td>
+                        <td>
+                            <span class="badge @(product.StockQuantity > 10 ? "bg-success" : product.StockQuantity > 0 ? "bg-warning" : "bg-danger")">
+                                @product.StockQuantity
+                            </span>
+                        </td>
+                        <td>
+                            @if (product.IsPublished)
+                            {
+                                <span class="badge bg-success">Hiển thị</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-secondary">Ẩn</span>
+                            }
+                        </td>
+                        <td class="text-center">
+                            <div class="btn-group" role="group">
+                                <a href="/Admin/Product/Details/@product.Id" class="btn btn-sm btn-outline-info" title="Xem chi tiết">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                                <a href="/Admin/Product/Edit/@product.Id" class="btn btn-sm btn-outline-warning" title="Chỉnh sửa">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <form asp-action="TogglePublish" method="post" style="display: inline;">
+                                    <input type="hidden" name="id" value="@product.Id">
+                                    <button type="submit" class="btn btn-sm @(product.IsPublished ? "btn-outline-secondary" : "btn-outline-success")" 
+                                            title="@(product.IsPublished ? "Ẩn sản phẩm" : "Hiển thị sản phẩm")">
+                                        <i class="fas @(product.IsPublished ? "fa-eye-slash" : "fa-eye")"></i>
+                                    </button>
+                                </form>
+                                <a href="/Admin/Product/Delete/@product.Id" class="btn btn-sm btn-outline-danger btn-delete" title="Xóa">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="8" class="text-center py-4">
+                        <div class="text-muted">
+                            <i class="fas fa-box fa-3x mb-3"></i>
+                            <p>Chưa có sản phẩm nào</p>
+                            <a href="/Admin/Product/Create" class="admin-btn admin-btn-primary">
+                                <i class="fas fa-plus me-2"></i>Tạo sản phẩm đầu tiên
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<!-- Pagination -->
+@if (ViewBag.TotalPages > 1)
+{
+    <nav class="mt-4">
+        <ul class="pagination justify-content-center">
+            @if (ViewBag.CurrentPage > 1)
+            {
+                <li class="page-item">
+                    <a class="page-link" href="?page=@(ViewBag.CurrentPage - 1)@(string.IsNullOrEmpty(ViewBag.Search) ? "" : "&search=" + ViewBag.Search)@(ViewBag.CategoryId != null ? "&categoryId=" + ViewBag.CategoryId : "")">Trước</a>
+                </li>
+            }
+
+            @for (int i = Math.Max(1, ViewBag.CurrentPage - 2); i <= Math.Min(ViewBag.TotalPages, ViewBag.CurrentPage + 2); i++)
+            {
+                <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
+                    <a class="page-link" href="?page=@i@(string.IsNullOrEmpty(ViewBag.Search) ? "" : "&search=" + ViewBag.Search)@(ViewBag.CategoryId != null ? "&categoryId=" + ViewBag.CategoryId : "")">@i</a>
+                </li>
+            }
+
+            @if (ViewBag.CurrentPage < ViewBag.TotalPages)
+            {
+                <li class="page-item">
+                    <a class="page-link" href="?page=@(ViewBag.CurrentPage + 1)@(string.IsNullOrEmpty(ViewBag.Search) ? "" : "&search=" + ViewBag.Search)@(ViewBag.CategoryId != null ? "&categoryId=" + ViewBag.CategoryId : "")">Sau</a>
+                </li>
+            }
+        </ul>
+    </nav>
+}

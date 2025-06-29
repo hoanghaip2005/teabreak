@@ -1,0 +1,648 @@
+/* ============================================
+   ADMIN LAYOUT STYLES
+   ============================================ */
+
+/* Reset & Base */
+.admin-body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8f9fc;
+    margin: 0;
+    padding: 0;
+}
+
+/* Admin Wrapper */
+.admin-wrapper {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* ============================================
+   SIDEBAR STYLES
+   ============================================ */
+
+.admin-sidebar {
+    width: 280px;
+    background: linear-gradient(180deg, #2c3e50 0%, #34495e 100%);
+    color: #ecf0f1;
+    position: fixed;
+    height: 100vh;
+    left: 0;
+    top: 0;
+    overflow-y: auto;
+    transition: all 0.3s ease;
+    z-index: 1000;
+    box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+}
+
+/* Sidebar Header */
+.admin-sidebar-header {
+    padding: 1.5rem 1rem;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.admin-logo {
+    display: flex;
+    align-items: center;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #ecf0f1;
+}
+
+.admin-logo i {
+    font-size: 1.5rem;
+    margin-right: 0.5rem;
+}
+
+.sidebar-toggle {
+    background: none;
+    border: none;
+    color: #ecf0f1;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 0.25rem;
+}
+
+/* Sidebar Content */
+.admin-sidebar-content {
+    flex: 1;
+    padding: 1rem 0;
+}
+
+/* Navigation Styles - Force remove all list styles */
+.admin-nav,
+.admin-nav *,
+.admin-nav li,
+.admin-nav-item,
+.admin-nav-subitem,
+.admin-nav-submenu,
+.admin-nav-submenu *,
+.admin-nav-submenu li {
+    list-style: none !important;
+    list-style-type: none !important;
+    list-style-image: none !important;
+    list-style-position: outside !important;
+}
+
+.admin-nav {
+    padding: 0;
+    margin: 0;
+}
+
+/* Extra force to remove bullets */
+.admin-nav::before,
+.admin-nav li::before,
+.admin-nav-item::before,
+.admin-nav-subitem::before,
+.admin-nav-submenu::before,
+.admin-nav-submenu li::before {
+    content: none !important;
+    display: none !important;
+}
+
+/* Force remove Bootstrap's list markers */
+.admin-sidebar ul,
+.admin-sidebar ol,
+.admin-sidebar li {
+    list-style: none !important;
+    list-style-type: none !important;
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+}
+
+/* Override any external CSS that might add bullets */
+nav ul,
+nav ol,
+nav li {
+    list-style: none !important;
+}
+
+.admin-nav-item {
+    position: relative;
+    margin-bottom: 0.25rem;
+}
+
+.admin-nav-link {
+    display: flex;
+    align-items: center;
+    padding: 0.875rem 1.5rem;
+    color: #bdc3c7;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.admin-nav-link:hover {
+    background-color: rgba(255,255,255,0.1);
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.admin-nav-link.active {
+    background-color: rgba(46, 204, 113, 0.2);
+    color: #2ecc71;
+    border-right: 3px solid #2ecc71;
+}
+
+.admin-nav-icon {
+    width: 20px;
+    margin-right: 0.75rem;
+    font-size: 1rem;
+    text-align: center;
+}
+
+.admin-nav-text {
+    flex: 1;
+    font-weight: 500;
+}
+
+.admin-nav-arrow {
+    font-size: 0.75rem;
+    transition: transform 0.3s ease;
+}
+
+/* Group Navigation */
+.admin-nav-group-toggle[aria-expanded="true"] .admin-nav-arrow {
+    transform: rotate(180deg);
+}
+
+/* Navigation Line (Connecting Line) */
+.admin-nav-line {
+    position: absolute;
+    left: 1.875rem; /* Căn chỉnh với center của icon cha (20px icon / 2 = 10px) */
+    top: 3.5rem; /* Bắt đầu từ cuối mục cha */
+    width: 2px;
+    height: 0;
+    background: #3498db;
+    transition: height 0.3s ease;
+    z-index: 1;
+}
+
+/* Khi submenu được mở (Bootstrap collapse) */
+.admin-nav-item .admin-nav-submenu.show ~ .admin-nav-line,
+.admin-nav-item .admin-nav-submenu.collapse.show ~ .admin-nav-line {
+    height: calc(100% - 3.5rem);
+}
+
+/* Alternative selectors cho Bootstrap collapse */
+.admin-nav-group .admin-nav-line {
+    transition: height 0.3s ease;
+}
+
+/* Sử dụng JavaScript selector fallback */
+.admin-nav-item.expanded .admin-nav-line {
+    height: calc(100% - 3.5rem);
+}
+
+/* Submenu Styles */
+.admin-nav-submenu {
+    background-color: rgba(0,0,0,0.1);
+    list-style: none !important;
+    padding: 0;
+    margin: 0;
+    position: relative;
+}
+
+.admin-nav-submenu li,
+.admin-nav-submenu .admin-nav-subitem {
+    list-style: none !important;
+    list-style-type: none !important;
+}
+
+.admin-nav-subitem {
+    position: relative;
+    padding-left: 1rem;
+    list-style: none !important;
+    list-style-type: none !important;
+}
+
+/* Connector - Removed horizontal line and dots */
+.admin-nav-connector {
+    display: none; /* Ẩn connector ngang */
+}
+
+.admin-nav-sublink {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 1rem 0.75rem 2.5rem; 
+    color: #95a5a6;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    position: relative;
+    border-left: 2px solid transparent;
+}
+
+/* Thêm đường ngang nhỏ từ line chính đến mục con */
+.admin-nav-sublink::before {
+    content: '';
+    position: absolute;
+    left: -1.625rem; /* Khoảng cách từ line chính đến text */
+    top: 50%;
+    width: 1rem;
+    height: 2px;
+    background: #3498db;
+    transform: translateY(-50%);
+}
+
+.admin-nav-sublink:hover {
+    background-color: rgba(255,255,255,0.05);
+    color: #ecf0f1;
+    text-decoration: none;
+}
+
+.admin-nav-sublink.active {
+    background-color: rgba(52, 152, 219, 0.2);
+    color: #3498db;
+}
+
+.admin-nav-subicon {
+    width: 16px;
+    margin-right: 0.5rem;
+    font-size: 0.85rem;
+    text-align: center;
+}
+
+/* Sidebar Footer */
+.admin-sidebar-footer {
+    padding: 1rem;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    margin-top: auto;
+}
+
+.admin-user-info {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem;
+    background-color: rgba(0,0,0,0.1);
+    border-radius: 0.5rem;
+}
+
+.admin-user-avatar {
+    margin-right: 0.75rem;
+    font-size: 1.5rem;
+    color: #3498db;
+}
+
+.admin-user-name {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: #ecf0f1;
+}
+
+.admin-user-role {
+    font-size: 0.75rem;
+    color: #95a5a6;
+}
+
+/* ============================================
+   MAIN CONTENT STYLES
+   ============================================ */
+
+.admin-main {
+    flex: 1;
+    margin-left: 280px;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Header */
+.admin-header {
+    background: #ffffff;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid #e9ecef;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 999;
+}
+
+.admin-header-left {
+    display: flex;
+    align-items: center;
+}
+
+.admin-page-title {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-left: 1rem;
+}
+
+.admin-header-right {
+    display: flex;
+    align-items: center;
+}
+
+.admin-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Buttons */
+.admin-btn {
+    padding: 0.5rem 1rem;
+    border-radius: 0.375rem;
+    border: none;
+    font-weight: 500;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.admin-btn-primary {
+    background-color: #3498db;
+    color: white;
+}
+
+.admin-btn-primary:hover {
+    background-color: #2980b9;
+    color: white;
+}
+
+.admin-btn-success {
+    background-color: #2ecc71;
+    color: white;
+}
+
+.admin-btn-success:hover {
+    background-color: #27ae60;
+    color: white;
+}
+
+.admin-btn-warning {
+    background-color: #f39c12;
+    color: white;
+}
+
+.admin-btn-warning:hover {
+    background-color: #e67e22;
+    color: white;
+}
+
+.admin-btn-danger {
+    background-color: #e74c3c;
+    color: white;
+}
+
+.admin-btn-danger:hover {
+    background-color: #c0392b;
+    color: white;
+}
+
+.admin-btn-icon {
+    padding: 0.5rem;
+    background: transparent;
+    color: #6c757d;
+    position: relative;
+}
+
+.admin-btn-icon:hover {
+    background-color: #f8f9fa;
+    color: #495057;
+}
+
+.admin-badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: #e74c3c;
+    color: white;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    font-size: 0.7rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Content */
+.admin-content {
+    flex: 1;
+    padding: 1.5rem;
+    background-color: #f8f9fc;
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+
+@media (max-width: 991.98px) {
+    .admin-sidebar {
+        transform: translateX(-100%);
+    }
+    
+    .admin-sidebar.show {
+        transform: translateX(0);
+    }
+    
+    .admin-main {
+        margin-left: 0;
+    }
+    
+    .admin-page-title {
+        font-size: 1.25rem;
+        margin-left: 0.5rem;
+    }
+}
+
+/* ============================================
+   CARD STYLES
+   ============================================ */
+
+.admin-card {
+    background: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    border: none;
+}
+
+.admin-card-header {
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid #e9ecef;
+    background: transparent;
+}
+
+.admin-card-body {
+    padding: 1.5rem;
+}
+
+.admin-card-title {
+    margin: 0;
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+/* ============================================
+   TABLE STYLES
+   ============================================ */
+
+.admin-table {
+    background: white;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.admin-table table {
+    margin: 0;
+}
+
+.admin-table th {
+    background-color: #f8f9fa;
+    font-weight: 600;
+    color: #495057;
+    border-bottom: 2px solid #dee2e6;
+}
+
+.admin-table td {
+    vertical-align: middle;
+}
+
+/* ============================================
+   FORM STYLES
+   ============================================ */
+
+.admin-form-group {
+    margin-bottom: 1.5rem;
+}
+
+.admin-form-label {
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+}
+
+.admin-form-control {
+    border: 1px solid #ced4da;
+    border-radius: 0.375rem;
+    padding: 0.75rem;
+    font-size: 0.9rem;
+}
+
+.admin-form-control:focus {
+    border-color: #3498db;
+    box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+}
+
+/* ============================================
+   DASHBOARD STATS
+   ============================================ */
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.stats-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 0.75rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center;
+    transition: transform 0.3s ease;
+}
+
+.stats-card:hover {
+    transform: translateY(-2px);
+}
+
+.stats-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    margin-right: 1rem;
+}
+
+.stats-icon.primary { background-color: rgba(52, 152, 219, 0.1); color: #3498db; }
+.stats-icon.success { background-color: rgba(46, 204, 113, 0.1); color: #2ecc71; }
+.stats-icon.warning { background-color: rgba(243, 156, 18, 0.1); color: #f39c12; }
+.stats-icon.danger { background-color: rgba(231, 76, 60, 0.1); color: #e74c3c; }
+
+.stats-content h3 {
+    margin: 0;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #2c3e50;
+}
+
+.stats-content p {
+    margin: 0.25rem 0 0 0;
+    color: #7f8c8d;
+    font-size: 0.9rem;
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.admin-content > * {
+    animation: slideIn 0.3s ease;
+}
+
+/* ============================================
+   UTILITY CLASSES
+   ============================================ */
+
+.text-muted {
+    color: #6c757d !important;
+}
+
+.text-success {
+    color: #2ecc71 !important;
+}
+
+.text-danger {
+    color: #e74c3c !important;
+}
+
+.text-warning {
+    color: #f39c12 !important;
+}
+
+.text-primary {
+    color: #3498db !important;
+}
+
+.bg-light {
+    background-color: #f8f9fa !important;
+}
+
+.rounded {
+    border-radius: 0.375rem !important;
+}
+
+.shadow-sm {
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1) !important;
+} 

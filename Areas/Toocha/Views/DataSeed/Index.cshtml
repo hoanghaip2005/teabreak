@@ -42,6 +42,14 @@
                                 </button>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-md-12 mb-3">
+                                <button id="btn-create-admin" class="btn btn-warning btn-lg px-4 py-3 w-100">
+                                    <i class="fas fa-user-shield"></i> Tạo Tài Khoản Admin
+                                </button>
+                                <small class="text-muted d-block mt-2">Email: admin@toocha.com | Password: admin123</small>
+                            </div>
+                        </div>
                         <div id="loading" style="display: none;" class="mt-3">
                             <div class="spinner-border text-primary" role="status">
                                 <span class="sr-only">Loading...</span>
@@ -164,6 +172,68 @@
                             .removeClass('alert-success')
                             .addClass('alert alert-danger')
                             .html('<i class="fas fa-times-circle"></i> Có lỗi xảy ra khi seed dữ liệu!')
+                            .show();
+                    }
+                });
+            });
+
+            // Xử lý nút tạo admin user
+            $('#btn-create-admin').click(function() {
+                // Hiển thị loading
+                $('#loading').show();
+                $('#loading-text').text('Đang tạo tài khoản admin...');
+                $('#btn-create-admin').prop('disabled', true);
+                $('#btn-seed-data').prop('disabled', true);
+                $('#btn-clear-data').prop('disabled', true);
+                $('#result-message').hide();
+
+                // Gọi API tạo admin user
+                $.ajax({
+                    url: '@Url.Action("CreateAdminUser", "DataSeed", new { area = "Toocha" })',
+                    type: 'POST',
+                    success: function(response) {
+                        $('#loading').hide();
+                        $('#btn-create-admin').prop('disabled', false);
+                        $('#btn-seed-data').prop('disabled', false);
+                        $('#btn-clear-data').prop('disabled', false);
+                        
+                        if (response.success) {
+                            $('#result-message')
+                                .removeClass('alert-danger')
+                                .addClass('alert alert-success')
+                                .html('<i class="fas fa-check-circle"></i> ' + response.message.replace(/\n/g, '<br>'))
+                                .show();
+                            
+                            // Hiển thị nút đi đến trang Admin
+                            setTimeout(function() {
+                                $('#result-message').append(
+                                    '<div class="mt-3">' +
+                                    '<a href="/Admin" class="btn btn-primary me-2">' +
+                                    '<i class="fas fa-cog"></i> Vào Admin Panel' +
+                                    '</a>' +
+                                    '<a href="/Identity/Account/Login" class="btn btn-secondary">' +
+                                    '<i class="fas fa-sign-in-alt"></i> Đăng Nhập' +
+                                    '</a>' +
+                                    '</div>'
+                                );
+                            }, 1000);
+                        } else {
+                            $('#result-message')
+                                .removeClass('alert-success')
+                                .addClass('alert alert-danger')
+                                .html('<i class="fas fa-times-circle"></i> ' + response.message)
+                                .show();
+                        }
+                    },
+                    error: function() {
+                        $('#loading').hide();
+                        $('#btn-create-admin').prop('disabled', false);
+                        $('#btn-seed-data').prop('disabled', false);
+                        $('#btn-clear-data').prop('disabled', false);
+                        $('#result-message')
+                            .removeClass('alert-success')
+                            .addClass('alert alert-danger')
+                            .html('<i class="fas fa-times-circle"></i> Có lỗi xảy ra khi tạo tài khoản admin!')
                             .show();
                     }
                 });

@@ -5,6 +5,10 @@
       "PackagePath": "staticwebassets\\App.kjl1uudz6h.bundle.scp.css"
     },
     {
+      "Id": "C:\\Workspace\\toocha\\wwwroot\\css\\admin.css",
+      "PackagePath": "staticwebassets\\css\\admin.css"
+    },
+    {
       "Id": "C:\\Workspace\\toocha\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },
@@ -71,6 +75,14 @@
     {
       "Id": "C:\\Workspace\\toocha\\wwwroot\\img\\home\\store.png",
       "PackagePath": "staticwebassets\\img\\home\\store.png"
+    },
+    {
+      "Id": "C:\\Workspace\\toocha\\wwwroot\\img\\no-image.png",
+      "PackagePath": "staticwebassets\\img\\no-image.png"
+    },
+    {
+      "Id": "C:\\Workspace\\toocha\\wwwroot\\js\\admin.js",
+      "PackagePath": "staticwebassets\\js\\admin.js"
     },
     {
       "Id": "C:\\Workspace\\toocha\\wwwroot\\js\\site.js",

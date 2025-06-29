@@ -1,0 +1,258 @@
+@model Category
+@{
+    ViewData["Title"] = "Chi tiết Danh mục";
+}
+
+<div class="row">
+    <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h2 class="mb-1">Chi tiết Danh mục</h2>
+                <p class="text-muted mb-0">Thông tin chi tiết về danh mục "@Model.Name"</p>
+            </div>
+            <div class="d-flex gap-2">
+                <a href="/Admin/Category/Edit/@Model.Id" class="admin-btn admin-btn-warning">
+                    <i class="fas fa-edit me-2"></i>Chỉnh sửa
+                </a>
+                <a href="/Admin/Category" class="admin-btn admin-btn-secondary">
+                    <i class="fas fa-arrow-left me-2"></i>Quay lại
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-8 col-md-12">
+        <div class="admin-card">
+            <div class="admin-card-header">
+                <h5 class="admin-card-title">Thông tin danh mục</h5>
+            </div>
+            <div class="admin-card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="admin-form-group">
+                            <label class="admin-form-label">ID Danh mục</label>
+                            <div class="form-control admin-form-control bg-light">@Model.Id</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="admin-form-group">
+                            <label class="admin-form-label">Tên danh mục</label>
+                            <div class="form-control admin-form-control bg-light"><strong>@Model.Name</strong></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="admin-form-group">
+                    <label class="admin-form-label">Mô tả</label>
+                    <div class="form-control admin-form-control bg-light" style="min-height: 100px;">
+                        @if (!string.IsNullOrEmpty(Model.Description))
+                        {
+                            @Model.Description
+                        }
+                        else
+                        {
+                            <span class="text-muted">Chưa có mô tả</span>
+                        }
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="admin-form-group">
+                            <label class="admin-form-label">Ngày tạo</label>
+                            <div class="form-control admin-form-control bg-light">@Model.CreatedAt.ToString("dd/MM/yyyy HH:mm:ss")</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="admin-form-group">
+                            <label class="admin-form-label">Cập nhật lần cuối</label>
+                            <div class="form-control admin-form-control bg-light">@Model.UpdatedAt.ToString("dd/MM/yyyy HH:mm:ss")</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Products in this category -->
+        @if (Model.Products != null && Model.Products.Any())
+        {
+            <div class="admin-card mt-4">
+                <div class="admin-card-header d-flex justify-content-between align-items-center">
+                    <h5 class="admin-card-title">Sản phẩm trong danh mục (@Model.Products.Count)</h5>
+                    <a href="/Admin/Product?categoryId=@Model.Id" class="admin-btn admin-btn-primary admin-btn-sm">
+                        <i class="fas fa-eye me-1"></i>Xem tất cả
+                    </a>
+                </div>
+                <div class="admin-card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0">
+                            <thead>
+                                <tr>
+                                    <th style="width: 60px;">ID</th>
+                                    <th style="width: 80px;">Hình ảnh</th>
+                                    <th>Tên sản phẩm</th>
+                                    <th style="width: 120px;">Giá</th>
+                                    <th style="width: 100px;">Tồn kho</th>
+                                    <th style="width: 100px;">Trạng thái</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var product in Model.Products.Take(5))
+                                {
+                                    <tr>
+                                        <td>@product.Id</td>
+                                        <td>
+                                            <img src="@(string.IsNullOrEmpty(product.Image) ? "/img/no-image.png" : product.Image)" 
+                                                 alt="@product.Name" class="img-thumbnail" style="width: 40px; height: 40px; object-fit: cover;">
+                                        </td>
+                                        <td>
+                                            <strong>@product.Name</strong>
+                                            @if (!string.IsNullOrEmpty(product.Description))
+                                            {
+                                                <br><small class="text-muted">@(product.Description.Length > 30 ? product.Description.Substring(0, 30) + "..." : product.Description)</small>
+                                            }
+                                        </td>
+                                        <td>
+                                            @if (product.SalePrice.HasValue && product.SalePrice < product.Price)
+                                            {
+                                                <span class="text-decoration-line-through text-muted small">@product.Price.ToString("N0") ₫</span><br>
+                                                <strong class="text-danger">@product.SalePrice?.ToString("N0") ₫</strong>
+                                            }
+                                            else
+                                            {
+                                                <strong>@product.Price.ToString("N0") ₫</strong>
+                                            }
+                                        </td>
+                                        <td>
+                                            <span class="badge @(product.StockQuantity > 10 ? "bg-success" : product.StockQuantity > 0 ? "bg-warning" : "bg-danger")">
+                                                @product.StockQuantity
+                                            </span>
+                                        </td>
+                                        <td>
+                                            @if (product.IsPublished)
+                                            {
+                                                <span class="badge bg-success">Hiển thị</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="badge bg-secondary">Ẩn</span>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    @if (Model.Products.Count > 5)
+                    {
+                        <div class="card-footer text-center">
+                            <small class="text-muted">Hiển thị 5/@Model.Products.Count sản phẩm - 
+                                <a href="/Admin/Product?categoryId=@Model.Id">Xem tất cả</a>
+                            </small>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="admin-card mt-4">
+                <div class="admin-card-body text-center py-5">
+                    <i class="fas fa-box fa-3x text-muted mb-3"></i>
+                    <h5 class="text-muted">Chưa có sản phẩm nào</h5>
+                    <p class="text-muted">Danh mục này chưa có sản phẩm nào. Hãy thêm sản phẩm mới.</p>
+                    <a href="/Admin/Product/Create" class="admin-btn admin-btn-primary">
+                        <i class="fas fa-plus me-2"></i>Thêm sản phẩm mới
+                    </a>
+                </div>
+            </div>
+        }
+    </div>
+
+    <div class="col-lg-4 col-md-12">
+        <!-- Statistics -->
+        <div class="admin-card">
+            <div class="admin-card-header">
+                <h5 class="admin-card-title">Thống kê</h5>
+            </div>
+            <div class="admin-card-body">
+                <div class="row text-center">
+                    <div class="col-6">
+                        <div class="border-end">
+                            <h3 class="text-primary mb-1">@(Model.Products?.Count ?? 0)</h3>
+                            <small class="text-muted">Tổng sản phẩm</small>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <h3 class="text-success mb-1">@(Model.Products?.Count(p => p.IsPublished) ?? 0)</h3>
+                        <small class="text-muted">Đang hiển thị</small>
+                    </div>
+                </div>
+                <hr>
+                <div class="row text-center">
+                    <div class="col-6">
+                        <h3 class="text-warning mb-1">@(Model.Products?.Sum(p => p.StockQuantity) ?? 0)</h3>
+                        <small class="text-muted">Tổng tồn kho</small>
+                    </div>
+                    <div class="col-6">
+                        <h3 class="text-info mb-1">@(Model.Products?.Count(p => p.SalePrice.HasValue) ?? 0)</h3>
+                        <small class="text-muted">Có khuyến mãi</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="admin-card mt-4">
+            <div class="admin-card-header">
+                <h5 class="admin-card-title">Thao tác</h5>
+            </div>
+            <div class="admin-card-body">
+                <div class="d-grid gap-2">
+                    <a href="/Admin/Category/Edit/@Model.Id" class="admin-btn admin-btn-warning">
+                        <i class="fas fa-edit me-2"></i>Chỉnh sửa danh mục
+                    </a>
+                    <a href="/Admin/Product/Create" class="admin-btn admin-btn-success">
+                        <i class="fas fa-plus me-2"></i>Thêm sản phẩm mới
+                    </a>
+                    <a href="/Admin/Product?categoryId=@Model.Id" class="admin-btn admin-btn-primary">
+                        <i class="fas fa-list me-2"></i>Xem tất cả sản phẩm
+                    </a>
+                    @if (Model.Products?.Count == 0)
+                    {
+                        <a href="/Admin/Category/Delete/@Model.Id" class="admin-btn admin-btn-danger btn-delete">
+                            <i class="fas fa-trash me-2"></i>Xóa danh mục
+                        </a>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <!-- Category Info -->
+        <div class="admin-card mt-4">
+            <div class="admin-card-header">
+                <h5 class="admin-card-title">Thông tin bổ sung</h5>
+            </div>
+            <div class="admin-card-body">
+                <small class="text-muted">
+                    <strong>Thời gian tồn tại:</strong><br>
+                    @((DateTime.UtcNow - Model.CreatedAt).Days) ngày
+                </small>
+                <hr>
+                <small class="text-muted">
+                    <strong>Lần cập nhật gần nhất:</strong><br>
+                                         @if (Model.UpdatedAt > Model.CreatedAt)
+                     {
+                         @((DateTime.UtcNow - Model.UpdatedAt).TotalHours.ToString("F0")) <text>giờ trước</text>
+                     }
+                    else
+                    {
+                        <span>Chưa có cập nhật</span>
+                    }
+                </small>
+            </div>
+        </div>
+    </div>
+</div> 

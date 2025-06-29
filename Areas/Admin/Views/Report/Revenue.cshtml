@@ -1,0 +1,119 @@
+@model App.Areas.Admin.Controllers.RevenueReportViewModel
+
+@{
+    ViewData["Title"] = "Báo cáo doanh thu";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        <i class="fas fa-chart-line"></i>
+                        Báo cáo doanh thu
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <!-- Date Filter -->
+                    <form method="get" class="mb-4">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label>Từ ngày:</label>
+                                <input type="date" name="fromDate" value="@Model.FromDate.ToString("yyyy-MM-dd")" class="form-control" />
+                            </div>
+                            <div class="col-md-3">
+                                <label>Đến ngày:</label>
+                                <input type="date" name="toDate" value="@Model.ToDate.ToString("yyyy-MM-dd")" class="form-control" />
+                            </div>
+                            <div class="col-md-3 d-flex align-items-end">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-search"></i> Xem báo cáo
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <!-- Summary Cards -->
+                    <div class="row mb-4">
+                        <div class="col-md-3">
+                            <div class="card bg-primary text-white">
+                                <div class="card-body">
+                                    <h5 class="card-title">Tổng đơn hàng</h5>
+                                    <h2>@Model.TotalOrders</h2>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card bg-success text-white">
+                                <div class="card-body">
+                                    <h5 class="card-title">Tổng doanh thu</h5>
+                                    <h2>@Model.TotalRevenue.ToString("N0") VNĐ</h2>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card bg-info text-white">
+                                <div class="card-body">
+                                    <h5 class="card-title">Đã thanh toán</h5>
+                                    <h2>@Model.PaidOrders</h2>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card bg-warning text-white">
+                                <div class="card-body">
+                                    <h5 class="card-title">Chưa thanh toán</h5>
+                                    <h2>@Model.UnpaidOrders</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Daily Revenue Chart -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title">Doanh thu theo ngày</h5>
+                        </div>
+                        <div class="card-body">
+                            @if (Model.DailyRevenue.Any())
+                            {
+                                <div class="table-responsive">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Ngày</th>
+                                                <th>Số đơn hàng</th>
+                                                <th>Doanh thu</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in Model.DailyRevenue)
+                                            {
+                                                <tr>
+                                                    <td>@item.Date.ToString("dd/MM/yyyy")</td>
+                                                    <td>
+                                                        <span class="badge badge-primary">@item.OrderCount</span>
+                                                    </td>
+                                                    <td>
+                                                        <strong class="text-success">@item.Revenue.ToString("N0") VNĐ</strong>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="text-center">
+                                    <em>Không có dữ liệu trong khoảng thời gian này</em>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 

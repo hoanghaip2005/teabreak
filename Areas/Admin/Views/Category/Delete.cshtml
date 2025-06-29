@@ -1,0 +1,200 @@
+@model Category
+@{
+    ViewData["Title"] = "Xóa Danh mục";
+}
+
+<div class="row">
+    <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h2 class="mb-1 text-danger">Xóa Danh mục</h2>
+                <p class="text-muted mb-0">Xác nhận xóa danh mục "@Model.Name"</p>
+            </div>
+            <a href="/Admin/Category" class="admin-btn admin-btn-secondary">
+                <i class="fas fa-arrow-left me-2"></i>Quay lại
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-8 col-md-10">
+        <div class="admin-card border-danger">
+            <div class="admin-card-header bg-danger text-white">
+                <h5 class="admin-card-title mb-0">
+                    <i class="fas fa-exclamation-triangle me-2"></i>Cảnh báo: Xóa danh mục
+                </h5>
+            </div>
+            <div class="admin-card-body">
+                <div class="alert alert-warning">
+                    <i class="fas fa-exclamation-triangle me-2"></i>
+                    <strong>Chú ý:</strong> Hành động này không thể hoàn tác. Danh mục sẽ bị xóa vĩnh viễn khỏi hệ thống.
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="admin-form-group">
+                            <label class="admin-form-label">ID Danh mục</label>
+                            <div class="form-control admin-form-control bg-light">@Model.Id</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="admin-form-group">
+                            <label class="admin-form-label">Tên danh mục</label>
+                            <div class="form-control admin-form-control bg-light"><strong>@Model.Name</strong></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="admin-form-group">
+                    <label class="admin-form-label">Mô tả</label>
+                    <div class="form-control admin-form-control bg-light" style="min-height: 80px;">
+                        @if (!string.IsNullOrEmpty(Model.Description))
+                        {
+                            @Model.Description
+                        }
+                        else
+                        {
+                            <span class="text-muted">Chưa có mô tả</span>
+                        }
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="admin-form-group">
+                            <label class="admin-form-label">Số sản phẩm</label>
+                            <div class="form-control admin-form-control bg-light">
+                                <span class="badge bg-primary">@(Model.Products?.Count ?? 0)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="admin-form-group">
+                            <label class="admin-form-label">Ngày tạo</label>
+                            <div class="form-control admin-form-control bg-light">@Model.CreatedAt.ToString("dd/MM/yyyy")</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="admin-form-group">
+                            <label class="admin-form-label">Cập nhật cuối</label>
+                            <div class="form-control admin-form-control bg-light">@Model.UpdatedAt.ToString("dd/MM/yyyy")</div>
+                        </div>
+                    </div>
+                </div>
+
+                @if (Model.Products?.Count > 0)
+                {
+                    <div class="alert alert-danger">
+                        <i class="fas fa-times-circle me-2"></i>
+                        <strong>Không thể xóa:</strong> Danh mục này đang có <strong>@Model.Products.Count sản phẩm</strong>. 
+                        Vui lòng xóa hoặc chuyển tất cả sản phẩm sang danh mục khác trước khi xóa danh mục này.
+                    </div>
+
+                    <div class="d-flex gap-2">
+                        <a href="/Admin/Product?categoryId=@Model.Id" class="admin-btn admin-btn-warning">
+                            <i class="fas fa-list me-2"></i>Xem sản phẩm (@Model.Products.Count)
+                        </a>
+                        <a href="/Admin/Category" class="admin-btn admin-btn-secondary">
+                            <i class="fas fa-arrow-left me-2"></i>Quay lại danh sách
+                        </a>
+                    </div>
+                }
+                else
+                {
+                    <form asp-action="DeleteConfirmed" method="post">
+                        <input asp-for="Id" type="hidden" />
+                        
+                        <div class="alert alert-success">
+                            <i class="fas fa-check-circle me-2"></i>
+                            <strong>Có thể xóa:</strong> Danh mục này không có sản phẩm nào. Bạn có thể xóa an toàn.
+                        </div>
+
+                        <div class="d-flex gap-2">
+                            <button type="submit" class="admin-btn admin-btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa danh mục này? Hành động này không thể hoàn tác!')">
+                                <i class="fas fa-trash me-2"></i>Xác nhận xóa
+                            </button>
+                            <a href="/Admin/Category/Details/@Model.Id" class="admin-btn admin-btn-info">
+                                <i class="fas fa-eye me-2"></i>Xem chi tiết
+                            </a>
+                            <a href="/Admin/Category" class="admin-btn admin-btn-secondary">
+                                <i class="fas fa-times me-2"></i>Hủy bỏ
+                            </a>
+                        </div>
+                    </form>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4 col-md-12">
+        <!-- Impact Analysis -->
+        <div class="admin-card">
+            <div class="admin-card-header">
+                <h5 class="admin-card-title">Phân tích tác động</h5>
+            </div>
+            <div class="admin-card-body">
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span>Sản phẩm ảnh hưởng:</span>
+                        <span class="badge @(Model.Products?.Count > 0 ? "bg-danger" : "bg-success")">
+                            @(Model.Products?.Count ?? 0)
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span>Có thể xóa:</span>
+                        <span class="badge @(Model.Products?.Count == 0 ? "bg-success" : "bg-danger")">
+                            @(Model.Products?.Count == 0 ? "Có" : "Không")
+                        </span>
+                    </div>
+                </div>
+
+                @if (Model.Products?.Count > 0)
+                {
+                    <hr>
+                    <h6>Sản phẩm trong danh mục:</h6>
+                    <div class="list-group list-group-flush">
+                        @foreach (var product in Model.Products.Take(3))
+                        {
+                            <div class="list-group-item px-0 py-2">
+                                <div class="d-flex align-items-center">
+                                    <img src="@(string.IsNullOrEmpty(product.Image) ? "/img/no-image.png" : product.Image)" 
+                                         alt="@product.Name" class="img-thumbnail me-2" style="width: 30px; height: 30px; object-fit: cover;">
+                                    <small>@product.Name</small>
+                                </div>
+                            </div>
+                        }
+                        @if (Model.Products.Count > 3)
+                        {
+                            <div class="list-group-item px-0 py-2 text-center">
+                                <small class="text-muted">và @(Model.Products.Count - 3) sản phẩm khác...</small>
+                            </div>
+                        }
+                    </div>
+                }
+            </div>
+        </div>
+
+        <!-- Safety Guidelines -->
+        <div class="admin-card mt-4">
+            <div class="admin-card-header">
+                <h5 class="admin-card-title">Hướng dẫn an toàn</h5>
+            </div>
+            <div class="admin-card-body">
+                <div class="alert alert-info">
+                    <i class="fas fa-info-circle me-2"></i>
+                    <strong>Trước khi xóa:</strong>
+                    <ul class="mb-0 mt-2">
+                        <li>Kiểm tra tất cả sản phẩm trong danh mục</li>
+                        <li>Chuyển sản phẩm sang danh mục khác</li>
+                        <li>Hoặc xóa các sản phẩm không cần thiết</li>
+                        <li>Backup dữ liệu nếu cần</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 

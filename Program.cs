@@ -60,7 +60,7 @@ builder.Services.Configure<IdentityOptions>(options =>
 builder.Services.ConfigureApplicationCookie(options =>
 {
     options.LoginPath = "/login/";
-    options.LogoutPath = "/Account/LogOff";
+    options.LogoutPath = "/logout/";
     options.AccessDeniedPath = "/khongduoctruycap.html";
     options.Cookie.Name = ".AspNetCore.Identity.Application";
     options.Cookie.HttpOnly = true;
@@ -122,10 +122,18 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
+// Admin area route - highest priority
+app.MapControllerRoute(
+    name: "admin",
+    pattern: "Admin/{controller=Home}/{action=Index}/{id?}",
+    defaults: new { area = "Admin" });
+
+// General area route  
 app.MapControllerRoute(
     name: "areas",
     pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
 
+// Default route to Toocha area
 app.MapControllerRoute(
     name: "default",
     pattern: "{area=Toocha}/{controller=Home}/{action=Index}/{id?}");

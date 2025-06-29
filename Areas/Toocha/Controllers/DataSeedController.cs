@@ -2,6 +2,8 @@ using App.Models;
 using App.Models.Toocha;
 using Microsoft.AspNetCore.Mvc;
 using toocha.Models.Toocha;
+using Microsoft.AspNetCore.Identity;
+using App.Data;
 
 namespace toocha.Areas.Toocha.Controllers
 {
@@ -9,10 +11,14 @@ namespace toocha.Areas.Toocha.Controllers
     public class DataSeedController : Controller
     {
         private readonly AppDbContext _context;
+        private readonly UserManager<AppUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
-        public DataSeedController(AppDbContext context)
+        public DataSeedController(AppDbContext context, UserManager<AppUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             _context = context;
+            _userManager = userManager;
+            _roleManager = roleManager;
         }
 
         public IActionResult Index()
@@ -299,6 +305,67 @@ namespace toocha.Areas.Toocha.Controllers
                     message = fullMessage,
                     stackTrace = ex.StackTrace
                 });
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateAdminUser()
+        {
+            try
+            {
+                // Tạo roles nếu chưa có
+                var roles = new[] { RoleName.Administrator, RoleName.Editor, RoleName.Member };
+                
+                foreach (var roleName in roles)
+                {
+                    if (!await _roleManager.RoleExistsAsync(roleName))
+                    {
+                        await _roleManager.CreateAsync(new IdentityRole(roleName));
+                    }
+                }
+
+                // Tạo admin user nếu chưa có
+                var adminEmail = "admin@toocha.com";
+                var adminUser = await _userManager.FindByEmailAsync(adminEmail);
+                
+                if (adminUser == null)
+                {
+                    adminUser = new AppUser
+                    {
+                        UserName = adminEmail,
+                        Email = adminEmail,
+                        EmailConfirmed = true,
+                        PhoneNumber = "0123456789",
+                        HomeAdress = "Toocha HQ"
+                    };
+
+                    var result = await _userManager.CreateAsync(adminUser, "admin123");
+                    
+                    if (result.Succeeded)
+                    {
+                        await _userManager.AddToRoleAsync(adminUser, RoleName.Administrator);
+                        return Json(new { success = true, message = $"Đã tạo tài khoản admin thành công!\nEmail: {adminEmail}\nPassword: admin123" });
+                    }
+                    else
+                    {
+                        var errors = string.Join(", ", result.Errors.Select(e => e.Description));
+                        return Json(new { success = false, message = $"Lỗi tạo tài khoản: {errors}" });
+                    }
+                }
+                else
+                {
+                    // Kiểm tra và gán role Administrator nếu chưa có
+                    if (!await _userManager.IsInRoleAsync(adminUser, RoleName.Administrator))
+                    {
+                        await _userManager.AddToRoleAsync(adminUser, RoleName.Administrator);
+                    }
+                    
+                    return Json(new { success = true, message = $"Tài khoản admin đã tồn tại!\nEmail: {adminEmail}\nPassword: admin123" });
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = $"Lỗi: {ex.Message}" });
             }
         }
     }
