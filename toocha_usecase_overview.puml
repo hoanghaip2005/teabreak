@@ -1,0 +1,95 @@
+@startuml Toocha_UseCase_Overview
+!theme plain
+skinparam usecase {
+    BackgroundColor lightblue
+    BorderColor darkblue
+    FontSize 11
+}
+skinparam actor {
+    BackgroundColor lightgreen
+    BorderColor darkgreen
+    FontSize 12
+}
+skinparam rectangle {
+    BackgroundColor lightyellow
+    BorderColor orange
+    FontSize 10
+}
+
+title "🏪 Sơ đồ Use Case Tổng quan - Hệ thống Toocha"
+
+' Actors
+actor "👤 Khách vãng lai" as Guest
+actor "👤 Khách hàng" as Customer  
+actor "👨‍💼 Nhân viên" as Staff
+actor "👑 Quản trị viên" as Admin
+
+' System boundary
+rectangle "Hệ thống Toocha" {
+    
+    ' Frontend functions
+    rectangle "🌐 Giao diện người dùng" {
+        usecase "Duyệt sản phẩm" as UC_Browse
+        usecase "Đặt hàng & Thanh toán" as UC_Order
+        usecase "Theo dõi đơn hàng" as UC_Track
+        usecase "Quản lý tài khoản" as UC_Account
+    }
+    
+    ' Back office functions  
+    rectangle "🏢 Quản lý nội bộ" {
+        usecase "Quản lý sản phẩm" as UC_ProductMgmt
+        usecase "Quản lý đơn hàng" as UC_OrderMgmt
+        usecase "Quản lý cửa hàng" as UC_StoreMgmt
+        usecase "Quản lý người dùng" as UC_UserMgmt
+        usecase "Báo cáo & Thống kê" as UC_Reports
+        usecase "Quản lý khuyến mãi" as UC_Promotion
+    }
+    
+    ' Content management
+    rectangle "📝 Quản lý nội dung" {
+        usecase "Tin tức" as UC_News
+        usecase "Tuyển dụng" as UC_Recruitment  
+        usecase "Nhượng quyền" as UC_Franchise
+        usecase "Sự kiện" as UC_Events
+    }
+}
+
+' External systems
+actor "💳 Hệ thống\nthanh toán" as Payment
+actor "🗺️ Google Maps\nAPI" as Maps
+actor "📧 Email\nService" as Email
+actor "🌐 Social Login\n(Google, Facebook)" as Social
+
+' Relationships - Guest
+Guest --> UC_Browse
+Guest --> UC_Account
+
+' Relationships - Customer
+Customer --> UC_Browse
+Customer --> UC_Order
+Customer --> UC_Track
+Customer --> UC_Account
+
+' Relationships - Staff
+Staff --> UC_OrderMgmt
+Staff --> UC_Reports
+
+' Relationships - Admin
+Admin --> UC_ProductMgmt
+Admin --> UC_OrderMgmt
+Admin --> UC_StoreMgmt
+Admin --> UC_UserMgmt
+Admin --> UC_Reports
+Admin --> UC_Promotion
+Admin --> UC_News
+Admin --> UC_Recruitment
+Admin --> UC_Franchise
+Admin --> UC_Events
+
+' External connections
+UC_Order --> Payment
+UC_StoreMgmt --> Maps
+UC_Account --> Email
+UC_Account --> Social
+
+@enduml 

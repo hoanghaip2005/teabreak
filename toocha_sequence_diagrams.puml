@@ -1,0 +1,401 @@
+@startuml Toocha Sequence Diagrams
+
+!define RECTANGLE class
+
+' Styling
+skinparam sequence {
+    ArrowColor DarkBlue
+    ActorBorderColor DarkBlue
+    LifeLineBorderColor DarkBlue
+    LifeLineBackgroundColor LightBlue
+    ParticipantBorderColor DarkBlue
+    ParticipantBackgroundColor LightBlue
+    ParticipantFontName Impact
+    ParticipantFontSize 17
+    ActorFontSize 17
+    ActorFontName Impact
+}
+
+' ========================================
+' 1. ĐĂNG KÝ TÀI KHOẢN
+' ========================================
+@startuml User Registration
+title Đăng Ký Tài Khoản
+
+actor User as U
+participant "AccountController" as AC
+participant "UserManager" as UM
+participant "EmailService" as ES
+participant "AppDbContext" as DB
+
+U -> AC: POST /register
+activate AC
+
+AC -> AC: Validate ModelState
+AC -> UM: CreateAsync(user, password)
+activate UM
+
+UM -> DB: Check if email exists
+activate DB
+DB --> UM: Email status
+deactivate DB
+
+alt Email exists
+    UM --> AC: IdentityResult.Failed
+    AC --> U: Return to form with error
+else Email available
+    UM -> DB: Create user
+    activate DB
+    DB --> UM: User created
+    deactivate DB
+    
+    UM -> UM: Generate email confirmation token
+    UM --> AC: IdentityResult.Success
+    
+    AC -> ES: SendConfirmationEmail(user, token)
+    activate ES
+    ES --> AC: Email sent
+    deactivate ES
+    
+    AC --> U: Redirect to confirmation page
+end
+
+deactivate UM
+deactivate AC
+@enduml
+
+' ========================================
+' 2. ĐĂNG NHẬP
+' ========================================
+@startuml User Login
+title Đăng Nhập
+
+actor User as U
+participant "AccountController" as AC
+participant "SignInManager" as SIM
+participant "UserManager" as UM
+participant "AppDbContext" as DB
+
+U -> AC: POST /login
+activate AC
+
+AC -> AC: Validate ModelState
+AC -> SIM: PasswordSignInAsync(email, password, rememberMe)
+activate SIM
+
+SIM -> UM: FindByEmailAsync(email)
+activate UM
+UM -> DB: Query user by email
+activate DB
+DB --> UM: User data
+deactivate DB
+UM --> SIM: User object
+deactivate UM
+
+alt User found && Password correct
+    SIM -> SIM: Create authentication cookie
+    SIM --> AC: SignInResult.Success
+    AC --> U: Redirect to dashboard
+else Invalid credentials
+    SIM --> AC: SignInResult.Failed
+    AC --> U: Return to form with error
+end
+
+deactivate SIM
+deactivate AC
+@enduml
+
+' ========================================
+' 3. ĐẶT HÀNG
+' ========================================
+@startuml Place Order
+title Đặt Hàng
+
+actor Customer as C
+participant "OrderController" as OC
+participant "ProductService" as PS
+participant "DiscountService" as DS
+participant "LocationService" as LS
+participant "AppDbContext" as DB
+
+C -> OC: POST /order/create
+activate OC
+
+OC -> OC: Validate order data
+OC -> PS: GetProductById(productId)
+activate PS
+PS -> DB: Query product
+activate DB
+DB --> PS: Product data
+deactivate DB
+PS --> OC: Product object
+deactivate PS
+
+alt Product exists && In stock
+    OC -> DS: ValidateDiscount(discountCode)
+    activate DS
+    DS -> DB: Query discount
+    activate DB
+    DB --> DS: Discount data
+    deactivate DB
+    DS --> OC: Discount validation result
+    deactivate DS
+    
+    OC -> LS: CalculateShippingFee(deliveryAddress)
+    activate LS
+    LS -> LS: Calculate distance
+    LS --> OC: Shipping fee
+    deactivate LS
+    
+    OC -> OC: Calculate total price
+    OC -> DB: Create order
+    activate DB
+    DB -> DB: Save order
+    DB -> DB: Save order items
+    DB --> OC: Order created
+    deactivate DB
+    
+    OC --> C: Order confirmation page
+else Product not available
+    OC --> C: Error: Product unavailable
+end
+
+deactivate OC
+@enduml
+
+' ========================================
+' 4. QUẢN LÝ SẢN PHẨM (ADMIN)
+' ========================================
+@startuml Product Management
+title Quản Lý Sản Phẩm (Admin)
+
+actor Admin as A
+participant "ProductController" as PC
+participant "FileService" as FS
+participant "AppDbContext" as DB
+
+A -> PC: POST /admin/product/create
+activate PC
+
+PC -> PC: Validate product data
+PC -> FS: UploadImage(productImage)
+activate FS
+FS -> FS: Save image to storage
+FS --> PC: Image URL
+deactivate FS
+
+PC -> DB: Create product
+activate DB
+DB -> DB: Save product
+DB --> PC: Product created
+deactivate DB
+
+PC --> A: Redirect to product list
+
+deactivate PC
+
+' --- Update Product ---
+A -> PC: POST /admin/product/edit/{id}
+activate PC
+
+PC -> DB: GetProductById(id)
+activate DB
+DB --> PC: Product data
+deactivate DB
+
+PC -> PC: Update product properties
+PC -> DB: Update product
+activate DB
+DB --> PC: Product updated
+deactivate DB
+
+PC --> A: Redirect to product details
+
+deactivate PC
+@enduml
+
+' ========================================
+' 5. XỬ LÝ ĐƠN HÀNG
+' ========================================
+@startuml Order Processing
+title Xử Lý Đơn Hàng
+
+actor Staff as S
+participant "OrderController" as OC
+participant "NotificationService" as NS
+participant "AppDbContext" as DB
+
+S -> OC: POST /admin/order/update-status
+activate OC
+
+OC -> OC: Validate order status
+OC -> DB: GetOrderById(orderId)
+activate DB
+DB --> OC: Order data
+deactivate DB
+
+OC -> DB: Update order status
+activate DB
+DB -> DB: Save changes
+DB --> OC: Order updated
+deactivate DB
+
+alt Status = Processing
+    OC -> NS: NotifyCustomer(orderId, "Đơn hàng đang được xử lý")
+    activate NS
+    NS -> NS: Send SMS/Email
+    NS --> OC: Notification sent
+    deactivate NS
+else Status = Shipped
+    OC -> NS: NotifyCustomer(orderId, "Đơn hàng đã giao cho đơn vị vận chuyển")
+    activate NS
+    NS -> NS: Send SMS/Email
+    NS --> OC: Notification sent
+    deactivate NS
+else Status = Delivered
+    OC -> NS: NotifyCustomer(orderId, "Đơn hàng đã giao thành công")
+    activate NS
+    NS -> NS: Send SMS/Email
+    NS --> OC: Notification sent
+    deactivate NS
+end
+
+OC --> S: Status updated successfully
+
+deactivate OC
+@enduml
+
+' ========================================
+' 6. TÌM KIẾM SẢN PHẨM
+' ========================================
+@startuml Product Search
+title Tìm Kiếm Sản Phẩm
+
+actor Customer as C
+participant "ProductController" as PC
+participant "SearchService" as SS
+participant "AppDbContext" as DB
+
+C -> PC: GET /products/search?q=keyword
+activate PC
+
+PC -> SS: SearchProducts(keyword, category, priceRange)
+activate SS
+
+SS -> DB: Query products with filters
+activate DB
+DB -> DB: Apply search criteria
+DB --> SS: Product list
+deactivate DB
+
+SS -> SS: Apply sorting and pagination
+SS --> PC: Search results
+deactivate SS
+
+PC -> PC: Prepare view model
+PC --> C: Display search results
+
+deactivate PC
+@enduml
+
+' ========================================
+' 7. ÁP DỤNG KHUYẾN MÃI
+' ========================================
+@startuml Apply Discount
+title Áp Dụng Khuyến Mãi
+
+actor Customer as C
+participant "OrderController" as OC
+participant "DiscountService" as DS
+participant "AppDbContext" as DB
+
+C -> OC: POST /order/apply-discount
+activate OC
+
+OC -> DS: ValidateDiscount(code, orderAmount)
+activate DS
+
+DS -> DB: GetDiscountByCode(code)
+activate DB
+DB --> DS: Discount data
+deactivate DB
+
+DS -> DS: Check discount validity
+note right of DS
+- Check if active
+- Check date range
+- Check usage limit
+- Check minimum order amount
+end note
+
+alt Discount valid
+    DS -> DS: Calculate discount amount
+    DS --> OC: Discount applied
+    deactivate DS
+    
+    OC -> OC: Update order total
+    OC -> DB: Update order
+    activate DB
+    DB --> OC: Order updated
+    deactivate DB
+    
+    OC --> C: Updated order summary
+else Discount invalid
+    DS --> OC: Validation error
+    deactivate DS
+    OC --> C: Error message
+end
+
+deactivate OC
+@enduml
+
+' ========================================
+' 8. ĐÁNH GIÁ SẢN PHẨM
+' ========================================
+@startuml Product Review
+title Đánh Giá Sản Phẩm
+
+actor Customer as C
+participant "ReviewController" as RC
+participant "ProductService" as PS
+participant "AppDbContext" as DB
+
+C -> RC: POST /product/review
+activate RC
+
+RC -> RC: Validate review data
+RC -> PS: GetProductById(productId)
+activate PS
+PS -> DB: Query product
+activate DB
+DB --> PS: Product data
+deactivate DB
+PS --> RC: Product object
+deactivate PS
+
+alt Product exists
+    RC -> DB: Create review
+    activate DB
+    DB -> DB: Save review
+    DB --> RC: Review created
+    deactivate DB
+    
+    RC -> PS: UpdateProductRating(productId)
+    activate PS
+    PS -> DB: Calculate average rating
+    activate DB
+    DB -> DB: Update product rating
+    DB --> PS: Rating updated
+    deactivate DB
+    PS --> RC: Product updated
+    deactivate PS
+    
+    RC --> C: Review submitted successfully
+else Product not found
+    RC --> C: Error: Product not found
+end
+
+deactivate RC
+@enduml
+
+@enduml 

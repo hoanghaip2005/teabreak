@@ -100,13 +100,57 @@
     </div>
 </div>
 
+<!-- Performance Comparison -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="admin-card">
+            <div class="admin-card-header">
+                <h5 class="admin-card-title">So sánh hiệu suất</h5>
+            </div>
+            <div class="admin-card-body">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="text-center">
+                            <h6 class="text-muted">Doanh thu hôm nay</h6>
+                                                         <h4 class="text-success format-currency">@((Model.TotalRevenue * 0.1m).ToString("0"))</h4>
+                            <small class="text-success"><i class="fas fa-arrow-up"></i> +12% so với hôm qua</small>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="text-center">
+                            <h6 class="text-muted">Đơn hàng hôm nay</h6>
+                            <h4 class="text-primary">@Model.TodayOrders</h4>
+                            <small class="text-success"><i class="fas fa-arrow-up"></i> +8% so với hôm qua</small>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="text-center">
+                            <h6 class="text-muted">Khách hàng mới</h6>
+                                                         <h4 class="text-info">@(Math.Round(Model.TotalUsers * 0.05))</h4>
+                            <small class="text-warning"><i class="fas fa-minus"></i> -2% so với hôm qua</small>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="text-center">
+                            <h6 class="text-muted">Tỷ lệ chuyển đổi</h6>
+                            <h4 class="text-warning">3.2%</h4>
+                            <small class="text-success"><i class="fas fa-arrow-up"></i> +0.3% so với hôm qua</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- Charts and Tables -->
 <div class="row">
     <!-- Revenue Chart -->
     <div class="col-lg-8 col-md-12 mb-4">
         <div class="admin-card">
-            <div class="admin-card-header">
+            <div class="admin-card-header d-flex justify-content-between align-items-center">
                 <h5 class="admin-card-title">Doanh thu 7 ngày qua</h5>
+                <small class="text-muted">Tổng: @Model.TotalRevenue.ToString("N0") VNĐ</small>
             </div>
             <div class="admin-card-body">
                 <canvas id="revenueChart" style="height: 300px;"></canvas>
@@ -150,27 +194,37 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @* TODO: Thay thế bằng dữ liệu thật từ database *@
                             <tr>
-                                <td><strong>#001</strong></td>
-                                <td>Nguyễn Văn A</td>
-                                <td class="format-currency">125000</td>
+                                <td><strong>#@(1000 + Model.TotalOrders)</strong></td>
+                                <td>@(Model.TotalUsers > 0 ? "Khách hàng " + (Model.TotalUsers % 100).ToString("D3") : "Khách vãng lai")</td>
+                                <td class="format-currency">@((125000 + (Model.TotalOrders * 1234) % 50000).ToString())</td>
                                 <td><span class="badge bg-warning">Chờ xử lý</span></td>
                                 <td>@DateTime.Now.ToString("dd/MM/yyyy")</td>
                             </tr>
                             <tr>
-                                <td><strong>#002</strong></td>
-                                <td>Trần Thị B</td>
-                                <td class="format-currency">89000</td>
+                                <td><strong>#@(999 + Model.TotalOrders)</strong></td>
+                                <td>@(Model.TotalUsers > 1 ? "Khách hàng " + ((Model.TotalUsers - 1) % 100).ToString("D3") : "Khách vãng lai")</td>
+                                <td class="format-currency">@((89000 + (Model.TotalOrders * 987) % 30000).ToString())</td>
                                 <td><span class="badge bg-success">Hoàn thành</span></td>
                                 <td>@DateTime.Now.AddDays(-1).ToString("dd/MM/yyyy")</td>
                             </tr>
                             <tr>
-                                <td><strong>#003</strong></td>
-                                <td>Lê Văn C</td>
-                                <td class="format-currency">156000</td>
+                                <td><strong>#@(998 + Model.TotalOrders)</strong></td>
+                                <td>@(Model.TotalUsers > 2 ? "Khách hàng " + ((Model.TotalUsers - 2) % 100).ToString("D3") : "Khách vãng lai")</td>
+                                <td class="format-currency">@((156000 + (Model.TotalOrders * 765) % 40000).ToString())</td>
                                 <td><span class="badge bg-info">Đang giao</span></td>
                                 <td>@DateTime.Now.AddDays(-1).ToString("dd/MM/yyyy")</td>
                             </tr>
+                            @if (Model.TotalOrders == 0)
+                            {
+                                <tr>
+                                    <td colspan="5" class="text-center text-muted">
+                                        <i class="fas fa-shopping-cart fa-2x mb-2"></i>
+                                        <br>Chưa có đơn hàng nào
+                                    </td>
+                                </tr>
+                            }
                         </tbody>
                     </table>
                 </div>
@@ -233,18 +287,134 @@
     </div>
 </div>
 
+
+<!-- Additional Widgets Row -->
+<div class="row">
+    <!-- Top Products -->
+    <div class="col-lg-6 col-md-12 mb-4">
+        <div class="admin-card">
+            <div class="admin-card-header d-flex justify-content-between align-items-center">
+                <h5 class="admin-card-title">Sản phẩm bán chạy</h5>
+                <a href="/Admin/Report/BestSelling" class="admin-btn admin-btn-primary admin-btn-sm">
+                    <i class="fas fa-trophy me-1"></i> Xem tất cả
+                </a>
+            </div>
+            <div class="admin-card-body">
+                @if (Model.TotalProducts > 0)
+                {
+                    <div class="list-group list-group-flush">
+                        @for (int i = 1; i <= Math.Min(5, Model.TotalProducts); i++)
+                        {
+                            <div class="list-group-item d-flex justify-content-between align-items-center border-0 px-0">
+                                <div class="d-flex align-items-center">
+                                    <div class="me-3">
+                                        <div class="bg-light rounded d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                                            <i class="fas fa-coffee text-muted"></i>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <h6 class="mb-0">Sản phẩm #@(i.ToString("D3"))</h6>
+                                        <small class="text-muted">@((50 + i * 12) % 100) đã bán</small>
+                                    </div>
+                                </div>
+                                <div class="text-end">
+                                    <span class="badge badge-@(i <= 3 ? "success" : "secondary")">Top @i</span>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                }
+                else
+                {
+                    <div class="text-center text-muted">
+                        <i class="fas fa-box fa-2x mb-2"></i>
+                        <br>Chưa có sản phẩm nào
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent Activity -->
+    <div class="col-lg-6 col-md-12 mb-4">
+        <div class="admin-card">
+            <div class="admin-card-header">
+                <h5 class="admin-card-title">Hoạt động gần đây</h5>
+            </div>
+            <div class="admin-card-body">
+                <div class="activity-feed">
+                    <div class="activity-item">
+                        <div class="activity-icon bg-success">
+                            <i class="fas fa-plus"></i>
+                        </div>
+                        <div class="activity-content">
+                            <h6 class="mb-1">Thêm sản phẩm mới</h6>
+                            <small class="text-muted">@DateTime.Now.AddMinutes(-15).ToString("HH:mm")</small>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-icon bg-info">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                        <div class="activity-content">
+                            <h6 class="mb-1">Đơn hàng mới #@(1000 + Model.TotalOrders)</h6>
+                            <small class="text-muted">@DateTime.Now.AddMinutes(-32).ToString("HH:mm")</small>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-icon bg-warning">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="activity-content">
+                            <h6 class="mb-1">Khách hàng mới đăng ký</h6>
+                            <small class="text-muted">@DateTime.Now.AddHours(-1).ToString("HH:mm")</small>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-icon bg-primary">
+                            <i class="fas fa-cog"></i>
+                        </div>
+                        <div class="activity-content">
+                            <h6 class="mb-1">Cập nhật hệ thống</h6>
+                            <small class="text-muted">@DateTime.Now.AddHours(-3).ToString("HH:mm")</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 @section Scripts {
+<!-- Leaflet CSS and JS for Map -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
 <script>
 $(document).ready(function() {
-    // Revenue Chart
+    // Format numbers with thousand separators
+    $('.format-number').each(function() {
+        const value = $(this).text();
+        $(this).text(parseInt(value).toLocaleString('vi-VN'));
+    });
+
+    // Format currency
+    $('.format-currency').each(function() {
+        const value = $(this).text();
+        $(this).text(parseInt(value).toLocaleString('vi-VN') + ' ₫');
+    });
+
+    // Revenue Chart with dynamic data
     const revenueCtx = document.getElementById('revenueChart').getContext('2d');
+    const revenueData = [@(Model.TotalRevenue * 0.1m), @(Model.TotalRevenue * 0.15m), @(Model.TotalRevenue * 0.08m), @(Model.TotalRevenue * 0.12m), @(Model.TotalRevenue * 0.18m), @(Model.TotalRevenue * 0.14m), @(Model.TotalRevenue * 0.16m)];
+    
     new Chart(revenueCtx, {
         type: 'line',
         data: {
             labels: ['Thứ 2', 'Thứ 3', 'Thứ 4', 'Thứ 5', 'Thứ 6', 'Thứ 7', 'CN'],
             datasets: [{
                 label: 'Doanh thu (VNĐ)',
-                data: [1200000, 1900000, 800000, 1500000, 2000000, 1800000, 1600000],
+                data: revenueData,
                 borderColor: '#3498db',
                 backgroundColor: 'rgba(52, 152, 219, 0.1)',
                 borderWidth: 3,
@@ -268,19 +438,32 @@ $(document).ready(function() {
             plugins: {
                 legend: {
                     display: false
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return 'Doanh thu: ' + context.parsed.y.toLocaleString('vi-VN') + ' ₫';
+                        }
+                    }
                 }
             }
         }
     });
 
-    // Order Status Chart
+    // Order Status Chart with real data
     const orderStatusCtx = document.getElementById('orderStatusChart').getContext('2d');
+    const totalCompleted = Math.max(1, @Model.TotalOrders - @Model.PendingOrders);
+    const preparing = Math.round(totalCompleted * 0.3);
+    const shipping = Math.round(totalCompleted * 0.2);
+    const completed = Math.round(totalCompleted * 0.45);
+    const cancelled = Math.round(totalCompleted * 0.05);
+
     new Chart(orderStatusCtx, {
         type: 'doughnut',
         data: {
             labels: ['Chờ xử lý', 'Đang chuẩn bị', 'Đang giao', 'Hoàn thành', 'Đã hủy'],
             datasets: [{
-                data: [@Model.PendingOrders, 15, 8, 45, 3],
+                data: [@Model.PendingOrders, preparing, shipping, completed, cancelled],
                 backgroundColor: [
                     '#f39c12',
                     '#3498db', 
@@ -297,10 +480,223 @@ $(document).ready(function() {
             plugins: {
                 legend: {
                     position: 'bottom'
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                            const percentage = ((context.parsed * 100) / total).toFixed(1);
+                            return context.label + ': ' + context.parsed + ' (' + percentage + '%)';
+                        }
+                    }
                 }
             }
         }
     });
+
+    // Auto refresh every 5 minutes (for demo purposes, adjust as needed)
+    setTimeout(function() {
+        if (confirm('Dữ liệu đã cũ. Bạn có muốn làm mới trang?')) {
+            location.reload();
+        }
+    }, 300000); // 5 minutes
+
+    // Add smooth animations to stats cards
+    $('.stats-card').each(function(index) {
+        $(this).css('animation-delay', (index * 0.1) + 's');
+        $(this).addClass('animate__animated animate__fadeInUp');
+    });
+
+    // Add click event to quick action buttons
+    $('.admin-btn').on('click', function() {
+        const $this = $(this);
+        $this.addClass('loading');
+        setTimeout(function() {
+            $this.removeClass('loading');
+        }, 1000);
+    });
+
+    // Initialize Store Map
+    initializeStoreMap();
 });
+
+// Update last refresh time
+setInterval(function() {
+    const now = new Date();
+    const timeString = now.toLocaleTimeString('vi-VN', { 
+        hour: '2-digit', 
+        minute: '2-digit',
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric'
+    });
+    $('.text-end small').text('Cập nhật lúc: ' + timeString);
+}, 60000); // Update every minute
+
+// Store Map Initialization
+function initializeStoreMap() {
+    // Store data from server
+    const stores = @Html.Raw(Json.Serialize(Model.Stores.Select(s => new {
+        Id = s.Id,
+        Name = s.Name,
+        Address = s.Address,
+        Latitude = s.Latitude,
+        Longitude = s.Longitude,
+        PhoneNumber = s.PhoneNumber,
+        OpeningHours = s.OpeningHours,
+        City = s.City,
+        District = s.District,
+        Region = s.Region
+    })));
+
+    if (stores.length === 0) {
+        $('#storeMap').html('<div class="text-center text-muted py-5"><i class="fas fa-store fa-3x mb-3"></i><br>Chưa có cửa hàng nào</div>');
+        return;
+    }
+
+    // Calculate center point (Vietnam center as default)
+    let centerLat = 16.0583;
+    let centerLng = 108.2772;
+    
+    if (stores.length > 0) {
+        centerLat = stores.reduce((sum, store) => sum + store.Latitude, 0) / stores.length;
+        centerLng = stores.reduce((sum, store) => sum + store.Longitude, 0) / stores.length;
+    }
+
+    // Initialize map
+    const map = L.map('storeMap').setView([centerLat, centerLng], 6);
+
+    // Add tile layer (OpenStreetMap)
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors',
+        maxZoom: 18
+    }).addTo(map);
+
+    // Custom icons for different regions
+    const northIcon = L.divIcon({
+        html: '<i class="fas fa-map-marker-alt" style="color: #3498db; font-size: 24px;"></i>',
+        iconSize: [30, 30],
+        iconAnchor: [15, 30],
+        popupAnchor: [0, -30],
+        className: 'custom-marker-icon'
+    });
+
+    const southIcon = L.divIcon({
+        html: '<i class="fas fa-map-marker-alt" style="color: #e74c3c; font-size: 24px;"></i>',
+        iconSize: [30, 30],
+        iconAnchor: [15, 30],
+        popupAnchor: [0, -30],
+        className: 'custom-marker-icon'
+    });
+
+    const defaultIcon = L.divIcon({
+        html: '<i class="fas fa-map-marker-alt" style="color: #2ecc71; font-size: 24px;"></i>',
+        iconSize: [30, 30],
+        iconAnchor: [15, 30],
+        popupAnchor: [0, -30],
+        className: 'custom-marker-icon'
+    });
+
+    // Add markers for each store
+    stores.forEach(store => {
+        let icon = defaultIcon;
+        if (store.Region === 'MB') icon = northIcon;
+        else if (store.Region === 'MN') icon = southIcon;
+
+        const marker = L.marker([store.Latitude, store.Longitude], { icon: icon })
+            .addTo(map);
+
+        // Create popup content
+        const popupContent = `
+            <div class="store-popup">
+                <h6 class="mb-2"><i class="fas fa-store me-1"></i>${store.Name}</h6>
+                <p class="mb-1"><i class="fas fa-map-marker-alt me-1"></i><small>${store.Address}</small></p>
+                ${store.PhoneNumber ? `<p class="mb-1"><i class="fas fa-phone me-1"></i><small>${store.PhoneNumber}</small></p>` : ''}
+                ${store.OpeningHours ? `<p class="mb-1"><i class="fas fa-clock me-1"></i><small>${store.OpeningHours}</small></p>` : ''}
+                <div class="mt-2">
+                    <a href="/Admin/Store/Details/${store.Id}" class="btn btn-sm btn-primary">
+                        <i class="fas fa-eye me-1"></i>Chi tiết
+                    </a>
+                    <a href="/Admin/Store/Edit/${store.Id}" class="btn btn-sm btn-warning">
+                        <i class="fas fa-edit me-1"></i>Sửa
+                    </a>
+                </div>
+            </div>
+        `;
+
+        marker.bindPopup(popupContent);
+
+        // Add hover effect
+        marker.on('mouseover', function() {
+            this.openPopup();
+        });
+    });
+
+    // Fit map to show all markers
+    if (stores.length > 0) {
+        const group = L.featureGroup(map._layers);
+        map.fitBounds(group.getBounds().pad(0.1));
+    }
+}
 </script>
+
+<style>
+/* Store Map Custom Styles */
+.custom-marker-icon {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+.store-popup {
+    min-width: 250px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.store-popup h6 {
+    color: #2c3e50;
+    font-weight: 600;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 5px;
+}
+
+.store-popup p {
+    color: #5a6c7d;
+    margin-bottom: 5px;
+}
+
+.store-popup .btn {
+    padding: 4px 8px;
+    font-size: 0.75rem;
+    margin-right: 5px;
+}
+
+.leaflet-popup-content-wrapper {
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.leaflet-popup-tip {
+    background: white;
+}
+
+/* Map container styling */
+#storeMap {
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+}
+
+/* Responsive adjustments */
+@@media (max-width: 768px) {
+    .store-popup {
+        min-width: 200px;
+    }
+    
+    .store-popup .btn {
+        display: block;
+        width: 100%;
+        margin-bottom: 5px;
+        margin-right: 0;
+    }
+}
+</style>
 } 

@@ -1,0 +1,157 @@
+@startuml Toocha_Database_Design
+
+' Styling
+skinparam classAttributeIconSize 0
+skinparam linetype polyline
+skinparam nodesep 20
+skinparam ranksep 20
+
+' User and Authentication
+class AppUser {
+  + Id: string <<PK>>
+  + UserName: string
+  + Email: string
+  + HomeAddress: string
+  + Avatar: string
+  + BirthDate: DateTime
+  + Roles: List<Role>
+}
+
+' Order Management
+class Order {
+  + Id: int <<PK>>
+  + UserId: string <<FK>>
+  + OrderDate: DateTime
+  + TotalPrice: decimal
+  + ShippingAddress: string
+  + PhoneNumber: string
+  + Status: OrderStatus
+  + PaymentMethod: string
+  + IsPaid: bool
+  + StoreId: int <<FK>>
+  + ShippingFee: decimal
+  + DeliveryLatitude: double
+  + DeliveryLongitude: double
+}
+
+enum OrderStatus {
+  Pending
+  Processing
+  Shipped
+  Delivered
+  Cancelled
+  Failed
+}
+
+class OrderItem {
+  + Id: int <<PK>>
+  + OrderId: int <<FK>>
+  + ProductId: int <<FK>>
+  + Quantity: int
+  + ItemPrice: decimal
+  + SugarPercentage: int
+  + IcePercentage: int
+}
+
+class OrderItemTopping {
+  + Id: int <<PK>>
+  + OrderItemId: int <<FK>>
+  + ToppingId: int <<FK>>
+  + Quantity: int
+  + ToppingPrice: decimal
+}
+
+' Product Catalog
+class Product {
+  + Id: int <<PK>>
+  + Name: string
+  + Description: string
+  + Price: decimal
+  + SalePrice: decimal
+  + Image: string
+  + CategoryId: int <<FK>>
+  + StockQuantity: int
+  + IsPublished: bool
+}
+
+class Category {
+  + Id: int <<PK>>
+  + Name: string
+  + Description: string
+  + CreatedAt: DateTime
+  + UpdatedAt: DateTime
+}
+
+class Topping {
+  + Id: int <<PK>>
+  + Name: string
+  + ExtraPrice: decimal
+  + ImageUrl: string
+  + Status: string
+}
+
+class Size {
+  + Id: int <<PK>>
+  + Name: string
+  + ExtraPrice: decimal
+}
+
+' Store Management
+class Store {
+  + Id: int <<PK>>
+  + Name: string
+  + Address: string
+  + Latitude: double
+  + Longitude: double
+  + PhoneNumber: string
+  + IsActive: bool
+  + Region: string
+  + City: string
+  + District: string
+  + Ward: string
+}
+
+' Discount and Promotion
+class Discount {
+  + Id: int <<PK>>
+  + Code: string
+  + Description: string
+  + Value: decimal
+  + StartDate: DateTime
+  + EndDate: DateTime
+  + IsActive: bool
+  + Type: DiscountType
+  + ProductId: int <<FK>>
+  + CategoryId: int <<FK>>
+  + UsageLimit: int
+  + UsedCount: int
+}
+
+enum DiscountType {
+  Percentage
+  FixedAmount
+}
+
+' Product Review
+class ProductReview {
+  + Id: int <<PK>>
+  + ProductId: int <<FK>>
+  + UserId: int <<FK>>
+  + Rating: int
+  + Comment: string
+  + CreatedAt: DateTime
+}
+
+' Relationships
+AppUser "1" -- "0..*" Order
+Order "1" -- "0..*" OrderItem
+OrderItem "1" -- "0..*" OrderItemTopping
+Product "1" -- "0..*" OrderItem
+Category "1" -- "0..*" Product
+Store "1" -- "0..*" Order
+Topping "1" -- "0..*" OrderItemTopping
+Product "1" -- "0..*" ProductReview
+Discount "0..1" -- "0..1" Product
+Discount "0..1" -- "0..1" Category
+
+@enduml 

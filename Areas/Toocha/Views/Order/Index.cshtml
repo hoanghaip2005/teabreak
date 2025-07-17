@@ -39,16 +39,16 @@
                     </div>
                     <div class="user-dropdown" id="userDropdown">
                         <div class="dropdown-item">
-                            <i class="fas fa-user mr-2"></i>
+                            <i class="fas fa-user me-2"></i>
                             Thông tin cá nhân
                         </div>
                         <div class="dropdown-item">
-                            <i class="fas fa-shopping-bag mr-2"></i>
+                            <i class="fas fa-shopping-bag me-2"></i>
                             Lịch sử đơn hàng
                         </div>
                         <div class="dropdown-divider"></div>
                         <div class="dropdown-item" onclick="logout()">
-                            <i class="fas fa-sign-out-alt mr-2"></i>
+                            <i class="fas fa-sign-out-alt me-2"></i>
                             Đăng xuất
                         </div>
                     </div>
@@ -159,93 +159,92 @@
         </div>
     </div>
 
-    <!-- Modal sản phẩm với animation đẹp -->
+    <!-- Modal sản phẩm đơn giản -->
     <div class="modal fade" id="productModal" tabindex="-1" role="dialog" aria-labelledby="productModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-            <div class="modal-content modern-modal">
-                <div class="modal-body modern-body">
+        <div class="modal-dialog modal-dialog-centered product-modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="productModalLabel">Thêm vào giỏ hàng</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
                     <div class="row">
-                            <div class="product-image-container">
-                                <img id="modalProductImage" src="" class="product-image" alt="Product Image">
-                                <div class="product-info">
-                                    <h2 id="modalProductName" class="product-title">Tên sản phẩm</h2>
-                                    <div class="price-container">
-                                        <span class="price-label">Giá:</span>
-                                        <span id="modalProductPrice" class="price-value">0</span>đ
-                                    </div>
-                                    <p id="modalProductDescription" class="product-description">Mô tả sản phẩm.</p>
-                                        <div class="quantity-controls">
-                                            <button class="quantity-btn" id="btn-decrease">
-                                                <i class="fas fa-minus"></i>
-                                            </button>
-                                            <input type="number" id="quantityInput" class="quantity-input" value="1" min="1">
-                                            <button class="quantity-btn" id="btn-increase">
-                                                <i class="fas fa-plus"></i>
-                                            </button>
-                                        </div>
-                                    <div class="modern-footer">
-                                        <div class="total-section">
-                                            <span class="total-label">Tổng cộng:</span>
-                                            <span id="modalTotalPrice" class="total-price">0đ</span>
-                                        </div>
-                                        <button type="button" class="btn btn-add-cart" id="btn-add-to-cart">
-                                            <i class="fas fa-shopping-cart mr-2"></i>
-                                            Thêm vào giỏ hàng
-                                        </button>
-                                    </div>
-                                </div>
+                        <div class="col-md-4">
+                            <img id="modalProductImage" src="" class="img-fluid rounded" alt="Product Image" style="width: 100%; height: 200px; object-fit: cover;">
+                        </div>
+                        <div class="col-md-8">
+                            <h5 id="modalProductName" class="mb-2">Tên sản phẩm</h5>
+                            <p id="modalProductDescription" class="text-muted mb-3">Mô tả sản phẩm.</p>
+                            
+                            <div class="mb-3">
+                                <strong class="text-primary" id="modalProductPrice">0đ</strong>
                             </div>
-                    </div>
-
-                    <div class="options-section">
-                        <div class="options-container">
+                            
                             <!-- Size Selection -->
-                            <div class="option-card">
-                                <div class="option-header">
-                                    <i class="fas fa-expand-arrows-alt"></i>
-                                    <h6>Kích thước</h6>
+                            <div class="mb-3">
+                                <label class="form-label">Kích thước:</label>
+                                <div id="sizeOptionsContainer" class="d-flex gap-2 flex-wrap">
+                                    <!-- Size options will be loaded here -->
                                 </div>
-                                <div id="sizeOptionsContainer" class="size-options"></div>
                             </div>
                             
                             <!-- Sugar & Ice Selection -->
-                            <div class="option-card">
-                                <div class="option-header">
-                                    <i class="fas fa-sliders-h"></i>
-                                    <h6>Tùy chỉnh</h6>
+                            <div class="row mb-3">
+                                <div class="col-6">
+                                    <label class="form-label">Đường:</label>
+                                    <select class="form-select" id="sugarRange">
+                                        <option value="100">100%</option>
+                                        <option value="70">70%</option>
+                                        <option value="50" selected>50%</option>
+                                        <option value="30">30%</option>
+                                        <option value="0">0%</option>
+                                    </select>
                                 </div>
-                                <div class="customize-row">
-                                    <div class="customize-item">
-                                        <label>Đường</label>
-                                        <select class="custom-select" id="sugarRange">
-                                            <option value="100">🍯 100%</option>
-                                            <option value="70">🍯 70%</option>
-                                            <option value="50" selected>🍯 50%</option>
-                                            <option value="30">🍯 30%</option>
-                                            <option value="0">❌ 0%</option>
-                                        </select>
-                                    </div>
-                                    <div class="customize-item">
-                                        <label>Đá</label>
-                                        <select class="custom-select" id="iceRange">
-                                            <option value="100" selected>🧊 100%</option>
-                                            <option value="70">🧊 70%</option>
-                                            <option value="50">🧊 50%</option>
-                                        </select>
-                                    </div>
+                                <div class="col-6">
+                                    <label class="form-label">Đá:</label>
+                                    <select class="form-select" id="iceRange">
+                                        <option value="100" selected>100%</option>
+                                        <option value="70">70%</option>
+                                        <option value="50">50%</option>
+                                    </select>
                                 </div>
                             </div>
                             
                             <!-- Topping Selection -->
-                            <div class="option-card">
-                                <div class="option-header">
-                                    <i class="fas fa-plus-circle"></i>
-                                    <h6>Topping thêm</h6>
+                            <div class="mb-3">
+                                <label class="form-label">Topping (tùy chọn):</label>
+                                <div id="toppingOptionsContainer" class="d-flex gap-2 flex-wrap">
+                                    <!-- Topping options will be loaded here -->
                                 </div>
-                                <div id="toppingOptionsContainer" class="topping-grid"></div>
+                            </div>
+                            
+                            <!-- Quantity -->
+                            <div class="mb-3">
+                                <label class="form-label">Số lượng:</label>
+                                <div class="input-group" style="width: 150px;">
+                                    <button class="btn btn-outline-secondary" type="button" id="btn-decrease">
+                                        <i class="fas fa-minus"></i>
+                                    </button>
+                                    <input type="number" class="form-control text-center" id="quantityInput" value="1" min="1">
+                                    <button class="btn btn-outline-secondary" type="button" id="btn-increase">
+                                        <i class="fas fa-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <!-- Total -->
+                            <div class="alert alert-info mb-3">
+                                <strong>Tổng cộng: <span id="modalTotalPrice">0đ</span></strong>
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                    <button type="button" class="btn btn-primary" id="btn-add-to-cart">
+                        <i class="fas fa-shopping-cart me-2"></i>
+                        Thêm vào giỏ hàng
+                    </button>
                 </div>
             </div>
         </div>
@@ -268,10 +267,10 @@
                     <div class="row">
                         <div class="col-md-7">
                             <div class="customer-info-section">
-                                <h5 class="section-title">
+                                                    <h5 class="section-title">
                                     <i class="fas fa-user mr-2"></i>
-                                    Thông tin khách hàng
-                                </h5>
+                        Thông tin khách hàng
+                    </h5>
                                 <form id="checkoutForm">
                                     <div class="customer-row">
                                         <div class="customer-name">
@@ -382,13 +381,13 @@
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer checkout-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                        <i class="fas fa-arrow-left mr-2"></i>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        <i class="fas fa-arrow-left me-2"></i>
                         Quay lại
                     </button>
-                    <button type="button" class="btn btn-success btn-place-order" id="btnPlaceOrder">
-                        <i class="fas fa-check mr-2"></i>
+                    <button type="button" class="btn btn-success" id="btnPlaceOrder">
+                        <i class="fas fa-check me-2"></i>
                         Đặt hàng ngay
                     </button>
                 </div>
@@ -424,253 +423,12 @@
     </script>
 
     <style>
-        /* Modern Modal Styles */
-        .modern-modal {
-            border: none;
-            border-radius: 20px;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
-            overflow: hidden;
-            animation: modalSlideIn 0.4s ease-out;
-        }
-
+        /* Simple Modal Styles */
         .fas {
             margin-right: 4px;
         }
 
-        @@keyframes modalSlideIn {
-            from {
-                opacity: 0;
-                transform: translateY(-50px) scale(0.9);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
-        }
-
-        .gradient-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            padding: 25px 30px;
-        }
-
-        .gradient-header .modal-title {
-            font-weight: 600;
-            font-size: 1.4rem;
-        }
-
-        .modern-close {
-            color: white;
-            opacity: 0.8;
-            font-size: 1.2rem;
-            border: none;
-            background: none;
-            transition: all 0.3s ease;
-        }
-
-        .modern-close:hover {
-            opacity: 1;
-            transform: rotate(90deg);
-        }
-
-        .modern-body {
-            padding: 15px;
-            background: #f8f9fa;
-            position: relative;
-            min-height: 300px;
-            overflow: hidden;
-        }
-
-        .modern-body::after {
-            content: "";
-            display: table;
-            clear: both;
-        }
-
-        .product-image-container {
-            display: flex;
-            padding: 0 15px;
-            padding-bottom: 10px;
-            float: left;
-            width: auto;
-        }
-
-        .product-image {
-            width: 130px;
-            height: 130px;
-            border-radius: 6px;
-            border: 1px solid #f4f4f4;
-        }
-
-        .product-image:hover {
-            transform: scale(1.05);
-        }
-
-        .image-overlay {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: rgba(255,255,255,0.9);
-            padding: 8px 12px;
-            border-radius: 20px;
-            backdrop-filter: blur(10px);
-        }
-
-        .product-info {
-            padding-left: 15px;
-            float: left;
-            width: auto;
-        }
-
-        .product-title {
-            color: #333;
-            font-weight: 700;
-            margin-bottom: 10px;
-            font-size: 16px;
-        }
-
-        .product-description {
-            color: #666;
-            font-size: 13px;
-            line-height: 1.5;
-            margin-bottom: 15px;
-        }
-
-        .price-container {
-            background-color: #fff;
-            color: #d8b979;
-            line-height: 28px;
-            border: none;
-            box-shadow: unset;
-            cursor: pointer;
-        }
-
-        .price-label {
-            font-size: 0.9rem;
-            margin-right: 6px;
-        }
-
-        .price-value {
-            font-size: 1.3rem;
-            font-weight: 700;
-        }
-
-        .quantity-section {
-            background: white;
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-        }
-
-        .section-label {
-            color: #333;
-            font-weight: 600;
-            margin-bottom: 15px;
-            display: block;
-        }
-
-        .quantity-controls {
-            display: flex;
-            align-items: center;
-        }
-
-        .quantity-btn {
-            color: #ffffff;
-            background: #799dd9;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            border: 0;
-            line-height: 15px;
-            font-size: 26px;
-            font-weight: 600;
-            text-align: center;
-            cursor: pointer;
-        }
-
-        .quantity-btn:hover {
-            transform: scale(1.1);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
-        }
-
-        .quantity-input {
-            padding: 0 15px;
-            border: none;
-            background: none;
-            font-size: 1.2rem;
-            font-weight: 600;
-            text-align: center;
-            width: 50px;
-        }
-        
-        .quantity-input:focus {
-            outline: none;
-        }
-
-        /* Ẩn arrow spinner của input number */
-        .quantity-input::-webkit-outer-spin-button,
-        .quantity-input::-webkit-inner-spin-button {
-            -webkit-appearance: none;
-            margin: 0;
-        }
-
-        .quantity-input[type=number] {
-            -moz-appearance: textfield;
-        }
-
-        .options-section {
-            margin-top: 10px;
-            clear: both;
-        }
-
-        .options-container {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .option-card {
-            background: linear-gradient(145deg, #ffffff, #f8f9fa);
-            border-radius: 12px;
-            border: 1px solid #e9ecef;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-            overflow: hidden;
-            transition: all 0.3s ease;
-        }
-
-        .option-card:hover {
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            transform: translateY(-1px);
-        }
-
-        .option-header {
-            color: black;
-            padding: 12px 16px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .option-header i {
-            font-size: 14px;
-            opacity: 0.9;
-        }
-
-        .option-header h6 {
-            margin: 0;
-            font-size: 14px;
-            font-weight: 600;
-        }
-
-        /* Size Options */
-        .size-options {
-            padding: 12px;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-            gap: 8px;
-        }
-
+        /* Simple Size Options */
         .size-option-item {
             position: relative;
             cursor: pointer;
@@ -681,84 +439,36 @@
         }
 
         .size-option-item label {
-            display: list-item;
-            flex-direction: column;
-            align-items: center;
-            padding: 12px 8px;
+            display: inline-block;
+            padding: 8px 16px;
             background: #f8f9fa;
-            border: 2px solid #e9ecef;
-            border-radius: 8px;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
             cursor: pointer;
-            transition: all 0.3s ease;
-            text-align: center;
+            transition: all 0.2s ease;
+            font-size: 14px;
         }
 
         .size-option-item label:hover {
-            background: #e3f2fd;
-            border-color: #2196f3;
+            background: #e9ecef;
         }
 
         .size-option-item input:checked + label {
-            background: linear-gradient(135deg, #fce38a, #f38181);
+            background: #007bff;
             color: white;
+            border-color: #007bff;
         }
 
         .size-option-item .size-name {
             font-weight: 600;
-            font-size: 13px;
-            margin-bottom: 2px;
         }
 
         .size-option-item .size-price {
-            font-size: 11px;
+            font-size: 12px;
             opacity: 0.8;
         }
 
-        /* Customize Row */
-        .customize-row {
-            padding: 15px;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-        }
-
-        .customize-item {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .customize-item label {
-            font-size: 12px;
-            font-weight: 600;
-            color: #555;
-            margin: 0;
-        }
-
-        .custom-select {
-            padding: 10px 12px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-size: 13px;
-            background: white;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .custom-select:focus {
-            border-color: #667eea;
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-        }
-
-        /* Topping Grid */
-        .topping-grid {
-            padding: 15px;
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-            gap: 8px;
-        }
-
+        /* Simple Topping Options */
         .topping-option-item {
             position: relative;
             cursor: pointer;
@@ -769,103 +479,33 @@
         }
 
         .topping-option-item label {
-            display: block;
-            padding: 10px 12px;
+            display: inline-block;
+            padding: 6px 12px;
             background: #f8f9fa;
-            border: 2px solid #e9ecef;
-            border-radius: 8px;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
             cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 12px;
-            text-align: center;
-            position: relative;
+            transition: all 0.2s ease;
+            font-size: 13px;
         }
 
         .topping-option-item label:hover {
-            background: #fff3e0;
-            border-color: #ff9800;
+            background: #e9ecef;
         }
 
         .topping-option-item input:checked + label {
-            background: linear-gradient(135deg, #ffa726, #ff9800);
+            background: #28a745;
             color: white;
-            border-color: #ff9800;
-            box-shadow: 0 3px 10px rgba(255, 152, 0, 0.3);
+            border-color: #28a745;
         }
 
         .topping-option-item .topping-name {
-            display: block;
             font-weight: 600;
-            margin-bottom: 2px;
         }
 
         .topping-option-item .topping-price {
-            display: block;
             font-size: 11px;
             opacity: 0.8;
-        }
-
-        /* Responsive */
-        @@media (max-width: 768px) {
-            .options-container {
-                gap: 12px;
-            }
-            
-            .size-options {
-                grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-                gap: 8px;
-            }
-            
-            .customize-row {
-                grid-template-columns: 1fr;
-                gap: 12px;
-            }
-            
-            .topping-grid {
-                grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-                gap: 6px;
-            }
-        }
-
-        .modern-footer {
-            display: flex;
-            border: none;
-            gap: 15px;
-            margin-top: 10px;
-        }
-
-        .total-section {
-            background: linear-gradient(135deg, #ffa62e, #ea4d2c);
-            color: white;
-            padding: 8px 10px;;
-            border-radius: 25px;
-        }
-
-        .total-label {
-            font-size: 10px;
-        }
-
-        .total-price {
-            font-size: 14px;
-            font-weight: 700;
-            color:white;
-        }
-
-        .btn-add-cart {
-            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
-            border: none;
-            padding: 7px 10px;;
-            border-radius: 25px;
-            color: white;
-            font-weight: 600;
-            font-size: 10px;
-            transition: all 0.3s ease;
-        }
-
-        .btn-add-cart:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.3);
-            color: white;
         }
 
         /* Toast Notification Styles */
@@ -1211,6 +851,10 @@
             border-radius: 15px;
             box-shadow: 0 20px 60px rgba(0,0,0,0.1);
             overflow: hidden;
+        }
+
+        .model-header {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
         }
 
         .checkout-header {
@@ -1762,6 +1406,12 @@
         .fa-map-marker-alt {
             margin-right: 4px;
         }
+
+        /* Simple Modal Styles */
+        .product-modal-dialog {
+            max-width: 700px;
+            width: 90%;
+        }
     </style>
 
     <script>
@@ -2024,7 +1674,8 @@
                         hideToast(loadingToast);
                         currentProductData = response;
                         populateModal(response);
-                        $('#productModal').modal('show');
+                        const modal = new bootstrap.Modal(document.getElementById('productModal'));
+                        modal.show();
                         showToast('Thành công!', 'Đã tải thông tin sản phẩm', 'success', 2000);
                     },
                     error: function () {
@@ -2039,7 +1690,7 @@
                 $('#modalProductName').text(data.product.name);
                 $('#modalProductDescription').text(data.product.description);
                 $('#modalProductImage').attr('src', data.product.image || '/images/default-product.png');
-                $('#modalProductPrice').text(data.product.price.toLocaleString('vi-VN'));
+                $('#modalProductPrice').text(data.product.price.toLocaleString('vi-VN') + 'đ');
                 $('#quantityInput').val(1);
 
                 // Điền các lựa chọn Size
@@ -2125,7 +1776,7 @@
                 const originalText = button.html();
                 
                 // Loading animation
-                button.html('<i class="fas fa-spinner fa-spin mr-2"></i>Đang thêm...');
+                button.html('<i class="fas fa-spinner fa-spin me-2"></i>Đang thêm...');
                 button.prop('disabled', true);
                 
                 const cartItem = {
@@ -2173,7 +1824,7 @@
                     updateCartDisplay();
                     
                     // Success animation
-                    button.html('<i class="fas fa-check mr-2"></i>Đã thêm!');
+                    button.html('<i class="fas fa-check me-2"></i>Đã thêm!');
                     button.css('background', 'linear-gradient(135deg, #28a745, #20c997)');
                     
                     showToast(
@@ -2188,7 +1839,8 @@
                         button.html(originalText);
                         button.prop('disabled', false);
                         button.css('background', '');
-                        $('#productModal').modal('hide');
+                        const modal = bootstrap.Modal.getInstance(document.getElementById('productModal'));
+                        modal.hide();
                     }, 1500);
                     
                 }, 1000);
@@ -2212,7 +1864,8 @@
                 
                 // Load thông tin giỏ hàng vào modal checkout
                 loadCheckoutData();
-                $('#checkoutModal').modal('show');
+                const checkoutModal = new bootstrap.Modal(document.getElementById('checkoutModal'));
+                checkoutModal.show();
             });
 
             // Function load dữ liệu vào modal checkout
@@ -2284,7 +1937,7 @@
                 const originalText = button.html();
                 
                 // Loading animation
-                button.html('<i class="fas fa-spinner fa-spin mr-2"></i>Đang xử lý...');
+                button.html('<i class="fas fa-spinner fa-spin me-2"></i>Đang xử lý...');
                 button.prop('disabled', true);
                 
                 // Thu thập thông tin đơn hàng với store và shipping
@@ -2322,7 +1975,7 @@
                     success: function(response) {
                         if (response.success) {
                             // Success
-                            button.html('<i class="fas fa-check mr-2"></i>Đặt hàng thành công!');
+                            button.html('<i class="fas fa-check me-2"></i>Đặt hàng thành công!');
                             button.css('background', 'linear-gradient(135deg, #28a745, #20c997)');
                             
                             const shippingText = response.shippingFee === 0 ? 
@@ -2378,7 +2031,8 @@
                                     selectedStore = null;
                                     currentShippingFee = 0;
                                     updateCartDisplay();
-                                    $('#checkoutModal').modal('hide');
+                                    const checkoutModal = bootstrap.Modal.getInstance(document.getElementById('checkoutModal'));
+                                    checkoutModal.hide();
                                     
                                     // Reset form và store selection
                                     $('#checkoutForm')[0].reset();
@@ -2395,7 +2049,7 @@
                             }
                         } else {
                             // Error
-                            button.html('<i class="fas fa-exclamation-triangle mr-2"></i>Có lỗi xảy ra');
+                            button.html('<i class="fas fa-exclamation-triangle me-2"></i>Có lỗi xảy ra');
                             button.css('background', 'linear-gradient(135deg, #dc3545, #c82333)');
                             
                             showToast('Lỗi!', response.message || 'Có lỗi xảy ra khi đặt hàng', 'error');
@@ -2410,7 +2064,7 @@
                     },
                     error: function(xhr, status, error) {
                         // AJAX Error
-                        button.html('<i class="fas fa-exclamation-triangle mr-2"></i>Kết nối thất bại');
+                        button.html('<i class="fas fa-exclamation-triangle me-2"></i>Kết nối thất bại');
                         button.css('background', 'linear-gradient(135deg, #dc3545, #c82333)');
                         
                         showToast('Lỗi kết nối!', 'Không thể kết nối đến server. Vui lòng thử lại.', 'error');

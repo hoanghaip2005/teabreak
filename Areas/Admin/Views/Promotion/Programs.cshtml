@@ -1,0 +1,199 @@
+@{
+    ViewData["Title"] = "Chương trình khuyến mãi";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h2 class="mb-1">Chương trình khuyến mãi</h2>
+        <p class="text-muted mb-0">Quản lý các chương trình khuyến mãi theo thời gian</p>
+    </div>
+    <div>
+        <a href="/Admin/Promotion/Create" class="admin-btn admin-btn-success">
+            <i class="fas fa-plus me-2"></i>Tạo chương trình mới
+        </a>
+    </div>
+</div>
+
+<!-- Program Statistics -->
+<div class="row mb-4">
+    <div class="col-lg-3 col-md-6 mb-3">
+        <div class="stats-card">
+            <div class="stats-icon success">
+                <i class="fas fa-play-circle"></i>
+            </div>
+            <div class="stats-content">
+                <h3>5</h3>
+                <p>Đang hoạt động</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6 mb-3">
+        <div class="stats-card">
+            <div class="stats-icon warning">
+                <i class="fas fa-clock"></i>
+            </div>
+            <div class="stats-content">
+                <h3>2</h3>
+                <p>Sắp diễn ra</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6 mb-3">
+        <div class="stats-card">
+            <div class="stats-icon primary">
+                <i class="fas fa-users"></i>
+            </div>
+            <div class="stats-content">
+                <h3>1,234</h3>
+                <p>Khách tham gia</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6 mb-3">
+        <div class="stats-card">
+            <div class="stats-icon info">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <div class="stats-content">
+                <h3>12</h3>
+                <p>Đã hoàn thành</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Programs Table -->
+<div class="admin-card">
+    <div class="admin-card-header d-flex justify-content-between align-items-center">
+        <h5 class="admin-card-title">Danh sách chương trình</h5>
+        <div class="d-flex gap-2">
+            <select class="form-select" style="width: 150px;">
+                <option value="">Tất cả trạng thái</option>
+                <option value="active">Đang hoạt động</option>
+                <option value="upcoming">Sắp diễn ra</option>
+                <option value="completed">Đã hoàn thành</option>
+            </select>
+        </div>
+    </div>
+    <div class="admin-card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0">
+                <thead>
+                    <tr>
+                        <th>Tên chương trình</th>
+                        <th>Thời gian</th>
+                        <th>Loại khuyến mãi</th>
+                        <th>Điều kiện</th>
+                        <th>Đã tham gia</th>
+                        <th>Trạng thái</th>
+                        <th>Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="d-flex align-items-center">
+                                <div class="me-3">
+                                    <div class="bg-warning rounded d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                                        <i class="fas fa-sun text-white"></i>
+                                    </div>
+                                </div>
+                                <div>
+                                    <strong>Sale mùa hè 2024</strong>
+                                    <br><small class="text-muted">Giảm giá toàn bộ sản phẩm</small>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <strong>01/06/2024</strong><br>
+                            <small class="text-muted">đến 31/08/2024</small>
+                        </td>
+                        <td><span class="badge bg-warning">Giảm 20%</span></td>
+                        <td>Tất cả sản phẩm</td>
+                        <td><strong>456</strong> khách hàng</td>
+                        <td><span class="badge bg-success">Đang hoạt động</span></td>
+                        <td>
+                            <a href="#" class="admin-btn admin-btn-primary admin-btn-sm me-1" title="Chỉnh sửa">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a href="#" class="admin-btn admin-btn-info admin-btn-sm me-1" title="Xem thống kê">
+                                <i class="fas fa-chart-bar"></i>
+                            </a>
+                            <a href="#" class="admin-btn admin-btn-danger admin-btn-sm" title="Xóa">
+                                <i class="fas fa-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="d-flex align-items-center">
+                                <div class="me-3">
+                                    <div class="bg-primary rounded d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                                        <i class="fas fa-gift text-white"></i>
+                                    </div>
+                                </div>
+                                <div>
+                                    <strong>Khuyến mãi sinh nhật</strong>
+                                    <br><small class="text-muted">Ưu đãi đặc biệt trong tháng sinh nhật</small>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <strong>01/01/2024</strong><br>
+                            <small class="text-muted">đến 31/12/2024</small>
+                        </td>
+                        <td><span class="badge bg-info">Giảm 30%</span></td>
+                        <td>Trong tháng sinh nhật</td>
+                        <td><strong>123</strong> khách hàng</td>
+                        <td><span class="badge bg-success">Đang hoạt động</span></td>
+                        <td>
+                            <a href="#" class="admin-btn admin-btn-primary admin-btn-sm me-1" title="Chỉnh sửa">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a href="#" class="admin-btn admin-btn-info admin-btn-sm me-1" title="Xem thống kê">
+                                <i class="fas fa-chart-bar"></i>
+                            </a>
+                            <a href="#" class="admin-btn admin-btn-danger admin-btn-sm" title="Xóa">
+                                <i class="fas fa-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="d-flex align-items-center">
+                                <div class="me-3">
+                                    <div class="bg-success rounded d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                                        <i class="fas fa-shopping-cart text-white"></i>
+                                    </div>
+                                </div>
+                                <div>
+                                    <strong>Mua 2 tặng 1</strong>
+                                    <br><small class="text-muted">Áp dụng cho trà sữa size M</small>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <strong>15/07/2024</strong><br>
+                            <small class="text-muted">đến 15/08/2024</small>
+                        </td>
+                        <td><span class="badge bg-success">Mua 2 tặng 1</span></td>
+                        <td>Trà sữa size M</td>
+                        <td><strong>89</strong> khách hàng</td>
+                        <td><span class="badge bg-warning">Sắp diễn ra</span></td>
+                        <td>
+                            <a href="#" class="admin-btn admin-btn-primary admin-btn-sm me-1" title="Chỉnh sửa">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a href="#" class="admin-btn admin-btn-info admin-btn-sm me-1" title="Xem thống kê">
+                                <i class="fas fa-chart-bar"></i>
+                            </a>
+                            <a href="#" class="admin-btn admin-btn-danger admin-btn-sm" title="Xóa">
+                                <i class="fas fa-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

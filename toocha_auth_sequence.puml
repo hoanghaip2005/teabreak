@@ -1,0 +1,220 @@
+@startuml Authentication Sequence
+title Quy Trình Xác Thực và Phân Quyền - Toocha
+
+!define RECTANGLE class
+
+' Styling
+skinparam sequence {
+    ArrowColor DarkBlue
+    ActorBorderColor DarkBlue
+    LifeLineBorderColor DarkBlue
+    LifeLineBackgroundColor LightBlue
+    ParticipantBorderColor DarkBlue
+    ParticipantBackgroundColor LightBlue
+    ParticipantFontName Impact
+    ParticipantFontSize 17
+    ActorFontSize 17
+    ActorFontName Impact
+}
+
+actor User as U
+participant "AccountController" as AC
+participant "SignInManager" as SIM
+participant "UserManager" as UM
+participant "RoleManager" as RM
+participant "EmailService" as ES
+participant "AppDbContext" as DB
+
+== Đăng Ký Tài Khoản ==
+U -> AC: POST /register
+activate AC
+
+AC -> AC: Validate ModelState
+AC -> UM: CreateAsync(user, password)
+activate UM
+
+UM -> DB: Check if email exists
+activate DB
+DB --> UM: Email status
+deactivate DB
+
+alt Email exists
+    UM --> AC: IdentityResult.Failed
+    AC --> U: Return to form with error
+else Email available
+    UM -> DB: Create user
+    activate DB
+    DB --> UM: User created
+    deactivate DB
+    
+    UM -> UM: Generate email confirmation token
+    UM --> AC: IdentityResult.Success
+    
+    AC -> ES: SendConfirmationEmail(user, token)
+    activate ES
+    ES --> AC: Email sent
+    deactivate ES
+    
+    AC --> U: Redirect to confirmation page
+end
+
+deactivate UM
+deactivate AC
+
+== Xác Thực Email ==
+U -> AC: GET /confirm-email?token=xxx
+activate AC
+AC -> UM: ConfirmEmailAsync(userId, token)
+activate UM
+UM -> DB: Verify token
+activate DB
+DB --> UM: Token validation result
+deactivate DB
+
+alt Token valid
+    UM -> DB: Update email confirmed
+    activate DB
+    DB --> UM: Email confirmed
+    deactivate DB
+    UM --> AC: IdentityResult.Success
+    AC --> U: Email confirmed page
+else Token invalid
+    UM --> AC: IdentityResult.Failed
+    AC --> U: Invalid token page
+end
+
+deactivate UM
+deactivate AC
+
+== Đăng Nhập ==
+U -> AC: POST /login
+activate AC
+
+AC -> AC: Validate ModelState
+AC -> SIM: PasswordSignInAsync(email, password, rememberMe)
+activate SIM
+
+SIM -> UM: FindByEmailAsync(email)
+activate UM
+UM -> DB: Query user by email
+activate DB
+DB --> UM: User data
+deactivate DB
+UM --> SIM: User object
+deactivate UM
+
+alt User found && Password correct
+    SIM -> SIM: Create authentication cookie
+    SIM --> AC: SignInResult.Success
+    AC --> U: Redirect to dashboard
+else Invalid credentials
+    SIM --> AC: SignInResult.Failed
+    AC --> U: Return to form with error
+end
+
+deactivate SIM
+deactivate AC
+
+== Kiểm Tra Phân Quyền ==
+U -> AC: GET /admin/dashboard
+activate AC
+
+AC -> AC: Check authorization
+AC -> UM: GetUserAsync(userId)
+activate UM
+UM -> DB: Query user
+activate DB
+DB --> UM: User data
+deactivate DB
+UM --> AC: User object
+deactivate UM
+
+AC -> RM: GetUserRolesAsync(user)
+activate RM
+RM -> DB: Query user roles
+activate DB
+DB --> RM: User roles
+deactivate DB
+RM --> AC: User roles
+deactivate RM
+
+alt User has admin role
+    AC --> U: Admin dashboard
+else User not authorized
+    AC --> U: Access denied page
+end
+
+deactivate AC
+
+== Đăng Xuất ==
+U -> AC: POST /logout
+activate AC
+AC -> SIM: SignOutAsync()
+activate SIM
+SIM -> SIM: Clear authentication cookie
+SIM --> AC: Sign out completed
+deactivate SIM
+AC --> U: Redirect to home page
+deactivate AC
+
+== Quên Mật Khẩu ==
+U -> AC: POST /forgot-password
+activate AC
+
+AC -> AC: Validate email
+AC -> UM: FindByEmailAsync(email)
+activate UM
+UM -> DB: Query user
+activate DB
+DB --> UM: User data
+deactivate DB
+UM --> AC: User object
+deactivate UM
+
+alt User exists
+    AC -> UM: GeneratePasswordResetTokenAsync(user)
+    activate UM
+    UM -> UM: Generate reset token
+    UM --> AC: Reset token
+    deactivate UM
+    
+    AC -> ES: SendPasswordResetEmail(user, token)
+    activate ES
+    ES --> AC: Email sent
+    deactivate ES
+    
+    AC --> U: Reset email sent page
+else User not found
+    AC --> U: Email not found message
+end
+
+deactivate AC
+
+== Đặt Lại Mật Khẩu ==
+U -> AC: POST /reset-password
+activate AC
+
+AC -> AC: Validate reset data
+AC -> UM: ResetPasswordAsync(userId, token, newPassword)
+activate UM
+UM -> DB: Verify reset token
+activate DB
+DB --> UM: Token validation result
+deactivate DB
+
+alt Token valid
+    UM -> DB: Update password
+    activate DB
+    DB --> UM: Password updated
+    deactivate DB
+    UM --> AC: IdentityResult.Success
+    AC --> U: Password reset success page
+else Token invalid
+    UM --> AC: IdentityResult.Failed
+    AC --> U: Invalid token page
+end
+
+deactivate UM
+deactivate AC
+
+@enduml 

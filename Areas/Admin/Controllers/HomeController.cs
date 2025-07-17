@@ -34,7 +34,8 @@ namespace App.Areas.Admin.Controllers
                 TotalUsers = await _context.Users.CountAsync(),
                 TodayOrders = await _context.Orders.Where(o => o.OrderDate.Date == DateTime.Today).CountAsync(),
                 PendingOrders = await _context.Orders.Where(o => o.Status == OrderStatus.Pending).CountAsync(),
-                TotalRevenue = await _context.Orders.Where(o => o.IsPaid).SumAsync(o => o.TotalPrice)
+                TotalRevenue = await _context.Orders.Where(o => o.IsPaid).SumAsync(o => o.TotalPrice),
+                Stores = await _context.Stores.Where(s => s.IsActive).ToListAsync()
             };
 
             return View(stats);

@@ -1,0 +1,260 @@
+@startuml Order Management Workflow
+
+title **Order Management Workflow - Toocha Tea**
+
+|#lightblue|**Khách hàng**|
+
+start
+
+:Truy cập trang đặt hàng<br/>/Order/Index;
+
+partition "**Chọn sản phẩm**" {
+    :Xem danh sách categories và products;
+    :Nhấn nút "+" trên sản phẩm;
+    :Hiển thị Product Modal;
+    
+    while (Có thêm sản phẩm?) is (Có)
+        :Chọn options cho sản phẩm:;
+        note right
+            **Product Options:**
+            • Size: M (+0đ), L (+5K), XL (+10K)
+            • Đường: 0%, 30%, 50%, 70%, 100%
+            • Đá: 0%, 30%, 50%, 70%, 100%
+            • Toppings: Trân châu, thạch, kem cheese...
+        end note
+        
+        :Nhập số lượng;
+        :Thêm vào giỏ hàng;
+    endwhile (Hoàn tất)
+}
+
+if (Giỏ hàng có sản phẩm?) then (Có)
+    :Nhấn "Đặt hàng";
+    
+    partition "**Thông tin giao hàng**" {
+        :Nhập thông tin khách hàng:;
+        note left
+            **Thông tin cần thiết:**
+            • Tên khách hàng
+            • Số điện thoại
+            • Địa chỉ giao hàng
+            • Email (tùy chọn)
+            • Ghi chú đơn hàng
+        end note
+        
+        if (Đã đăng nhập?) then (Có)
+            :Auto-fill thông tin từ profile;
+        else (Chưa)
+            :Nhập thông tin thủ công;
+        endif
+    }
+    
+    partition "**Tính phí giao hàng**" {
+        |#lightyellow|**Hệ thống**|
+        :Chọn store gần nhất;
+        :Geocode địa chỉ giao hàng;
+        :Tính khoảng cách từ store;
+        :Tính phí giao hàng;
+        note right
+            **Shipping Calculation:**
+            • Tìm store có latitude/longitude
+            • Sử dụng LocationService
+            • Formula dựa trên distance
+            • Hiển thị tổng tiền = subtotal + shipping
+        end note
+        
+        |#lightblue|**Khách hàng**|
+        :Xem tổng tiền bao gồm phí ship;
+    }
+    
+    partition "**Chọn phương thức thanh toán**" {
+        if (Payment Method?) then (COD)
+            :Chọn "Thanh toán khi nhận hàng";
+        else (Bank Transfer)
+            :Chọn "Chuyển khoản ngân hàng";
+            :Xem thông tin tài khoản NH;
+        endif
+        
+        :Xác nhận đặt hàng;
+    }
+    
+else (Không)
+    :Hiển thị "Giỏ hàng trống";
+    stop
+endif
+
+|#lightyellow|**Hệ thống**|
+
+partition "**Xử lý đơn hàng**" {
+    :Bắt đầu Database Transaction;
+    
+    :Tạo Order mới với status "Pending";
+    note right
+        **Order Information:**
+        • UserId (nếu đã đăng nhập)
+        • OrderDate = DateTime.Now
+        • TotalPrice = subtotal + shipping
+        • ShippingAddress, PhoneNumber
+        • Status = OrderStatus.Pending
+        • PaymentMethod, IsPaid = false
+        • StoreId, ShippingFee, Distance
+        • DeliveryLatitude, DeliveryLongitude
+    end note
+    
+    :Lưu Order và lấy OrderId;
+    
+    while (Còn items trong giỏ?) is (Có)
+        :Tạo OrderItem;
+        note left
+            **OrderItem Details:**
+            • ProductId, Quantity
+            • ItemPrice (đã tính options)
+            • SugarPercentage, IcePercentage
+            • Notes (size information)
+        end note
+        
+        :Lưu OrderItem và lấy ID;
+        
+        if (Có toppings?) then (Có)
+            while (Còn toppings?) is (Có)
+                :Tìm ToppingId từ tên;
+                :Tạo OrderItemTopping;
+                :Lưu OrderItemTopping;
+            endwhile (Hết)
+        endif
+    endwhile (Hết)
+    
+    :Commit Transaction;
+    :Trả về success response với OrderId;
+}
+
+if (Đặt hàng thành công?) then (Thành công)
+    
+    if (Payment Method = Bank Transfer?) then (Có)
+        |#lightblue|**Khách hàng**|
+        :Chuyển hướng đến trang Bank Transfer;
+        :Thực hiện chuyển khoản;
+        :Upload ảnh chứng minh chuyển khoản;
+        :Xác nhận thanh toán;
+        
+        |#lightyellow|**Hệ thống**|
+        :Lưu thông tin chuyển khoản vào Order.Notes;
+        note right
+            **Bank Transfer Info:**
+            • Ngân hàng, STK
+            • Số tiền chuyển
+            • Nội dung chuyển khoản
+            • Số file đính kèm
+            • Timestamp
+        end note
+    endif
+    
+    |#lightgreen|**Staff/Seller/Admin**|
+    
+    partition "**Quản lý đơn hàng**" {
+        :Xem danh sách orders tại<br/>/Order/OrderManagement;
+        :Lọc theo status, search, date range;
+        :Chọn order để xử lý;
+        
+        while (Order chưa hoàn thành?) is (Chưa)
+            :Xem chi tiết order;
+            
+            if (Cập nhật trạng thái?) then (Có)
+                :Chọn trạng thái mới;
+                
+                |#lightyellow|**Hệ thống**|
+                :Validate status transition;
+                note left
+                    **Valid Transitions:**
+                    • Pending → Processing/Cancelled
+                    • Processing → Shipped/Cancelled  
+                    • Shipped → Delivered/Failed
+                    • Failed → Processing (retry)
+                    • Delivered/Cancelled = Final states
+                end note
+                
+                if (Transition hợp lệ?) then (Có)
+                    :Cập nhật Order.Status;
+                    
+                    if (Status = Delivered && COD?) then (Có)
+                        :Đánh dấu IsPaid = true;
+                    endif
+                    
+                    :Lưu changes;
+                    
+                    |#lightgreen|**Staff/Seller/Admin**|
+                    :Hiển thị "Cập nhật thành công";
+                    
+                else (Không)
+                    :Hiển thị lỗi validation;
+                endif
+                
+            else (Không)
+                :Xem thông tin order;
+            endif
+        endwhile (Hoàn thành)
+    }
+    
+    |#lightcyan|**Admin Area**|
+    
+    partition "**Quản lý nâng cao (Admin)**" {
+        :Truy cập /Admin/Order;
+        :Xem tất cả orders với phân trang;
+        :Filter theo nhiều tiêu chí;
+        
+        if (Chỉnh sửa order?) then (Có)
+            :Mở form edit order;
+            :Cập nhật thông tin:;
+            note right
+                **Editable Fields:**
+                • Địa chỉ giao hàng
+                • Số điện thoại
+                • Status, Payment status
+                • Store assignment
+                • Notes
+            end note
+            :Lưu thay đổi;
+        endif
+        
+        if (Xóa order?) then (Có)
+            :Confirm deletion;
+            :Xóa order và related data;
+        endif
+    }
+    
+else (Thất bại)
+    |#lightblue|**Khách hàng**|
+    :Hiển thị thông báo lỗi;
+    :Rollback transaction;
+    stop
+endif
+
+|#lightblue|**Khách hàng**|
+
+partition "**Theo dõi đơn hàng**" {
+    if (Đã đăng nhập?) then (Có)
+        :Truy cập Order History<br/>/Member/OrderHistory;
+        :Xem danh sách orders của mình;
+        :Xem chi tiết từng order;
+        :Theo dõi trạng thái giao hàng;
+        
+        note right
+            **Order Timeline:**
+            • Đơn hàng được tạo (Pending)
+            • Đang xử lý (Processing)  
+            • Đã giao vận (Shipped)
+            • Đã giao thành công (Delivered)
+        end note
+        
+    else (Chưa)
+        :Không thể theo dõi order;
+        note left
+            Guest users không có
+            order history tracking
+        end note
+    endif
+}
+
+stop
+
+@enduml 

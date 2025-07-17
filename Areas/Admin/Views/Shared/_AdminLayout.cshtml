@@ -34,15 +34,76 @@
                         </a>
                     </li>
 
-                    <!-- Quản lý Sản phẩm -->
+                    <!-- Bài viết -->
+                    <li class="admin-nav-item admin-nav-group">
+                        <a href="#" class="admin-nav-link admin-nav-group-toggle" data-toggle="collapse" data-target="#articleManagement">
+                            <i class="fas fa-newspaper admin-nav-icon"></i>
+                            <span class="admin-nav-text">Bài viết</span>
+                            <i class="fas fa-chevron-down admin-nav-arrow"></i>
+                        </a>
+                        <div class="admin-nav-line"></div>
+                        <ul class="admin-nav-submenu collapse" id="articleManagement">
+                            <li class="admin-nav-subitem">
+                                <div class="admin-nav-connector"></div>
+                                <a href="/Admin/Article" class="admin-nav-sublink @(ViewContext.RouteData.Values["controller"]?.ToString() == "Article" && ViewContext.RouteData.Values["action"]?.ToString() == "Index" ? "active" : "")">
+                                    <i class="fas fa-list admin-nav-subicon"></i>
+                                    Danh sách
+                                </a>
+                            </li>
+                            <li class="admin-nav-subitem">
+                                <div class="admin-nav-connector"></div>
+                                <a href="/Admin/Article/Create" class="admin-nav-sublink @(ViewContext.RouteData.Values["controller"]?.ToString() == "Article" && ViewContext.RouteData.Values["action"]?.ToString() == "Create" ? "active" : "")">
+                                    <i class="fas fa-plus admin-nav-subicon"></i>
+                                    Tạo mới
+                                </a>
+                            </li>
+                            <li class="admin-nav-subitem">
+                                <div class="admin-nav-connector"></div>
+                                <a href="/Admin/Article/Categories" class="admin-nav-sublink @(ViewContext.RouteData.Values["controller"]?.ToString() == "Article" && ViewContext.RouteData.Values["action"]?.ToString() == "Categories" ? "active" : "")">
+                                    <i class="fas fa-tags admin-nav-subicon"></i>
+                                    Danh mục
+                                </a>
+                            </li>
+                            <li class="admin-nav-subitem">
+                                <div class="admin-nav-connector"></div>
+                                <a href="/Admin/Article/Groups" class="admin-nav-sublink @(ViewContext.RouteData.Values["controller"]?.ToString() == "Article" && ViewContext.RouteData.Values["action"]?.ToString() == "Groups" ? "active" : "")">
+                                    <i class="fas fa-layer-group admin-nav-subicon"></i>
+                                    Nhóm
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <!-- Sản phẩm -->
                     <li class="admin-nav-item admin-nav-group">
                         <a href="#" class="admin-nav-link admin-nav-group-toggle" data-toggle="collapse" data-target="#productManagement">
                             <i class="fas fa-box admin-nav-icon"></i>
-                            <span class="admin-nav-text">Quản lý Sản phẩm</span>
+                            <span class="admin-nav-text">Sản phẩm</span>
                             <i class="fas fa-chevron-down admin-nav-arrow"></i>
                         </a>
                         <div class="admin-nav-line"></div>
                         <ul class="admin-nav-submenu collapse" id="productManagement">
+                            <li class="admin-nav-subitem">
+                                <div class="admin-nav-connector"></div>
+                                <a href="/Admin/Product" class="admin-nav-sublink @(ViewContext.RouteData.Values["controller"]?.ToString() == "Product" && ViewContext.RouteData.Values["action"]?.ToString() == "Index" ? "active" : "")">
+                                    <i class="fas fa-list admin-nav-subicon"></i>
+                                    Danh sách
+                                </a>
+                            </li>
+                            <li class="admin-nav-subitem">
+                                <div class="admin-nav-connector"></div>
+                                <a href="/Admin/Product/Create" class="admin-nav-sublink @(ViewContext.RouteData.Values["controller"]?.ToString() == "Product" && ViewContext.RouteData.Values["action"]?.ToString() == "Create" ? "active" : "")">
+                                    <i class="fas fa-plus admin-nav-subicon"></i>
+                                    Tạo mới
+                                </a>
+                            </li>
+                            <li class="admin-nav-subitem">
+                                <div class="admin-nav-connector"></div>
+                                <a href="/Admin/Product/Export" class="admin-nav-sublink">
+                                    <i class="fas fa-file-export admin-nav-subicon"></i>
+                                    Export/Import
+                                </a>
+                            </li>
                             <li class="admin-nav-subitem">
                                 <div class="admin-nav-connector"></div>
                                 <a href="/Admin/Category" class="admin-nav-sublink @(ViewContext.RouteData.Values["controller"]?.ToString() == "Category" ? "active" : "")">
@@ -52,60 +113,86 @@
                             </li>
                             <li class="admin-nav-subitem">
                                 <div class="admin-nav-connector"></div>
-                                <a href="/Admin/Product" class="admin-nav-sublink @(ViewContext.RouteData.Values["controller"]?.ToString() == "Product" ? "active" : "")">
-                                    <i class="fas fa-cube admin-nav-subicon"></i>
-                                    Sản phẩm
+                                <a href="/Admin/Product/Groups" class="admin-nav-sublink">
+                                    <i class="fas fa-layer-group admin-nav-subicon"></i>
+                                    Nhóm
                                 </a>
                             </li>
                         </ul>
                     </li>
 
-                    <!-- Quản lý Đơn hàng -->
+                    <!-- Trang -->
+                    <li class="admin-nav-item">
+                        <a href="/Admin/Page" class="admin-nav-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Page" ? "active" : "")">
+                            <i class="fas fa-file-alt admin-nav-icon"></i>
+                            <span class="admin-nav-text">Trang</span>
+                        </a>
+                    </li>
+
+
+
+                    <!-- Redirect -->
+                    <li class="admin-nav-item">
+                        <a href="/Admin/Redirect" class="admin-nav-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Redirect" ? "active" : "")">
+                            <i class="fas fa-external-link-alt admin-nav-icon"></i>
+                            <span class="admin-nav-text">Redirect</span>
+                        </a>
+                    </li>
+
+                    <!-- Khuyến mãi -->
                     <li class="admin-nav-item admin-nav-group">
-                        <a href="#" class="admin-nav-link admin-nav-group-toggle" data-toggle="collapse" data-target="#orderManagement">
-                            <i class="fas fa-shopping-cart admin-nav-icon"></i>
-                            <span class="admin-nav-text">Quản lý Đơn hàng</span>
+                        <a href="#" class="admin-nav-link admin-nav-group-toggle" data-toggle="collapse" data-target="#promotionManagement">
+                            <i class="fas fa-percentage admin-nav-icon"></i>
+                            <span class="admin-nav-text">Khuyến mãi</span>
                             <i class="fas fa-chevron-down admin-nav-arrow"></i>
                         </a>
                         <div class="admin-nav-line"></div>
-                        <ul class="admin-nav-submenu collapse" id="orderManagement">
+                        <ul class="admin-nav-submenu collapse" id="promotionManagement">
                             <li class="admin-nav-subitem">
                                 <div class="admin-nav-connector"></div>
-                                <a href="/Admin/Order" class="admin-nav-sublink @(ViewContext.RouteData.Values["controller"]?.ToString() == "Order" ? "active" : "")">
-                                    <i class="fas fa-list admin-nav-subicon"></i>
-                                    Tất cả đơn hàng
+                                <a href="/Admin/Promotion/Coupons" class="admin-nav-sublink @(ViewContext.RouteData.Values["controller"]?.ToString() == "Promotion" && ViewContext.RouteData.Values["action"]?.ToString() == "Coupons" ? "active" : "")">
+                                    <i class="fas fa-ticket-alt admin-nav-subicon"></i>
+                                    Mã giảm giá
                                 </a>
                             </li>
                             <li class="admin-nav-subitem">
                                 <div class="admin-nav-connector"></div>
-                                <a href="/Admin/Order?status=0" class="admin-nav-sublink">
-                                    <i class="fas fa-clock admin-nav-subicon"></i>
-                                    Chờ xử lý
+                                <a href="/Admin/Promotion/Programs" class="admin-nav-sublink @(ViewContext.RouteData.Values["controller"]?.ToString() == "Promotion" && ViewContext.RouteData.Values["action"]?.ToString() == "Programs" ? "active" : "")">
+                                    <i class="fas fa-gift admin-nav-subicon"></i>
+                                    Chương trình khuyến mãi
                                 </a>
                             </li>
                             <li class="admin-nav-subitem">
                                 <div class="admin-nav-connector"></div>
-                                <a href="/Admin/Order?status=3" class="admin-nav-sublink">
-                                    <i class="fas fa-truck admin-nav-subicon"></i>
-                                    Đang giao hàng
+                                <a href="/Admin/Promotion/Gifts" class="admin-nav-sublink @(ViewContext.RouteData.Values["controller"]?.ToString() == "Promotion" && ViewContext.RouteData.Values["action"]?.ToString() == "Gifts" ? "active" : "")">
+                                    <i class="fas fa-star admin-nav-subicon"></i>
+                                    Chương trình tặng kèm
                                 </a>
                             </li>
                         </ul>
                     </li>
 
-                    <!-- Quản lý Cửa hàng -->
+                    <!-- Đơn hàng -->
                     <li class="admin-nav-item">
-                        <a href="/Admin/Store" class="admin-nav-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Store" ? "active" : "")">
-                            <i class="fas fa-store admin-nav-icon"></i>
-                            <span class="admin-nav-text">Quản lý Cửa hàng</span>
+                        <a href="/Admin/Order" class="admin-nav-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Order" ? "active" : "")">
+                            <i class="fas fa-shopping-cart admin-nav-icon"></i>
+                            <span class="admin-nav-text">Đơn hàng</span>
                         </a>
                     </li>
 
-                    <!-- Quản lý Người dùng -->
+                    <!-- Cửa hàng -->
+                    <li class="admin-nav-item">
+                        <a href="/Admin/Store" class="admin-nav-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Store" ? "active" : "")">
+                            <i class="fas fa-store admin-nav-icon"></i>
+                            <span class="admin-nav-text">Cửa hàng</span>
+                        </a>
+                    </li>
+
+                    <!-- Người dùng -->
                     <li class="admin-nav-item admin-nav-group">
                         <a href="#" class="admin-nav-link admin-nav-group-toggle" data-toggle="collapse" data-target="#userManagement">
                             <i class="fas fa-users admin-nav-icon"></i>
-                            <span class="admin-nav-text">Quản lý Người dùng</span>
+                            <span class="admin-nav-text">Người dùng</span>
                             <i class="fas fa-chevron-down admin-nav-arrow"></i>
                         </a>
                         <div class="admin-nav-line"></div>
@@ -119,7 +206,7 @@
                             </li>
                             <li class="admin-nav-subitem">
                                 <div class="admin-nav-connector"></div>
-                                <a href="/Identity/Role" class="admin-nav-sublink">
+                                <a href="/Role/Index" class="admin-nav-sublink @(ViewContext.RouteData.Values["controller"]?.ToString() == "Role" ? "active" : "")">
                                     <i class="fas fa-key admin-nav-subicon"></i>
                                     Quyền & Vai trò
                                 </a>
@@ -127,11 +214,11 @@
                         </ul>
                     </li>
 
-                    <!-- Báo cáo & Thống kê -->
+                    <!-- Báo cáo -->
                     <li class="admin-nav-item admin-nav-group">
                         <a href="#" class="admin-nav-link admin-nav-group-toggle" data-toggle="collapse" data-target="#reportManagement">
                             <i class="fas fa-chart-bar admin-nav-icon"></i>
-                            <span class="admin-nav-text">Báo cáo & Thống kê</span>
+                            <span class="admin-nav-text">Báo cáo</span>
                             <i class="fas fa-chevron-down admin-nav-arrow"></i>
                         </a>
                         <div class="admin-nav-line"></div>
@@ -216,8 +303,8 @@
                                 <i class="fas fa-user-circle"></i>
                             </button>
                             <ul class="dropdown-menu dropdown-menu-end">
-                                <li><a class="dropdown-item" href="/Identity/Account/Manage"><i class="fas fa-user-edit me-2"></i>Hồ sơ</a></li>
-                                <li><a class="dropdown-item" href="/Identity/Account/Manage/ChangePassword"><i class="fas fa-key me-2"></i>Đổi mật khẩu</a></li>
+                                <li><a class="dropdown-item" href="/Member"><i class="fas fa-user-edit me-2"></i>Hồ sơ</a></li>
+                                <li><a class="dropdown-item" href="/Member/ChangePassword"><i class="fas fa-key me-2"></i>Đổi mật khẩu</a></li>
                                 <li><hr class="dropdown-divider"></li>
                                 <li>
                                     <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })" method="post">

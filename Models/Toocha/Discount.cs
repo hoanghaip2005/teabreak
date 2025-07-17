@@ -52,5 +52,49 @@ namespace App.Models.Toocha
         
         [ForeignKey("CategoryId")]
         public virtual Category? Category { get; set; }
+
+        // ----- THUỘC TÍNH BỔ SUNG -----
+
+        [Display(Name = "Giới hạn sử dụng")]
+        public int? UsageLimit { get; set; } // Null = không giới hạn
+
+        [Display(Name = "Đã sử dụng")]
+        public int UsedCount { get; set; } = 0;
+
+        [Display(Name = "Đơn hàng tối thiểu")]
+        [Column(TypeName = "decimal(18,2)")]
+        public decimal? MinOrderAmount { get; set; } // Null = không giới hạn
+
+        [Display(Name = "Giảm tối đa")]
+        [Column(TypeName = "decimal(18,2)")]
+        public decimal? MaxDiscountAmount { get; set; } // Cho loại phần trăm
+
+        [Display(Name = "Ngày tạo")]
+        public DateTime CreatedDate { get; set; } = DateTime.Now;
+
+        [Display(Name = "Người tạo")]
+        public string? CreatedBy { get; set; }
+
+        [Display(Name = "Cập nhật lần cuối")]
+        public DateTime? LastUpdated { get; set; }
+
+        [Display(Name = "Ghi chú")]
+        public string? Notes { get; set; }
+
+        // Computed properties
+        [NotMapped]
+        public bool IsExpired => DateTime.Now > EndDate;
+
+        [NotMapped]
+        public bool IsNotStarted => DateTime.Now < StartDate;
+
+        [NotMapped]
+        public bool IsLimitReached => UsageLimit.HasValue && UsedCount >= UsageLimit.Value;
+
+        [NotMapped]
+        public bool IsAvailable => IsActive && !IsExpired && !IsNotStarted && !IsLimitReached;
+
+        [NotMapped]
+        public int? RemainingUsage => UsageLimit.HasValue ? Math.Max(0, UsageLimit.Value - UsedCount) : null;
     }
 }

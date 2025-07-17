@@ -1,0 +1,78 @@
+@startuml Simplified Authentication and Authorization Flow
+
+title **Luồng Xác thực & Phân quyền Đơn giản - Toocha Tea**
+
+start
+
+:Người dùng truy cập hệ thống;
+
+if (Trang yêu cầu đăng nhập?) then (Có)
+    
+    :Chuyển đến /login/;
+    
+    if (Phương thức đăng nhập?) then (Thường)
+        :Nhập Email/Password;
+        :Xác thực thông tin;
+        
+    else (External)
+        :Chọn Google/Facebook;
+        :Xác thực với provider;
+        :Xử lý callback;
+    endif
+    
+    if (Đăng nhập thành công?) then (Có)
+        :Tạo session & cookie;
+    else (Không)
+        :Hiển thị lỗi;
+        stop
+    endif
+    
+else (Không)
+    :Truy cập trang công khai;
+endif
+
+:Kiểm tra quyền truy cập;
+
+if (Có yêu cầu phân quyền?) then (Có)
+    
+    :Lấy Roles & Claims của User;
+    
+    if (Admin Area?) then (Có)
+        if (Role = Administrator?) then (Có)
+            :Truy cập Admin Dashboard;
+            :Quản lý Users & Roles;
+        else (Không)
+            :Access Denied;
+            stop
+        endif
+        
+    else if (Seller Area?) then (Có)
+        if (Role = Administrator,<br/>Seller, Manager?) then (Có)
+            :Truy cập Seller Dashboard;
+        else (Không)
+            :Access Denied;
+            stop
+        endif
+        
+    else (Identity Area)
+        :Quản lý Profile;
+        :Cài đặt bảo mật;
+    endif
+    
+else (Không)
+    :Truy cập nội dung;
+endif
+
+:Thực hiện chức năng;
+
+if (Đăng xuất?) then (Có)
+    :Xóa session & cookie;
+    :Chuyển về trang chủ;
+    stop
+else (Tiếp tục)
+    :Duy trì session;
+endif
+
+stop
+
+@enduml 

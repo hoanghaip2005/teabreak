@@ -564,7 +564,6 @@ a {
     height: 100%;
     object-fit: cover;
     transition: all 0.3s ease;
-    transform: scale(0.9);
 }
 
 .product-card:hover .img-wrap img {
@@ -1025,3 +1024,104 @@ footer ul li a:hover {
     }
 }
 
+.carousel-content {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 100%;
+    transform: translate(-50%, -20%);
+  }
+
+  .item .carousel-bg {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    left: 0px;
+    bottom: 0px;
+    /*background: rgba(0, 0, 0, 0.4);*/
+  }
+
+  #homeSilder .text-1 {
+    font-size: 46px;
+    letter-spacing: 1.2px;
+    text-align: center;
+    color: #d3b673;
+    font-family: "BalooExtra", Helvetica, Arial, sans-serif !important;
+}
+
+#homeSilder .text-2 {
+    font-size: 54px;
+    color: #ffffff;
+    text-align: center;
+    letter-spacing: 2.7px;
+    line-height: 1;
+    margin-bottom: 35px;
+    text-transform: uppercase;
+    font-family: "BalooExtra", Helvetica, Arial, sans-serif !important;
+}
+
+#homeSilder .text-3 {
+    color: #ffffff;
+    margin-bottom: 5px;
+    text-align: center;
+    letter-spacing: 0.9px;
+    font-size: 18px;
+    font-weight: 600;
+    padding: 0 40px;
+    padding-bottom: 42px;
+}
+
+.order-now {
+    height: 40px;
+    color: white;
+    border: 1px solid white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+    padding: 0 15px;
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-family: Muli;
+    cursor: pointer;
+    max-width: 166px;
+    margin: auto;
+    text-decoration: none;
+}
+
+.order-now:hover {
+    background: #d3b673;
+    color: #fff;
+    border: none;
+}
+
+.scroll-icon {
+    background: url(../img/ic_scoll.webp) no-repeat center;
+    width: 18px;
+    height: 32px;
+    align-self: center;
+    position: relative;
+    animation: slide-up-down 0.5s infinite alternate;
+    margin: 32px auto 8px;
+}
+
+@keyframes slide-up-down {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(-20px);
+    }
+}
+
+.btn-scroll {
+    align-self: center;
+    color: white;
+}
+
+.clearfix::after {
+    display: block;
+    clear: both;
+    content: "";
+}

@@ -3,6 +3,10 @@
     ViewData["Title"] = "Trang Chủ";
 }
 
+@section Styles {
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+}
+
 <div class="best-seller-section">
     <div class="box">
         <div class="group">
@@ -27,102 +31,54 @@
 
 <div class="section-content container">
     <div class="list-product">
-        <div class="product-card">
-            <img class="image best-seller-badge" src="~/img/home/product_section/bestseller.png" />
-            <div class="tags"></div>
-            <div class="img-wrap">
-                <img class="tra-sua-pho-mai" src="~/img/home/product_section/product1.png" />
+        @if (ViewBag.FeaturedProducts != null)
+        {
+            @foreach (var product in (List<App.Models.Toocha.Product>)ViewBag.FeaturedProducts)
+            {
+                <div class="product-card">
+                    @if (product.SalePrice.HasValue)
+                    {
+                        <img class="image best-seller-badge" src="~/img/home/product_section/bestseller.png" />
+                    }
+                    <div class="tags">
+                        @if (product.SalePrice.HasValue)
+                        {
+                            <span class="sale-tag">SALE</span>
+                        }
+                        @if (product.StockQuantity < 10)
+                        {
+                            <span class="low-stock-tag">Sắp hết</span>
+                        }
+                    </div>
+                    <div class="img-wrap">
+                        <img class="tra-sua-pho-mai" src="@(string.IsNullOrEmpty(product.Image) ? "~/img/no-image.png" : product.Image)" 
+                             alt="@product.Name" 
+                             onerror="this.src='~/img/no-image.png'" />
+                    </div>
+                    <div class="product-card-content">
+                        <div class="text-wrapper" title="@product.Name">@product.Name</div>
+                        <div class="text-wrapper-2">
+                            @if (product.SalePrice.HasValue)
+                            {
+                                <span class="original-price">@product.Price.ToString("N0") VNĐ</span>
+                                <span class="sale-price">@product.SalePrice.Value.ToString("N0") VNĐ</span>
+                            }
+                            else
+                            {
+                                <span>@product.Price.ToString("N0") VNĐ</span>
+                            }
+                        </div>
+                        <div class="btn-type-one btn-order-product" data-product-id="@product.Id">Đặt hàng</div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="no-products-message">
+                <p>Hiện tại chưa có sản phẩm nào. Vui lòng quay lại sau!</p>
             </div>
-            <div class="product-card-content">
-                <div class="text-wrapper">Trà sữa phô mai nhung lụa</div>
-                <div class="text-wrapper-2">38.000 VNĐ</div>
-                <div class="btn-type-one btn-order-product">Đặt hàng</div>
-            </div>
-        </div>
-        <div class="product-card">
-            <div class="tags"></div>
-            <img class="image best-seller-badge" src="~/img/home/product_section/bestseller.png" />
-            <div class="img-wrap">
-                <img class="tra-sua-pho-mai" src="~/img/home/product_section/product1.png" />
-            </div>
-            <div class="product-card-content">
-                <div class="text-wrapper">Trà sữa phô mai nhung lụa</div>
-                <div class="text-wrapper-2">38.000 VNĐ</div>
-                <div class="btn-type-one btn-order-product">Đặt hàng</div>
-            </div>
-        </div>
-        <div class="product-card">
-            <div class="tags"></div>
-            <img class="image best-seller-badge" src="~/img/home/product_section/bestseller.png" />
-            <div class="img-wrap">
-                <img class="tra-sua-pho-mai" src="~/img/home/product_section/product1.png" />
-            </div>
-            <div class="product-card-content">
-                <div class="text-wrapper">Trà sữa phô mai nhung lụa</div>
-                <div class="text-wrapper-2">38.000 VNĐ</div>
-                <div class="btn-type-one btn-order-product">Đặt hàng</div>
-            </div>
-        </div>
-        <div class="product-card">
-            <div class="tags"></div>
-            <img class="image best-seller-badge" src="~/img/home/product_section/bestseller.png" />
-            <div class="img-wrap">
-                <img class="tra-sua-pho-mai" src="~/img/home/product_section/product1.png" />
-            </div>
-            <div class="product-card-content">
-                <div class="text-wrapper">Trà sữa phô mai nhung lụa</div>
-                <div class="text-wrapper-2">38.000 VNĐ</div>
-                <div class="btn-type-one btn-order-product">Đặt hàng</div>
-            </div>
-        </div>
-        <div class="product-card">
-            <div class="tags"></div>
-            <img class="image best-seller-badge" src="~/img/home/product_section/bestseller.png" />
-            <div class="img-wrap">
-                <img class="tra-sua-pho-mai" src="~/img/home/product_section/product1.png" />
-            </div>
-            <div class="product-card-content">
-                <div class="text-wrapper">Trà sữa phô mai nhung lụa</div>
-                <div class="text-wrapper-2">38.000 VNĐ</div>
-                <div class="btn-type-one btn-order-product">Đặt hàng</div>
-            </div>
-        </div>
-        <div class="product-card">
-            <div class="tags"></div>
-            <img class="image best-seller-badge" src="~/img/home/product_section/bestseller.png" />
-            <div class="img-wrap">
-                <img class="tra-sua-pho-mai" src="~/img/home/product_section/product1.png" />
-            </div>
-            <div class="product-card-content">
-                <div class="text-wrapper">Trà sữa phô mai nhung lụa</div>
-                <div class="text-wrapper-2">38.000 VNĐ</div>
-                <div class="btn-type-one btn-order-product">Đặt hàng</div>
-            </div>
-        </div>
-        <div class="product-card">
-            <div class="tags"></div>
-            <img class="image best-seller-badge" src="~/img/home/product_section/bestseller.png" />
-            <div class="img-wrap">
-                <img class="tra-sua-pho-mai" src="~/img/home/product_section/product1.png" />
-            </div>
-            <div class="product-card-content">
-                <div class="text-wrapper">Trà sữa phô mai nhung lụa</div>
-                <div class="text-wrapper-2">38.000 VNĐ</div>
-                <div class="btn-type-one btn-order-product">Đặt hàng</div>
-            </div>
-        </div>
-        <div class="product-card">
-            <div class="tags"></div>
-            <img class="image best-seller-badge" src="~/img/home/product_section/bestseller.png" />
-            <div class="img-wrap">
-                <img class="tra-sua-pho-mai" src="~/img/home/product_section/product1.png" />
-            </div>
-            <div class="product-card-content">
-                <div class="text-wrapper">Trà sữa phô mai nhung lụa</div>
-                <div class="text-wrapper-2">38.000 VNĐ</div>
-                <div class="btn-type-one btn-order-product">Đặt hàng</div>
-            </div>
-        </div>
+        }
         <div class="btn-type-one btn-view-all">Xem tất cả</div>
     </div>
 </div>
@@ -159,6 +115,36 @@
 
 </div>
 
+<div class="store-map-section">
+    <div class="container">
+        <div class="section-title text-center mb-5">
+            <div class="text-1">Toocha Store</div>
+            <div class="text-2">Hệ thống cửa hàng</div>
+            <div class="icon-bottom-title"></div>
+        </div>
+        <div class="map-container" style="position:relative;">
+            <div id="storeMap" style="height: 450px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.15);"></div>
+            <button id="locateMeBtn" title="Định vị vị trí của bạn" style="position:absolute;top:16px;right:16px;z-index:1000;background:#fff;border:none;border-radius:50%;width:44px;height:44px;box-shadow:0 2px 8px rgba(0,0,0,0.15);display:flex;align-items:center;justify-content:center;cursor:pointer;transition: background-color 0.3s ease;">
+                <i class="fas fa-location-arrow" style="font-size:22px;color:#ff6b35;"></i>
+            </button>
+            <div class="map-legend mt-3">
+                <div class="legend-item" id="mien-bac">
+                    <i class="fas fa-map-marker-alt" style="color: #3498db;"></i>
+                    <span>Miền Bắc (Hà Nội)</span>
+                </div>
+                <div class="legend-item" id="mien-nam">
+                    <i class="fas fa-map-marker-alt" style="color: #e74c3c;"></i>
+                    <span>Miền Nam (TP.HCM)</span>
+                </div>
+                <div class="legend-item" id="khu-vuc-khac">
+                    <i class="fas fa-map-marker-alt" style="color: #2ecc71;"></i>
+                    <span>Khu vực khác</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="best-seller-section">
     <div class="box">
         <div class="group">
@@ -181,8 +167,102 @@
     </div>
 </div>
 
+<div class="news-content">
+      <h2>TIN TỨC</h2>
+        
+        <!-- Main news layout -->
+        <div class="news-main-layout">
+          <!-- Left Column -->
+          <div class="news-left-column">
+            <!-- Featured News -->
+            <div class="news-featured">
+              <img src="/Areas/Toocha/assets/img/hinh-anh-giao-dien/img-1.png" alt="Featured News">
+              <h3>TOOCHA – Thương hiệu trà sữa Việt cam kết sử dụng nguồn nguyên liệu an toàn, chất lượng</h3>
+              <p>Nguyên liệu đầu vào đảm bảo chất lượng chính là lý do làm nên sự khác biệt của thương hiệu cũng như từng ly đồ uống so với những thương […]</p>
+              <a href="#" class="btn-read">Xem thêm</a>
+            </div>
+            
+            <!-- Small news grid in left column -->
+            <div class="news-small-grid">
+              <div class="news-small-card">
+                <img src="/Areas/Toocha/assets/img/hinh-anh-giao-dien/img-2.png" alt="News 2">
+                <h4>THÔNG BÁO LỊCH HOẠT ĐỘNG TẾT GIÁP THÌN 2024 CỦA TOOCHA</h4>
+                <a href="#" class="btn-read-small">Xem thêm</a>
+              </div>
+              
+              <div class="news-small-card">
+                <img src="/Areas/Toocha/assets/img/hinh-anh-giao-dien/img-3.png" alt="News 3">
+                <h4>TooCha partners with Laughing Cow Cheese to create a new flavor</h4>
+                <a href="#" class="btn-read-small">Xem thêm</a>
+              </div>
+              
+              <div class="news-small-card">
+                <img src="/Areas/Toocha/assets/img/hinh-anh-giao-dien/img-4.png" alt="News 4">
+                <h4>TooCha – Thổi hồn nông sản Việt vào từng ly đồ uống</h4>
+                <a href="#" class="btn-read-small">Xem thêm</a>
+              </div>
+              
+              <div class="news-small-card">
+                <img src="/Areas/Toocha/assets/img/hinh-anh-giao-dien/img-5.png" alt="News 5">
+                <h4>Nhìn lại hành trình 5 năm không ngừng nỗ lực vươn xa biển lớn của thương hiệu trà sữa Việt – TooCha</h4>
+                <a href="#" class="btn-read-small">Xem thêm</a>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Right Column -->
+          <div class="news-right-column">
+            <div class="news-list-item">
+              <img src="/Areas/Toocha/assets/img/hinh-anh-giao-dien/img-6.png" alt="News 6">
+              <div class="news-list-content">
+                <h4>Bật mí phương pháp làm đẹp từ "thần dược"tự nhiên mang tên Dâu tằm</h4>
+                <span class="news-date">25k</span>
+              </div>
+            </div>
+            
+            <div class="news-list-item">
+              <img src="/Areas/Toocha/assets/img/hinh-anh-giao-dien/img-7.png" alt="News 7">
+              <div class="news-list-content">
+                <h4>"Bóc mẽ"cảm xúc của 3 cung hoàng đạo khi bỗng dưng được mời trà sữa</h4>
+                <span class="news-date">UỚP HƠN 40 TIẾNG, TRÀ XANH NHÀI ORGANIC SẼ CÓ HƯƠNG THƠM ĐẶC BIỆT THẾ NÀO?</span>
+              </div>
+            </div>
+            
+            <div class="news-list-item">
+              <img src="/Areas/Toocha/assets/img/hinh-anh-giao-dien/img-8.png" alt="News 8">
+              <div class="news-list-content">
+                <h4>BỘ SƯU TẬP MÓN MỚI TOOCHA AI MUỐN KHỎE ĐẸP NHẤT ĐỊNH PHẢI THỬ</h4>
+                <span class="news-date">CON ĐƯỜNG KHỞI NGHIỆP CỦA NGƯỜI SÁNG LẬP THƯƠNG HIỆU TRÀ SỮA VIỆT NAM - TOCOTOCO</span>
+              </div>
+            </div>
+            
+            <div class="news-list-item">
+              <img src="/Areas/Toocha/assets/img/hinh-anh-giao-dien/img-1.png" alt="News 9">
+              <div class="news-list-content">
+                <h4>TOCOTOCO - TOP 5 THƯƠNG HIỆU UY TÍN CHẤT LƯỢNG QUỐC GIA NĂM 2023</h4>
+                <span class="news-date">TOCOTOCO - TOP 5 THƯƠNG HIỆU UY TÍN CHẤT LƯỢNG QUỐC GIA NĂM 2023</span>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+</div>
+
+<div class="home-popup" bis_skin_checked="1">
+        <div class="popup" bis_skin_checked="1">
+            <div class="close-btn" bis_skin_checked="1"><i class="fa fa-times"></i></div>
+            <div class="popup-content" bis_skin_checked="1">
+                <a href="https://chatbot.zalo.me/ref/2268915497539367639?id=qtoa_voucher10k_bill30k_web" bis_size="{&quot;x&quot;:706,&quot;y&quot;:451,&quot;w&quot;:495,&quot;h&quot;:17,&quot;abs_x&quot;:706,&quot;abs_y&quot;:451}">
+                    <img src="https://tocotocotea.com/wp-content/uploads/2025/07/popup-web-3.png" bis_size="{&quot;x&quot;:706,&quot;y&quot;:210,&quot;w&quot;:495,&quot;h&quot;:504,&quot;abs_x&quot;:706,&quot;abs_y&quot;:210}" bis_id="bn_mbssc8p8l3kius6wjxaecj">
+                </a>
+            </div>
+        </div>
+        <div class="overlay" bis_skin_checked="1"></div>
+</div>
 
 @section Scripts {
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const header = document.querySelector('.header');
@@ -192,34 +272,1189 @@
             window.addEventListener('scroll', function () {
                 let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
 
-                // Clear the timeout throughout the scroll
                 window.clearTimeout(isScrolling);
 
                 if (scrollTop > 50) {
-                    // Khi cuộn xuống quá 50px
                     header.classList.add('header-scrolled');
 
                     if (scrollTop < lastScrollTop) {
-                        // Cuộn lên
                         header.classList.add('header-hidden');
                     } else {
-                        // Cuộn xuống
                         header.classList.remove('header-hidden');
                     }
                 } else {
-                    // Khi ở gần đầu trang
                     header.classList.remove('header-scrolled');
                     header.classList.remove('header-hidden');
                 }
 
                 lastScrollTop = scrollTop;
 
-                // Set a timeout to run after scrolling ends
                 isScrolling = setTimeout(function () {
-                    // Hiện header sau khi dừng cuộn 150ms
                     header.classList.remove('header-hidden');
                 }, 150);
             });
+
+            setTimeout(initializeStoreMap, 100);
+            
+            // Popup close functionality
+            initializePopup();
         });
+
+        function initializePopup() {
+            const popup = document.querySelector('.home-popup');
+            const closeBtn = document.querySelector('.home-popup .close-btn');
+            const overlay = document.querySelector('.home-popup .overlay');
+            
+            if (!popup) return;
+            
+            // Show popup with animation on page load
+            function showPopup() {
+                popup.style.display = 'block';
+                popup.classList.remove('hide');
+            }
+            
+            function closePopup() {
+                popup.classList.add('hide');
+                // Completely hide after animation completes
+                setTimeout(() => {
+                    popup.style.display = 'none';
+                }, 300);
+            }
+            
+            // Show popup initially (after a small delay for better UX)
+            setTimeout(showPopup, 1000);
+            
+            // Close popup when clicking close button
+            if (closeBtn) {
+                closeBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    closePopup();
+                });
+            }
+            
+            // Close popup when clicking overlay
+            if (overlay) {
+                overlay.addEventListener('click', function() {
+                    closePopup();
+                });
+            }
+            
+            // Close popup with ESC key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && !popup.classList.contains('hide')) {
+                    closePopup();
+                }
+            });
+            
+            // Prevent popup content clicks from closing popup
+            const popupContent = document.querySelector('.home-popup .popup-content');
+            if (popupContent) {
+                popupContent.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                });
+            }
+        }
+
+        function checkStoresData() {
+            fetch('/Toocha/Home/GetStoresData')
+                .then(response => response.json())
+                .then(data => {
+                    alert(`Total stores: ${data.TotalStores}\nActive stores: ${data.ActiveStores}\nCheck console for details`);
+                })
+                .catch(error => {
+                    alert('Error fetching stores data: ' + error.message);
+                });
+        }
+
+        function initializeStoreMap() {
+            const stores = @Html.Raw(Json.Serialize(ViewBag.Stores ?? new List<object>()));
+            
+            if (stores.length === 0) {
+                document.getElementById('storeMap').innerHTML = '<div class="text-center text-muted py-5"><i class="fas fa-store fa-3x mb-3"></i><br>Chưa có cửa hàng nào</div>';
+                return;
+            }
+
+            let centerLat = 16.0583;
+            let centerLng = 108.2772;
+            
+            if (stores.length > 0) {
+                const validStores = stores.filter((store, index) => {
+                    const hasLat = store.latitude;
+                    const hasLng = store.longitude;
+                    const latNotNaN = !isNaN(store.latitude);
+                    const lngNotNaN = !isNaN(store.longitude);
+                    const latInRange = store.latitude >= -90 && store.latitude <= 90;
+                    const lngInRange = store.longitude >= -180 && store.longitude <= 180;
+                    const isValid = hasLat && hasLng && latNotNaN && lngNotNaN && latInRange && lngInRange;
+                    return isValid;
+                });
+                
+                if (validStores.length > 0) {
+                    centerLat = validStores.reduce((sum, store) => sum + parseFloat(store.latitude), 0) / validStores.length;
+                    centerLng = validStores.reduce((sum, store) => sum + parseFloat(store.longitude), 0) / validStores.length;
+                }
+            }
+
+            if (typeof L === 'undefined') {
+                document.getElementById('storeMap').innerHTML = '<div class="text-center text-danger py-5">Lỗi: Không thể tải bản đồ</div>';
+                return;
+            }
+            
+            let map;
+            try {
+                map = L.map('storeMap', { attributionControl: false, zoomControl: false }).setView([centerLat, centerLng], 6);
+                
+                L.tileLayer('https://mt1.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
+                    attribution: '© Google Maps',
+                    maxZoom: 18
+                }).addTo(map);
+                
+            } catch (error) {
+                document.getElementById('storeMap').innerHTML = '<div class="text-center text-danger py-5">Lỗi khởi tạo bản đồ: ' + error.message + '</div>';
+                return;
+            }
+
+            const northIcon = L.divIcon({
+                html: '<i class="fas fa-map-marker-alt" style="color: #3498db; font-size: 28px;"></i>',
+                iconSize: [35, 35],
+                iconAnchor: [17, 35],
+                popupAnchor: [0, -35],
+                className: 'custom-marker-icon'
+            });
+
+            const southIcon = L.divIcon({
+                html: '<i class="fas fa-map-marker-alt" style="color: #e74c3c; font-size: 28px;"></i>',
+                iconSize: [35, 35],
+                iconAnchor: [17, 35],
+                popupAnchor: [0, -35],
+                className: 'custom-marker-icon'
+            });
+
+            const defaultIcon = L.divIcon({
+                html: '<i class="fas fa-map-marker-alt" style="color: #2ecc71; font-size: 28px;"></i>',
+                iconSize: [35, 35],
+                iconAnchor: [17, 35],
+                popupAnchor: [0, -35],
+                className: 'custom-marker-icon'
+            });
+
+            const validStoresForMarkers = stores.filter(store => 
+                store.latitude && store.longitude && 
+                !isNaN(store.latitude) && !isNaN(store.longitude) &&
+                store.latitude >= -90 && store.latitude <= 90 &&
+                store.longitude >= -180 && store.longitude <= 180
+            );
+            
+            validStoresForMarkers.forEach((store, index) => {
+                const lat = parseFloat(store.latitude);
+                const lng = parseFloat(store.longitude);
+                
+                try {
+                    let marker;
+                    
+                    let icon = defaultIcon;
+                    if (store.region === 'MB') icon = northIcon;
+                    else if (store.region === 'MN') icon = southIcon;
+                    
+                    try {
+                        marker = L.marker([lat, lng], { 
+                            icon: icon,
+                            store: store
+                        }).addTo(map);
+                    } catch (iconError) {
+                        marker = L.marker([lat, lng], {
+                            store: store
+                        }).addTo(map);
+                    }
+
+                    const popupContent = `
+                        <div class="store-popup">
+                            <h5 class="mb-2"><i class="fas fa-store me-2" style="color: #ff6b35;"></i>${store.name}</h5>
+                            <p class="mb-2"><i class="fas fa-map-marker-alt me-2" style="color: #6c757d;"></i>${store.address}</p>
+                            ${store.phoneNumber ? `<p class="mb-2"><i class="fas fa-phone me-2" style="color: #28a745;"></i>${store.phoneNumber}</p>` : ''}
+                            ${store.openingHours ? `<p class="mb-3"><i class="fas fa-clock me-2" style="color: #ffc107;"></i>${store.openingHours}</p>` : ''}
+                            <div class="text-center">
+                                <a href="https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}" 
+                                   class="btn btn-primary btn-sm px-3" 
+                                   target="_blank">
+                                    <i class="fas fa-directions me-1"></i>Chỉ đường
+                                </a>
+                            </div>
+                        </div>
+                    `;
+
+                    marker.bindPopup(popupContent);
+
+                    marker.on('mouseover', function() {
+                        this.openPopup();
+                    });
+                    
+                } catch (error) {
+                    console.error(`Lỗi khi thêm marker cho ${store.name}:`, error);
+                }
+            });
+
+            if (validStoresForMarkers.length > 0) {
+                const markers = [];
+                map.eachLayer(layer => {
+                    if (layer instanceof L.Marker) {
+                        markers.push(layer);
+                    }
+                });
+                
+                if (markers.length > 0) {
+                    const group = L.featureGroup(markers);
+                    map.fitBounds(group.getBounds().pad(0.1));
+                }
+            }
+
+            function fitToRegion(regionCode) {
+                console.log('Đang lọc khu vực:', regionCode);
+                const regionMarkers = [];
+                let regionName = '';
+                let regionColor = '';
+
+                switch(regionCode) {
+                    case 'MB':
+                        regionName = 'Miền Bắc';
+                        regionColor = '#3498db';
+                        break;
+                    case 'MN':
+                        regionName = 'Miền Nam';
+                        regionColor = '#e74c3c';
+                        break;
+                    default:
+                        regionName = 'Khu vực khác';
+                        regionColor = '#2ecc71';
+                }
+
+                let totalMarkers = 0;
+                let matchedMarkers = 0;
+
+                map.eachLayer(layer => {
+                    if (layer instanceof L.Marker) {
+                        totalMarkers++;
+                        const store = layer.options.store;
+                        console.log('Kiểm tra store:', store ? `${store.name} (${store.region})` : 'Không có thông tin store');
+                        
+                        if (store && store.region === regionCode) {
+                            matchedMarkers++;
+                            regionMarkers.push(layer);
+                            layer.setOpacity(1);
+                        } else {
+                            layer.setOpacity(0.3);
+                        }
+                    }
+                });
+
+                console.log(`Tổng số markers: ${totalMarkers}`);
+                console.log(`Số markers phù hợp: ${matchedMarkers}`);
+
+                if (regionMarkers.length > 0) {
+                    console.log(`Tìm thấy ${regionMarkers.length} cửa hàng ở ${regionName}`);
+                    const group = L.featureGroup(regionMarkers);
+                    map.fitBounds(group.getBounds().pad(0.2));
+
+                    L.popup()
+                        .setLatLng(map.getCenter())
+                        .setContent(`
+                            <div style="text-align: center;">
+                                <h5 style="color: ${regionColor}; margin-bottom: 10px;">
+                                    <i class="fas fa-store me-2"></i>${regionName}
+                                </h5>
+                                <p style="margin: 0;">Số cửa hàng: ${regionMarkers.length}</p>
+                            </div>
+                        `)
+                        .openOn(map);
+                } else {
+                    console.log(`Không tìm thấy cửa hàng nào ở ${regionName}`);
+                    L.popup()
+                        .setLatLng(map.getCenter())
+                        .setContent(`
+                            <div style="text-align: center;">
+                                <h5 style="color: ${regionColor}; margin-bottom: 10px;">
+                                    <i class="fas fa-store me-2"></i>${regionName}
+                                </h5>
+                                <p style="margin: 0;">Chưa có cửa hàng tại khu vực này</p>
+                            </div>
+                        `)
+                        .openOn(map);
+                }
+
+                // Highlight nút được chọn
+                ['mien-bac', 'mien-nam', 'khu-vuc-khac'].forEach(id => {
+                    const btn = document.getElementById(id);
+                    if (btn) {
+                        btn.classList.remove('active');
+                    }
+                });
+                
+                let btnId;
+                switch(regionCode) {
+                    case 'MB': btnId = 'mien-bac'; break;
+                    case 'MN': btnId = 'mien-nam'; break;
+                    default: btnId = 'khu-vuc-khac';
+                }
+                const activeBtn = document.getElementById(btnId);
+                if (activeBtn) {
+                    activeBtn.classList.add('active');
+                }
+            }
+
+            // Thêm nút reset view
+            const resetViewBtn = document.createElement('button');
+            resetViewBtn.innerHTML = '<i class="fas fa-sync-alt"></i>';
+            resetViewBtn.title = 'Xem tất cả cửa hàng';
+            resetViewBtn.style.cssText = 'position:absolute;top:16px;right:70px;z-index:1000;background:#fff;border:none;border-radius:50%;width:44px;height:44px;box-shadow:0 2px 8px rgba(0,0,0,0.15);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all 0.3s ease;';
+            document.querySelector('.map-container').appendChild(resetViewBtn);
+
+            resetViewBtn.onclick = function() {
+                // Reset marker opacity
+                map.eachLayer(layer => {
+                    if (layer instanceof L.Marker) {
+                        layer.setOpacity(1);
+                    }
+                });
+
+                // Reset active state của các nút
+                ['mien-bac', 'mien-nam', 'khu-vuc-khac'].forEach(id => {
+                    const btn = document.getElementById(id);
+                    if (btn) {
+                        btn.classList.remove('active');
+                    }
+                });
+
+                // Fit bounds to all markers
+                const allMarkers = [];
+                map.eachLayer(layer => {
+                    if (layer instanceof L.Marker) {
+                        allMarkers.push(layer);
+                    }
+                });
+
+                if (allMarkers.length > 0) {
+                    const group = L.featureGroup(allMarkers);
+                    map.fitBounds(group.getBounds().pad(0.2));
+                }
+
+                // Đóng popup nếu đang mở
+                map.closePopup();
+            };
+
+            // Cập nhật sự kiện click cho các nút khu vực
+            document.getElementById('mien-bac').onclick = function() { fitToRegion('MB'); };
+            document.getElementById('mien-nam').onclick = function() { fitToRegion('MN'); };
+            document.getElementById('khu-vuc-khac').onclick = function() { fitToRegion('OTHER'); };
+
+            // Thêm style cho các nút
+            const style = document.createElement('style');
+            style.textContent = `
+                .legend-item {
+                    transition: all 0.3s ease;
+                }
+                .legend-item:hover {
+                    transform: translateY(-2px);
+                    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+                }
+                .legend-item.active {
+                    background: #fff5f5;
+                    border-color: currentColor;
+                }
+                #resetViewBtn:hover {
+                    transform: rotate(180deg);
+                }
+            `;
+            document.head.appendChild(style);
+
+            let userMarker = null;
+            document.getElementById('locateMeBtn').onclick = async function() {
+                // Kiểm tra môi trường và hiển thị thông tin chẩn đoán
+                const diagnostics = [];
+                diagnostics.push(`Secure Context: ${window.isSecureContext}`);
+                diagnostics.push(`Protocol: ${window.location.protocol}`);
+                diagnostics.push(`Host: ${window.location.host}`);
+                console.log('Diagnostics:', diagnostics.join(', '));
+
+                if (!window.isSecureContext) {
+                    const errorMsg = `
+                        <div style="color:#721c24;background-color:#f8d7da;padding:10px;border-radius:4px;margin-bottom:10px;">
+                            <b>Lỗi bảo mật:</b> Tính năng định vị yêu cầu kết nối an toàn (HTTPS)
+                        </div>
+                        <div style="margin-top:10px;">
+                            <b>Cách khắc phục:</b><br>
+                            1. Chạy ứng dụng bằng HTTPS<br>
+                            2. Hoặc sử dụng một trong các địa chỉ sau:<br>
+                            - https://localhost:5001<br>
+                            - https://localhost:44321<br>
+                            3. Hoặc thêm chứng chỉ SSL cho domain
+                        </div>
+                        <div style="margin-top:10px;font-size:0.9em;color:#666;">
+                            Chi tiết: ${diagnostics.join('<br>')}
+                        </div>`;
+                    L.popup({maxWidth: 300})
+                        .setLatLng(map.getCenter())
+                        .setContent(errorMsg)
+                        .openOn(map);
+                    return;
+                }
+
+                if (!navigator.geolocation) {
+                    L.popup()
+                        .setLatLng(map.getCenter())
+                        .setContent('Trình duyệt của bạn không hỗ trợ định vị.')
+                        .openOn(map);
+                    return;
+                }
+
+                const btn = document.getElementById('locateMeBtn');
+                const originalHtml = btn.innerHTML;
+                btn.innerHTML = '<i class="fas fa-spinner fa-spin" style="font-size:22px;color:#ff6b35;"></i>';
+                btn.disabled = true;
+
+                try {
+                    const position = await new Promise((resolve, reject) => {
+                        const watchId = navigator.geolocation.watchPosition(
+                            (pos) => {
+                                navigator.geolocation.clearWatch(watchId);
+                                resolve(pos);
+                            },
+                            (err) => {
+                                navigator.geolocation.clearWatch(watchId);
+                                reject(err);
+                            },
+                            {
+                                enableHighAccuracy: false,
+                                timeout: 10000,
+                                maximumAge: 60000
+                            }
+                        );
+
+                        // Backup timeout
+                        setTimeout(() => {
+                            navigator.geolocation.clearWatch(watchId);
+                            reject({
+                                code: 3,
+                                message: 'Timeout'
+                            });
+                        }, 12000);
+                    });
+
+                    const lat = position.coords.latitude;
+                    const lng = position.coords.longitude;
+
+                    if (userMarker) map.removeLayer(userMarker);
+                    userMarker = L.marker([lat, lng], {
+                        icon: L.divIcon({
+                            html: '<i class="fas fa-street-view" style="color:#ff6b35;font-size:28px;"></i>',
+                            iconSize: [35, 35],
+                            iconAnchor: [17, 35],
+                            popupAnchor: [0, -35],
+                            className: 'custom-marker-icon'
+                        })
+                    }).addTo(map).bindPopup('Vị trí của bạn').openPopup();
+                    map.setView([lat, lng], 14);
+
+                    btn.style.background = '#d4edda';
+                    setTimeout(() => { btn.style.background = '#fff'; }, 2000);
+
+                } catch (err) {
+                    let errorMsg = '<div style="color:#721c24;background-color:#f8d7da;padding:10px;border-radius:4px;">';
+                    switch (err.code) {
+                        case 1:
+                            errorMsg += `
+                                <b>Quyền truy cập bị từ chối</b><br><br>
+                                <b>Cách khắc phục:</b><br>
+                                1. Mở cài đặt trình duyệt:<br>
+                                - Chrome: chrome://settings/content/location<br>
+                                - Edge: edge://settings/content/location<br>
+                                - Firefox: about:preferences#privacy<br>
+                                2. Tìm website này trong danh sách chặn và xóa<br>
+                                3. Cho phép truy cập vị trí cho website<br>
+                                4. Tải lại trang và thử lại
+                            `;
+                            break;
+                        case 2:
+                            errorMsg += `
+                                <b>Không thể xác định vị trí</b><br><br>
+                                <b>Vui lòng kiểm tra:</b><br>
+                                1. GPS đã được bật<br>
+                                2. Kết nối mạng ổn định<br>
+                                3. Không sử dụng VPN<br>
+                                4. Cho phép vị trí trong Windows/MacOS
+                            `;
+                            break;
+                        case 3:
+                            errorMsg += `
+                                <b>Quá thời gian yêu cầu</b><br><br>
+                                <b>Nguyên nhân có thể:</b><br>
+                                1. Kết nối mạng chậm<br>
+                                2. GPS khởi động chậm<br>
+                                3. Nhiều ứng dụng đang sử dụng GPS<br><br>
+                                Vui lòng thử lại sau vài giây.
+                            `;
+                            break;
+                        default:
+                            errorMsg += `<b>Lỗi không xác định:</b> ${err.message}`;
+                    }
+                    errorMsg += '</div>';
+                    
+                    map.setView([16.0583, 108.2772], 6);
+                    L.popup({maxWidth: 300})
+                        .setLatLng([16.0583, 108.2772])
+                        .setContent(errorMsg)
+                        .openOn(map);
+                        
+                    btn.style.background = '#f8d7da';
+                    setTimeout(() => { btn.style.background = '#fff'; }, 2000);
+                } finally {
+                    btn.innerHTML = originalHtml;
+                    btn.disabled = false;
+                }
+            };
+        }
     </script>
+
+    <style>
+        .store-map-section {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            position: relative;
+        }
+
+        .store-map-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="%23000" opacity="0.03"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            pointer-events: none;
+        }
+
+        .store-map-section .section-title {
+            position: relative;
+            z-index: 2;
+        }
+
+        .store-map-section .section-title .text-1 {
+            font-size: 1.7rem;
+            color: #ff6b35;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+            font-family: BalooExtra;
+        }
+
+        .store-map-section .section-title .text-2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+
+        .store-map-section .section-title .icon-bottom-title {
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, #ff6b35, #ffa726);
+            margin: 0 auto;
+            border-radius: 2px;
+        }
+
+        .map-container {
+            position: relative;
+            z-index: 2;
+        }
+
+        .map-legend {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            font-weight: 500;
+            color: #2c3e50;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 107, 53, 0.2);
+            cursor: pointer;
+        }
+
+        .legend-item i {
+            font-size: 18px;
+        }
+
+        .custom-marker-icon {
+            background: transparent !important;
+            border: none !important;
+            box-shadow: none !important;
+        }
+
+        .store-popup {
+            min-width: 280px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .store-popup h5 {
+            color: #2c3e50;
+            font-weight: 600;
+            border-bottom: 2px solid #ff6b35;
+            padding-bottom: 8px;
+            margin-bottom: 15px;
+        }
+
+        .store-popup p {
+            color: #5a6c7d;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+        }
+
+        .store-popup .btn {
+            border-radius: 20px;
+            font-weight: 500;
+            padding: 8px 16px;
+            background: linear-gradient(135deg, #ff6b35, #ffa726);
+            border: none;
+            transition: all 0.3s ease;
+        }
+
+        .store-popup .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 107, 53, 0.4);
+        }
+
+        .leaflet-popup-content-wrapper {
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            border: 3px solid #ff6b35;
+        }
+
+        .leaflet-popup-tip {
+            background: white;
+        }
+
+        @@media (max-width: 768px) {
+            .store-map-section {
+                padding: 60px 0;
+            }
+
+            .store-map-section .section-title .text-2 {
+                font-size: 2rem;
+            }
+
+            .store-popup {
+                min-width: 250px;
+            }
+
+            .map-legend {
+                gap: 15px;
+            }
+
+            .legend-item {
+                padding: 8px 15px;
+                font-size: 0.9rem;
+            }
+
+            #storeMap {
+                height: 350px !important;
+            }
+        }
+
+        .leaflet-control-attribution, .leaflet-control { display: none !important; }
+        
+        /* Dynamic Product Styling */
+        .sale-tag {
+            background: linear-gradient(135deg, #ff6b35, #ff8f66);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-right: 5px;
+            box-shadow: 0 2px 6px rgba(255, 107, 53, 0.3);
+        }
+        
+        .low-stock-tag {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-left: 5px;
+            box-shadow: 0 2px 6px rgba(231, 76, 60, 0.3);
+        }
+        
+        .original-price {
+            text-decoration: line-through;
+            color: #999;
+            font-size: 0.9rem;
+            margin-right: 8px;
+        }
+        
+        .sale-price {
+            color: #ff6b35;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+        
+        .text-wrapper-2 {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            font-size: 17.5px !important;
+        }
+        
+        .no-products-message {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 40px 20px;
+            color: #666;
+            font-size: 1.1rem;
+        }
+        
+        .no-products-message p {
+            margin: 0;
+            font-style: italic;
+        }
+        
+        .product-card .tags {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 2;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        
+        .product-card {
+            position: relative;
+        }
+        
+        .product-card .img-wrap img {
+            transition: transform 0.3s ease;
+        }
+        
+        .product-card:hover .img-wrap img {
+            transform: scale(1.05);
+        }
+        
+        .btn-order-product[data-product-id] {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-order-product[data-product-id]:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+        }
+        
+        .text-wrapper[title] {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            cursor: help;
+        }
+
+        @@media (max-width: 768px) {
+            .sale-tag, .low-stock-tag {
+                font-size: 0.65rem;
+                padding: 3px 6px;
+            }
+            
+            .original-price {
+                font-size: 0.8rem;
+            }
+            
+            .sale-price {
+                font-size: 1rem;
+            }
+        }
+
+        .news-content {
+        width: 75%;
+        }
+
+        .sidebar {
+        width: 25%;
+        }
+
+        .sidebar h3 {
+        color: #c9a03f;
+        margin-bottom: 10px;
+        font-size: 28px;
+        letter-spacing: 1.4px;
+        text-transform: uppercase;
+        margin-bottom: 32px;
+        font-weight: 750;
+        }
+
+        .category-list {
+        list-style: none;
+        padding: 0;
+        margin-bottom: 30px;
+        }
+
+        .category-list li a {
+        display: block;
+        padding: 10px 0;
+        font-weight: 600;
+        color: #444;
+        text-decoration: none;
+
+        }
+
+        .category-list li a:hover {
+        color: #c9a03f;
+        }
+
+        .tags a {
+        display: inline-block;
+        background-color: #FBEED1;
+        color: #222;
+        font-size: 14px;
+        padding: 10px 12px;
+        margin: 15px 5px 0 0;
+        border-radius: 3px;
+        text-decoration: none;
+        }
+
+        .tags a:hover {
+        background-color: #c9a03f;
+        color: #fff;
+        }
+
+                 .news-content {
+         width: 100%;
+         max-width: 1200px;
+         margin: 0 auto;
+         padding: 40px 20px;
+         }
+
+         .news-content h2 {
+         font-size: 28px;
+         margin-bottom: 30px;
+         letter-spacing: 1.4px;
+         text-transform: uppercase;
+         font-weight: 750;
+         color: #333;
+         }
+
+         /* Main layout with 2 columns */
+         .news-main-layout {
+         display: flex;
+         gap: 40px;
+         margin-bottom: 40px;
+         }
+
+         /* Left column - 70% width */
+         .news-left-column {
+         flex: 70%;
+         }
+
+         /* Right column - 30% width */
+         .news-right-column {
+         flex: 30%;
+         }
+
+         /* Featured news at top of left column */
+         .news-featured {
+         background: #fff;
+         border: 1px solid #eee;
+         border-radius: 8px;
+         overflow: hidden;
+         margin-bottom: 30px;
+         box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+         }
+
+         .news-featured img {
+         width: 100%;
+         height: 250px;
+         object-fit: cover;
+         }
+
+         .news-featured h3 {
+         font-size: 20px;
+         margin: 20px 20px 15px;
+         color: #333;
+         line-height: 1.4;
+         }
+
+         .news-featured p {
+         font-size: 16px;
+         color: #666;
+         margin: 0 20px 20px;
+         line-height: 1.5;
+         }
+
+         .news-featured .btn-read {
+         display: inline-block;
+         margin: 0 20px 25px;
+         background-color: #D3B673;
+         color: #fff;
+         padding: 12px 20px;
+         text-decoration: none;
+         font-size: 16px;
+         border-radius: 4px;
+         transition: background-color 0.3s;
+         }
+
+         .news-featured .btn-read:hover {
+         background-color: #b1882f;
+         }
+
+         /* Small news grid - 2 columns in left column */
+         .news-small-grid {
+         display: grid;
+         grid-template-columns: 1fr 1fr;
+         gap: 20px;
+         }
+
+         .news-small-card {
+         background: #fff;
+         border: 1px solid #eee;
+         border-radius: 8px;
+         overflow: hidden;
+         box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+         transition: transform 0.3s;
+         }
+
+         .news-small-card:hover {
+         transform: translateY(-3px);
+         }
+
+         .news-small-card img {
+         width: 100%;
+         height: 180px;
+         object-fit: cover;
+         }
+
+         .news-small-card h4 {
+         font-size: 14px;
+         margin: 15px 15px 10px;
+         color: #333;
+         line-height: 1.3;
+         height: 52px;
+         overflow: hidden;
+         display: -webkit-box;
+         -webkit-line-clamp: 2;
+         -webkit-box-orient: vertical;
+         }
+
+         .news-small-card .btn-read-small {
+         display: inline-block;
+         margin: 0 15px 15px;
+         background-color: #D3B673;
+         color: #fff;
+         padding: 8px 15px;
+         text-decoration: none;
+         font-size: 14px;
+         border-radius: 4px;
+         transition: background-color 0.3s;
+         }
+
+         .news-small-card .btn-read-small:hover {
+         background-color: #b1882f;
+         }
+
+         /* Right column - list style like the image */
+         .news-list-item {
+         display: flex;
+         gap: 15px;
+         margin-bottom: 25px;
+         padding-bottom: 20px;
+         border-bottom: 1px solid #eee;
+         }
+
+         .news-list-item:last-child {
+         border-bottom: none;
+         }
+
+         .news-list-item img {
+         width: 80px;
+         height: 80px;
+         object-fit: cover;
+         border-radius: 4px;
+         flex-shrink: 0;
+         }
+
+         .news-list-content {
+         flex: 1;
+         }
+
+         .news-list-content h4 {
+         font-size: 14px;
+         margin: 0 0 8px 0;
+         color: #333;
+         line-height: 1.3;
+         font-weight: 600;
+         }
+
+         .news-date {
+         font-size: 12px;
+         color: #ff6b35;
+         background: #fff5f0;
+         padding: 4px 8px;
+         border-radius: 12px;
+         display: inline-block;
+         font-weight: 500;
+         }
+
+         /* Responsive adjustments */
+         @@media (max-width: 768px) {
+         .news-main-layout {
+         flex-direction: column;
+         gap: 20px;
+         }
+         
+         .news-left-column, .news-right-column {
+         flex: 100%;
+         }
+         
+         .news-small-grid {
+         grid-template-columns: 1fr;
+         }
+         
+         .news-featured h3 {
+         font-size: 18px;
+         }
+         
+         .news-list-item {
+         flex-direction: column;
+         gap: 10px;
+         }
+         
+         .news-list-item img {
+         width: 100%;
+         height: 150px;
+         }
+         }
+
+        /* Pagination */
+        .pagination {
+        margin-top: 30px;
+        text-align: center;
+        }
+
+        .pagination a,
+        .pagination span {
+        margin: 0 5px;
+        padding: 8px 12px;
+        text-decoration: none;
+        color: #007bff;
+        font-weight: bold;
+        }
+
+        .pagination a:hover {
+            background-color: #f1e3b4;
+        }
+
+ .home-popup {
+     display: none;
+     transition: opacity 0.3s ease, visibility 0.3s ease;
+ }
+ 
+ .home-popup.hide {
+     opacity: 0;
+     visibility: hidden;
+ }
+ 
+ .home-popup .popup {
+     background: transparent !important;
+     box-shadow: none !important;
+     border: 0px !important;
+     transition: transform 0.3s ease;
+ }
+.home-popup .popup {
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%);
+    padding: 0;
+    width: auto !important;
+    height: auto !important;
+}
+.popup {
+    z-index: 5;
+    box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.06);
+    border-radius: 3px;
+    background: #ffffff;
+    position: fixed;
+    padding: 40px 0px 10px 0;
+    display: flex
+;
+    justify-content: center;
+}
+
+.home-popup .close-btn {
+    right: -5px !important;
+    top: 0px !important;
+}
+.home-popup .close-btn {
+    right: -30px;
+    top: -30px;
+    padding: 5px 10px;
+    font-size: 14px;
+    border-radius: 50%;
+    background: #fff;
+}
+.close-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    cursor: pointer;
+    z-index: 6;
+}
+
+.home-popup .close-btn i {
+    font-size: 16px;
+}
+.close-btn i {
+    font-size: 24px;
+}
+
+.home-popup .popup-content {
+    width: 100%;
+    overflow: hidden;
+}
+
+.popup-content a img {
+    background-image: transparent !important;
+}
+
+.home-popup .overlay {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    z-index: 3;
+    background: rgba(128, 128, 128, 0.5);
+}
+
+.overlay {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    background: rgba(128, 128, 128, 0.5);
+}
+    </style>
 }

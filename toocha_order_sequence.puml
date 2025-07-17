@@ -1,0 +1,149 @@
+@startuml Order Process Sequence
+title Quy Trình Đặt Hàng - Toocha
+
+!define RECTANGLE class
+
+' Styling
+skinparam sequence {
+    ArrowColor DarkBlue
+    ActorBorderColor DarkBlue
+    LifeLineBorderColor DarkBlue
+    LifeLineBackgroundColor LightBlue
+    ParticipantBorderColor DarkBlue
+    ParticipantBackgroundColor LightBlue
+    ParticipantFontName Impact
+    ParticipantFontSize 17
+    ActorFontSize 17
+    ActorFontName Impact
+}
+
+actor Customer as C
+participant "OrderController" as OC
+participant "ProductService" as PS
+participant "DiscountService" as DS
+participant "LocationService" as LS
+participant "NotificationService" as NS
+participant "AppDbContext" as DB
+
+== Bước 1: Chọn Sản Phẩm ==
+C -> OC: GET /products
+activate OC
+OC -> PS: GetAllProducts()
+activate PS
+PS -> DB: Query products
+activate DB
+DB --> PS: Product list
+deactivate DB
+PS --> OC: Products
+deactivate PS
+OC --> C: Display products
+deactivate OC
+
+== Bước 2: Thêm Vào Giỏ Hàng ==
+C -> OC: POST /cart/add
+activate OC
+OC -> PS: GetProductById(productId)
+activate PS
+PS -> DB: Query product
+activate DB
+DB --> PS: Product data
+deactivate DB
+PS --> OC: Product
+deactivate PS
+
+alt Product exists && In stock
+    OC -> OC: Add to session cart
+    OC --> C: Cart updated
+else Product unavailable
+    OC --> C: Error message
+end
+deactivate OC
+
+== Bước 3: Xem Giỏ Hàng ==
+C -> OC: GET /cart
+activate OC
+OC -> OC: Get cart from session
+OC --> C: Display cart
+deactivate OC
+
+== Bước 4: Áp Dụng Khuyến Mãi ==
+C -> OC: POST /cart/apply-discount
+activate OC
+OC -> DS: ValidateDiscount(code)
+activate DS
+DS -> DB: Query discount
+activate DB
+DB --> DS: Discount data
+deactivate DB
+
+DS -> DS: Validate discount
+note right of DS
+- Check if active
+- Check date range
+- Check usage limit
+- Check minimum amount
+end note
+
+alt Discount valid
+    DS --> OC: Discount applied
+    deactivate DS
+    OC -> OC: Update cart total
+    OC --> C: Updated cart
+else Discount invalid
+    DS --> OC: Validation error
+    deactivate DS
+    OC --> C: Error message
+end
+deactivate OC
+
+== Bước 5: Đặt Hàng ==
+C -> OC: POST /order/checkout
+activate OC
+
+OC -> OC: Validate order data
+OC -> LS: CalculateShippingFee(deliveryAddress)
+activate LS
+LS -> LS: Calculate distance
+LS --> OC: Shipping fee
+deactivate LS
+
+OC -> OC: Calculate total price
+OC -> DB: Create order
+activate DB
+DB -> DB: Save order
+DB -> DB: Save order items
+DB -> DB: Save order item toppings
+DB --> OC: Order created
+deactivate DB
+
+== Bước 6: Thông Báo ==
+OC -> NS: SendOrderConfirmation(orderId)
+activate NS
+NS -> NS: Send email/SMS
+NS --> OC: Notification sent
+deactivate NS
+
+OC --> C: Order confirmation page
+deactivate OC
+
+== Bước 7: Cập Nhật Trạng Thái ==
+note over C, DB : Staff processes order
+
+OC -> OC: POST /admin/order/update-status
+activate OC
+OC -> DB: Update order status
+activate DB
+DB -> DB: Save changes
+DB --> OC: Status updated
+deactivate DB
+
+OC -> NS: NotifyCustomer(orderId, status)
+activate NS
+NS -> NS: Send status update
+NS --> OC: Notification sent
+deactivate NS
+
+OC --> C: Status updated
+deactivate OC
+
+@enduml 

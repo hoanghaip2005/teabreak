@@ -1,0 +1,263 @@
+@startuml Toocha Class Diagram
+
+!define RECTANGLE class
+
+' Styling
+skinparam linetype ortho
+skinparam class {
+    BackgroundColor LightBlue
+    ArrowColor DarkBlue
+    BorderColor DarkBlue
+}
+
+skinparam enum {
+    BackgroundColor LightGreen
+    BorderColor DarkGreen
+}
+
+' Enums
+enum OrderStatus {
+    Pending
+    Processing
+    Shipped
+    Delivered
+    Cancelled
+    Failed
+}
+
+enum DiscountType {
+    Percentage
+    FixedAmount
+}
+
+' Identity Models
+class AppUser {
+    +string Id
+    +string UserName
+    +string Email
+    +string PhoneNumber
+    +string HomeAdress
+    +string Avatar
+    +DateTime? BirthDate
+    --
+    +ICollection<Order> Orders
+}
+
+class IdentityRole {
+    +string Id
+    +string Name
+    +string NormalizedName
+    +string ConcurrencyStamp
+}
+
+' Core Business Models
+class Category {
+    +int Id
+    +string Name
+    +string Description
+    +DateTime CreatedAt
+    +DateTime UpdatedAt
+    --
+    +ICollection<Product> Products
+}
+
+class Product {
+    +int Id
+    +string Name
+    +string Description
+    +decimal Price
+    +decimal? SalePrice
+    +string Image
+    +int CategoryId
+    +int StockQuantity
+    +bool IsPublished
+    --
+    +Category Category
+    +ICollection<ProductReview> Reviews
+    +ICollection<Discount> Discounts
+}
+
+class Store {
+    +int Id
+    +string Name
+    +string Address
+    +double Latitude
+    +double Longitude
+    +string? PhoneNumber
+    +string? OpeningHours
+    +bool IsActive
+    +string? Region
+    +string? City
+    +string? District
+    +string? Ward
+    +string? Notes
+    --
+    +ICollection<Order> Orders
+}
+
+class Order {
+    +int Id
+    +string? UserId
+    +DateTime OrderDate
+    +decimal TotalPrice
+    +string ShippingAddress
+    +string PhoneNumber
+    +OrderStatus Status
+    +string? PaymentMethod
+    +bool IsPaid
+    +string? TransactionId
+    +int? StoreId
+    +decimal ShippingFee
+    +decimal? Distance
+    +double? DeliveryLatitude
+    +double? DeliveryLongitude
+    +string? Notes
+    --
+    +AppUser? User
+    +Store? Store
+    +ICollection<OrderItem> OrderItems
+}
+
+class OrderItem {
+    +int Id
+    +int OrderId
+    +int ProductId
+    +int Quantity
+    +decimal ItemPrice
+    +int SugarPercentage
+    +int IcePercentage
+    +string? Notes
+    --
+    +Order Order
+    +Product Product
+    +ICollection<OrderItemTopping> OrderItemToppings
+}
+
+class Topping {
+    +int Id
+    +string Name
+    +decimal ExtraPrice
+    +string ImageUrl
+    +string Status
+    --
+    +ICollection<OrderItemTopping> OrderItemToppings
+}
+
+class OrderItemTopping {
+    +int Id
+    +int OrderItemId
+    +int ToppingId
+    +int Quantity
+    +decimal ToppingPrice
+    --
+    +OrderItem OrderItem
+    +Topping Topping
+}
+
+class Size {
+    +int Id
+    +string Name
+    +decimal ExtraPrice
+}
+
+class Discount {
+    +int Id
+    +string Code
+    +string Description
+    +decimal Value
+    +DateTime StartDate
+    +DateTime EndDate
+    +bool IsActive
+    +DiscountType Type
+    +int? ProductId
+    +int? CategoryId
+    +int? UsageLimit
+    +int UsedCount
+    +decimal? MinOrderAmount
+    +decimal? MaxDiscountAmount
+    +DateTime CreatedDate
+    +string? CreatedBy
+    +DateTime? LastUpdated
+    +string? Notes
+    --
+    +Product? Product
+    +Category? Category
+    --
+    +bool IsExpired
+    +bool IsNotStarted
+    +bool IsLimitReached
+    +bool IsAvailable
+    +int? RemainingUsage
+}
+
+class ProductReview {
+    +int Id
+    +int ProductId
+    +int UserId
+    +int Rating
+    +string Comment
+    +DateTime CreatedAt
+    --
+    +Product Product
+}
+
+' Database Context
+class AppDbContext {
+    +DbSet<Category> Categories
+    +DbSet<Product> Products
+    +DbSet<Size> Sizes
+    +DbSet<Topping> Toppings
+    +DbSet<Order> Orders
+    +DbSet<OrderItem> OrderItems
+    +DbSet<OrderItemTopping> OrderItemToppings
+    +DbSet<Store> Stores
+    +DbSet<Discount> Discounts
+    +DbSet<ProductReview> ProductReviews
+    --
+    +OnModelCreating(ModelBuilder)
+}
+
+' Relationships
+AppUser ||--o{ Order : places
+AppUser ||--o{ ProductReview : writes
+
+Category ||--o{ Product : contains
+Category ||--o{ Discount : applies_to
+
+Product ||--o{ OrderItem : ordered_in
+Product ||--o{ ProductReview : reviewed_in
+Product ||--o{ Discount : has
+
+Store ||--o{ Order : fulfills
+
+Order ||--o{ OrderItem : contains
+Order ||--o{ OrderItemTopping : has_toppings
+
+OrderItem ||--o{ OrderItemTopping : includes
+
+Topping ||--o{ OrderItemTopping : used_in
+
+IdentityRole ||--o{ AppUser : assigned_to
+
+' Database Context relationships
+AppDbContext ||--o{ Category : manages
+AppDbContext ||--o{ Product : manages
+AppDbContext ||--o{ Store : manages
+AppDbContext ||--o{ Order : manages
+AppDbContext ||--o{ OrderItem : manages
+AppDbContext ||--o{ OrderItemTopping : manages
+AppDbContext ||--o{ Topping : manages
+AppDbContext ||--o{ Size : manages
+AppDbContext ||--o{ Discount : manages
+AppDbContext ||--o{ ProductReview : manages
+AppDbContext ||--o{ AppUser : manages
+AppDbContext ||--o{ IdentityRole : manages
+
+' Notes
+note top of AppUser : Extends IdentityUser
+note top of AppDbContext : Extends IdentityDbContext<AppUser>
+note top of Discount : Has computed properties for validation
+note top of Order : Tracks delivery location and payment status
+note top of OrderItem : Supports customization (sugar, ice, toppings)
+
+@enduml

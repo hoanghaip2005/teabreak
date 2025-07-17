@@ -77,6 +77,10 @@
       "PackagePath": "staticwebassets\\img\\home\\store.png"
     },
     {
+      "Id": "C:\\Workspace\\toocha\\wwwroot\\img\\ic_scoll.webp",
+      "PackagePath": "staticwebassets\\img\\ic_scoll.webp"
+    },
+    {
       "Id": "C:\\Workspace\\toocha\\wwwroot\\img\\no-image.png",
       "PackagePath": "staticwebassets\\img\\no-image.png"
     },

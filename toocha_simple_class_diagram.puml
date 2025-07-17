@@ -1,0 +1,158 @@
+@startuml Toocha Simple Class Diagram
+
+!define RECTANGLE class
+
+' Styling
+skinparam class {
+    BackgroundColor LightBlue
+    ArrowColor DarkBlue
+    BorderColor DarkBlue
+}
+
+skinparam enum {
+    BackgroundColor LightGreen
+    BorderColor DarkGreen
+}
+
+' Enums
+enum OrderStatus {
+    Pending
+    Processing
+    Delivered
+    Cancelled
+}
+
+enum DiscountType {
+    Percentage
+    FixedAmount
+}
+
+' Core Models
+class AppUser {
+    +string Id
+    +string UserName
+    +string Email
+    +string PhoneNumber
+    +string HomeAdress
+    +string Avatar
+    +DateTime? BirthDate
+}
+
+class Category {
+    +int Id
+    +string Name
+    +string Description
+    +DateTime CreatedAt
+    +DateTime UpdatedAt
+}
+
+class Product {
+    +int Id
+    +string Name
+    +string Description
+    +decimal Price
+    +decimal? SalePrice
+    +string Image
+    +int CategoryId
+    +int StockQuantity
+    +bool IsPublished
+}
+
+class Store {
+    +int Id
+    +string Name
+    +string Address
+    +double Latitude
+    +double Longitude
+    +string? PhoneNumber
+    +bool IsActive
+}
+
+class Order {
+    +int Id
+    +string? UserId
+    +DateTime OrderDate
+    +decimal TotalPrice
+    +string ShippingAddress
+    +string PhoneNumber
+    +OrderStatus Status
+    +bool IsPaid
+    +int? StoreId
+    +decimal ShippingFee
+}
+
+class OrderItem {
+    +int Id
+    +int OrderId
+    +int ProductId
+    +int Quantity
+    +decimal ItemPrice
+    +int SugarPercentage
+    +int IcePercentage
+    +string? Notes
+}
+
+class Topping {
+    +int Id
+    +string Name
+    +decimal ExtraPrice
+    +string ImageUrl
+    +string Status
+}
+
+class Discount {
+    +int Id
+    +string Code
+    +string Description
+    +decimal Value
+    +DateTime StartDate
+    +DateTime EndDate
+    +bool IsActive
+    +DiscountType Type
+    +int? ProductId
+    +int? CategoryId
+}
+
+class ProductReview {
+    +int Id
+    +int ProductId
+    +int UserId
+    +int Rating
+    +string Comment
+    +DateTime CreatedAt
+}
+
+' Database Context
+class AppDbContext {
+    +DbSet<Category> Categories
+    +DbSet<Product> Products
+    +DbSet<Order> Orders
+    +DbSet<OrderItem> OrderItems
+    +DbSet<Store> Stores
+    +DbSet<Discount> Discounts
+    +DbSet<Topping> Toppings
+    +DbSet<ProductReview> ProductReviews
+}
+
+' Key Relationships
+AppUser ||--o{ Order : places
+AppUser ||--o{ ProductReview : writes
+
+Category ||--o{ Product : contains
+Category ||--o{ Discount : applies_to
+
+Product ||--o{ OrderItem : ordered_in
+Product ||--o{ ProductReview : reviewed_in
+Product ||--o{ Discount : has
+
+Store ||--o{ Order : fulfills
+
+Order ||--o{ OrderItem : contains
+
+' Notes
+note top of AppUser : Extends IdentityUser
+note top of AppDbContext : Extends IdentityDbContext<AppUser>
+note top of Order : Tracks delivery & payment
+note top of OrderItem : Supports customization
+
+@enduml 

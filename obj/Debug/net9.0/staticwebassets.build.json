@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "Wdry//vIQavWZAB8YEJUKdvqtFmKAlBMmdKLw3k83bI=",
+  "Hash": "HrdswOfAnV+O5Q49lCNlKRSxg5uu/MARU9gYVwqVSb4=",
   "Source": "App",
   "BasePath": "_content/App",
   "Mode": "Default",
@@ -1466,12 +1466,12 @@
       "OriginalItemSpec": "C:\\Workspace\\toocha\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map"
     },
     {
-      "Identity": "C:\\Workspace\\toocha\\obj\\Debug\\net9.0\\compressed\\1xfxo50w0g-uqj6dgbe2j.gz",
+      "Identity": "C:\\Workspace\\toocha\\obj\\Debug\\net9.0\\compressed\\1xfxo50w0g-7ftf2lg1fq.gz",
       "SourceId": "App",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Workspace\\toocha\\obj\\Debug\\net9.0\\compressed\\",
       "BasePath": "_content/App",
-      "RelativePath": "css/style#[.{fingerprint=uqj6dgbe2j}]?.css.gz",
+      "RelativePath": "css/style#[.{fingerprint=7ftf2lg1fq}]?.css.gz",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Alternative",
@@ -1480,8 +1480,8 @@
       "RelatedAsset": "C:\\Workspace\\toocha\\wwwroot\\css\\style.css",
       "AssetTraitName": "Content-Encoding",
       "AssetTraitValue": "gzip",
-      "Fingerprint": "3zgnpvqxem",
-      "Integrity": "UdVQs7dS1pv75pFBDgSt8s2dVoDhiYKMNg3PmFT5ybs=",
+      "Fingerprint": "5eihoht1x5",
+      "Integrity": "o3wvXbu/zNCWUbwOtGriDVqtfXFib2PAroT/X6JXnnM=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "C:\\Workspace\\toocha\\wwwroot\\css\\style.css"
@@ -1802,12 +1802,12 @@
       "OriginalItemSpec": "C:\\Workspace\\toocha\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css"
     },
     {
-      "Identity": "C:\\Workspace\\toocha\\obj\\Debug\\net9.0\\compressed\\6ywr663reg-moy3f9rftz.gz",
+      "Identity": "C:\\Workspace\\toocha\\obj\\Debug\\net9.0\\compressed\\6ywr663reg-uhisnqc6nv.gz",
       "SourceId": "App",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Workspace\\toocha\\obj\\Debug\\net9.0\\compressed\\",
       "BasePath": "_content/App",
-      "RelativePath": "css/admin#[.{fingerprint=moy3f9rftz}]?.css.gz",
+      "RelativePath": "css/admin#[.{fingerprint=uhisnqc6nv}]?.css.gz",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Alternative",
@@ -1816,8 +1816,8 @@
       "RelatedAsset": "C:\\Workspace\\toocha\\wwwroot\\css\\admin.css",
       "AssetTraitName": "Content-Encoding",
       "AssetTraitValue": "gzip",
-      "Fingerprint": "vm3qtzfasr",
-      "Integrity": "GVI5Vvz17jynWIU/dQVyKIDkkuMLYufAGbkQRohJhbc=",
+      "Fingerprint": "3nrz3awpt6",
+      "Integrity": "rwF8bNy8SB8R4oz+144iML0t7Y4KN4XF3Y8fh5eQcqk=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "C:\\Workspace\\toocha\\wwwroot\\css\\admin.css"
@@ -3146,12 +3146,12 @@
       "OriginalItemSpec": "C:\\Users\\Hoang_Hai\\.nuget\\packages\\microsoft.aspnetcore.identity.ui\\9.0.5\\staticwebassets\\V5\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map"
     },
     {
-      "Identity": "C:\\Workspace\\toocha\\obj\\Debug\\net9.0\\compressed\\p3vxl4rwdf-v6jkqf797o.gz",
+      "Identity": "C:\\Workspace\\toocha\\obj\\Debug\\net9.0\\compressed\\p3vxl4rwdf-9fys0bohfr.gz",
       "SourceId": "App",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Workspace\\toocha\\obj\\Debug\\net9.0\\compressed\\",
       "BasePath": "_content/App",
-      "RelativePath": "js/admin#[.{fingerprint=v6jkqf797o}]?.js.gz",
+      "RelativePath": "js/admin#[.{fingerprint=9fys0bohfr}]?.js.gz",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Alternative",
@@ -3160,8 +3160,8 @@
       "RelatedAsset": "C:\\Workspace\\toocha\\wwwroot\\js\\admin.js",
       "AssetTraitName": "Content-Encoding",
       "AssetTraitValue": "gzip",
-      "Fingerprint": "190joovufc",
-      "Integrity": "BXBxY9nB60dF4y/m02WVkbcaY12YPZkAhB9NOhJQqRY=",
+      "Fingerprint": "bj69xtv8kn",
+      "Integrity": "V859kJfhefg/E6eGC7sJ7Q3yqZaipNojJtbDZ9vslj8=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "C:\\Workspace\\toocha\\wwwroot\\js\\admin.js"
@@ -4105,8 +4105,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "moy3f9rftz",
-      "Integrity": "VnVI3/NOhZwn7AhrOChJD4ckt2ndblmmYq8xulanZPw=",
+      "Fingerprint": "uhisnqc6nv",
+      "Integrity": "XlQ86G2LazD9IOZJWdoEbIfSAYvZy9oicZYe7BPY+c8=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\admin.css"
@@ -4147,8 +4147,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "uqj6dgbe2j",
-      "Integrity": "irn4IqzGxoPLEpo8ouFeQzVGBPHv/D5A69zaMj28OE0=",
+      "Fingerprint": "7ftf2lg1fq",
+      "Integrity": "Tce7fkvO0hicRBBhdVc9X3ujzxxBbBQ1O5+R+71USq0=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\style.css"
@@ -4469,6 +4469,27 @@
       "OriginalItemSpec": "wwwroot\\img\\home\\store.png"
     },
     {
+      "Identity": "C:\\Workspace\\toocha\\wwwroot\\img\\ic_scoll.webp",
+      "SourceId": "App",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Workspace\\toocha\\wwwroot\\",
+      "BasePath": "_content/App",
+      "RelativePath": "img/ic_scoll#[.{fingerprint}]?.webp",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "y5zq6pt7pl",
+      "Integrity": "ho48dVNVX00wpINU67D7TdOF5E/83YHiodQKLTJAPeo=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\ic_scoll.webp"
+    },
+    {
       "Identity": "C:\\Workspace\\toocha\\wwwroot\\img\\no-image.png",
       "SourceId": "App",
       "SourceType": "Discovered",
@@ -4483,8 +4504,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "yu78tspv7y",
-      "Integrity": "Nqnn8clbgv+5l0PgxcTOldg8mkMKrFn4TvPL+rYUUGg=",
+      "Fingerprint": "123txdtips",
+      "Integrity": "uRm76wvTH0AADGeS45gB1StN2a0+Na4ZOWeBhRKKBTU=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\img\\no-image.png"
@@ -4504,8 +4525,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "v6jkqf797o",
-      "Integrity": "J0RZoXnbYkFNG73mg4cSbOlt1vGSGnUy+1tybkWzY5g=",
+      "Fingerprint": "9fys0bohfr",
+      "Integrity": "u5b/PB0Kdzf2ydGUp50hNn+MhvARo1lqe7x65K4RaGQ=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\js\\admin.js"
@@ -6391,12 +6412,12 @@
     },
     {
       "Route": "css/admin.css",
-      "AssetFile": "C:\\Workspace\\toocha\\obj\\Debug\\net9.0\\compressed\\6ywr663reg-moy3f9rftz.gz",
+      "AssetFile": "C:\\Workspace\\toocha\\obj\\Debug\\net9.0\\compressed\\6ywr663reg-uhisnqc6nv.gz",
       "Selectors": [
         {
           "Name": "Content-Encoding",
           "Value": "gzip",
-          "Quality": "0.000375798572"
+          "Quality": "0.000287521564"
         }
       ],
       "ResponseHeaders": [
@@ -6406,15 +6427,15 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "2660"
+          "Value": "3477"
         },
         {
           "Name": "ETag",
-          "Value": "\"GVI5Vvz17jynWIU/dQVyKIDkkuMLYufAGbkQRohJhbc=\""
+          "Value": "\"rwF8bNy8SB8R4oz+144iML0t7Y4KN4XF3Y8fh5eQcqk=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sun, 29 Jun 2025 02:48:55 GMT"
+          "Value": "Sun, 29 Jun 2025 14:22:28 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -6434,13 +6455,13 @@
         },
         {
           "Name": "ETag",
-          "Value": "W/\"VnVI3/NOhZwn7AhrOChJD4ckt2ndblmmYq8xulanZPw=\""
+          "Value": "W/\"XlQ86G2LazD9IOZJWdoEbIfSAYvZy9oicZYe7BPY+c8=\""
         }
       ],
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-VnVI3/NOhZwn7AhrOChJD4ckt2ndblmmYq8xulanZPw="
+          "Value": "sha256-XlQ86G2LazD9IOZJWdoEbIfSAYvZy9oicZYe7BPY+c8="
         }
       ]
     },
@@ -6455,7 +6476,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "11803"
+          "Value": "16371"
         },
         {
           "Name": "Content-Type",
@@ -6463,11 +6484,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"VnVI3/NOhZwn7AhrOChJD4ckt2ndblmmYq8xulanZPw=\""
+          "Value": "\"XlQ86G2LazD9IOZJWdoEbIfSAYvZy9oicZYe7BPY+c8=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sun, 29 Jun 2025 02:48:55 GMT"
+          "Value": "Sun, 29 Jun 2025 14:22:28 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -6477,13 +6498,13 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-VnVI3/NOhZwn7AhrOChJD4ckt2ndblmmYq8xulanZPw="
+          "Value": "sha256-XlQ86G2LazD9IOZJWdoEbIfSAYvZy9oicZYe7BPY+c8="
         }
       ]
     },
     {
       "Route": "css/admin.css.gz",
-      "AssetFile": "C:\\Workspace\\toocha\\obj\\Debug\\net9.0\\compressed\\6ywr663reg-moy3f9rftz.gz",
+      "AssetFile": "C:\\Workspace\\toocha\\obj\\Debug\\net9.0\\compressed\\6ywr663reg-uhisnqc6nv.gz",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -6492,7 +6513,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "2660"
+          "Value": "3477"
         },
         {
           "Name": "Content-Type",
@@ -6500,11 +6521,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"GVI5Vvz17jynWIU/dQVyKIDkkuMLYufAGbkQRohJhbc=\""
+          "Value": "\"rwF8bNy8SB8R4oz+144iML0t7Y4KN4XF3Y8fh5eQcqk=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sun, 29 Jun 2025 02:48:55 GMT"
+          "Value": "Sun, 29 Jun 2025 14:22:28 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -6522,18 +6543,18 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-GVI5Vvz17jynWIU/dQVyKIDkkuMLYufAGbkQRohJhbc="
+          "Value": "sha256-rwF8bNy8SB8R4oz+144iML0t7Y4KN4XF3Y8fh5eQcqk="
         }
       ]
     },
     {
-      "Route": "css/admin.moy3f9rftz.css",
-      "AssetFile": "C:\\Workspace\\toocha\\obj\\Debug\\net9.0\\compressed\\6ywr663reg-moy3f9rftz.gz",
+      "Route": "css/admin.uhisnqc6nv.css",
+      "AssetFile": "C:\\Workspace\\toocha\\obj\\Debug\\net9.0\\compressed\\6ywr663reg-uhisnqc6nv.gz",
       "Selectors": [
         {
           "Name": "Content-Encoding",
           "Value": "gzip",
-          "Quality": "0.000375798572"
+          "Quality": "0.000287521564"
         }
       ],
       "ResponseHeaders": [
@@ -6543,15 +6564,15 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "2660"
+          "Value": "3477"
         },
         {
           "Name": "ETag",
-          "Value": "\"GVI5Vvz17jynWIU/dQVyKIDkkuMLYufAGbkQRohJhbc=\""
+          "Value": "\"rwF8bNy8SB8R4oz+144iML0t7Y4KN4XF3Y8fh5eQcqk=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sun, 29 Jun 2025 02:48:55 GMT"
+          "Value": "Sun, 29 Jun 2025 14:22:28 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -6571,13 +6592,13 @@
         },
         {
           "Name": "ETag",
-          "Value": "W/\"VnVI3/NOhZwn7AhrOChJD4ckt2ndblmmYq8xulanZPw=\""
+          "Value": "W/\"XlQ86G2LazD9IOZJWdoEbIfSAYvZy9oicZYe7BPY+c8=\""
         }
       ],
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "moy3f9rftz"
+          "Value": "uhisnqc6nv"
         },
         {
           "Name": "label",
@@ -6585,12 +6606,12 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-VnVI3/NOhZwn7AhrOChJD4ckt2ndblmmYq8xulanZPw="
+          "Value": "sha256-XlQ86G2LazD9IOZJWdoEbIfSAYvZy9oicZYe7BPY+c8="
         }
       ]
     },
     {
-      "Route": "css/admin.moy3f9rftz.css",
+      "Route": "css/admin.uhisnqc6nv.css",
       "AssetFile": "C:\\Workspace\\toocha\\wwwroot\\css\\admin.css",
       "Selectors": [],
       "ResponseHeaders": [
@@ -6600,7 +6621,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "11803"
+          "Value": "16371"
         },
         {
           "Name": "Content-Type",
@@ -6608,11 +6629,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"VnVI3/NOhZwn7AhrOChJD4ckt2ndblmmYq8xulanZPw=\""
+          "Value": "\"XlQ86G2LazD9IOZJWdoEbIfSAYvZy9oicZYe7BPY+c8=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sun, 29 Jun 2025 02:48:55 GMT"
+          "Value": "Sun, 29 Jun 2025 14:22:28 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -6622,7 +6643,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "moy3f9rftz"
+          "Value": "uhisnqc6nv"
         },
         {
           "Name": "label",
@@ -6630,13 +6651,13 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-VnVI3/NOhZwn7AhrOChJD4ckt2ndblmmYq8xulanZPw="
+          "Value": "sha256-XlQ86G2LazD9IOZJWdoEbIfSAYvZy9oicZYe7BPY+c8="
         }
       ]
     },
     {
-      "Route": "css/admin.moy3f9rftz.css.gz",
-      "AssetFile": "C:\\Workspace\\toocha\\obj\\Debug\\net9.0\\compressed\\6ywr663reg-moy3f9rftz.gz",
+      "Route": "css/admin.uhisnqc6nv.css.gz",
+      "AssetFile": "C:\\Workspace\\toocha\\obj\\Debug\\net9.0\\compressed\\6ywr663reg-uhisnqc6nv.gz",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -6645,7 +6666,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "2660"
+          "Value": "3477"
         },
         {
           "Name": "Content-Type",
@@ -6653,11 +6674,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"GVI5Vvz17jynWIU/dQVyKIDkkuMLYufAGbkQRohJhbc=\""
+          "Value": "\"rwF8bNy8SB8R4oz+144iML0t7Y4KN4XF3Y8fh5eQcqk=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sun, 29 Jun 2025 02:48:55 GMT"
+          "Value": "Sun, 29 Jun 2025 14:22:28 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -6675,7 +6696,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "moy3f9rftz"
+          "Value": "uhisnqc6nv"
         },
         {
           "Name": "label",
@@ -6683,7 +6704,7 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-GVI5Vvz17jynWIU/dQVyKIDkkuMLYufAGbkQRohJhbc="
+          "Value": "sha256-rwF8bNy8SB8R4oz+144iML0t7Y4KN4XF3Y8fh5eQcqk="
         }
       ]
     },
@@ -6986,13 +7007,13 @@
       ]
     },
     {
-      "Route": "css/style.css",
-      "AssetFile": "C:\\Workspace\\toocha\\obj\\Debug\\net9.0\\compressed\\1xfxo50w0g-uqj6dgbe2j.gz",
+      "Route": "css/style.7ftf2lg1fq.css",
+      "AssetFile": "C:\\Workspace\\toocha\\obj\\Debug\\net9.0\\compressed\\1xfxo50w0g-7ftf2lg1fq.gz",
       "Selectors": [
         {
           "Name": "Content-Encoding",
           "Value": "gzip",
-          "Quality": "0.000253613999"
+          "Quality": "0.000232774674"
         }
       ],
       "ResponseHeaders": [
@@ -7002,19 +7023,19 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "3942"
+          "Value": "4295"
         },
         {
           "Name": "ETag",
-          "Value": "\"UdVQs7dS1pv75pFBDgSt8s2dVoDhiYKMNg3PmFT5ybs=\""
+          "Value": "\"o3wvXbu/zNCWUbwOtGriDVqtfXFib2PAroT/X6JXnnM=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Thu, 26 Jun 2025 22:15:04 GMT"
+          "Value": "Thu, 10 Jul 2025 17:51:32 GMT"
         },
         {
           "Name": "Cache-Control",
-          "Value": "no-cache"
+          "Value": "max-age=31536000, immutable"
         },
         {
           "Name": "Content-Encoding",
@@ -7030,18 +7051,26 @@
         },
         {
           "Name": "ETag",
-          "Value": "W/\"irn4IqzGxoPLEpo8ouFeQzVGBPHv/D5A69zaMj28OE0=\""
+          "Value": "W/\"Tce7fkvO0hicRBBhdVc9X3ujzxxBbBQ1O5+R+71USq0=\""
         }
       ],
       "EndpointProperties": [
         {
+          "Name": "fingerprint",
+          "Value": "7ftf2lg1fq"
+        },
+        {
+          "Name": "label",
+          "Value": "css/style.css"
+        },
+        {
           "Name": "integrity",
-          "Value": "sha256-irn4IqzGxoPLEpo8ouFeQzVGBPHv/D5A69zaMj28OE0="
+          "Value": "sha256-Tce7fkvO0hicRBBhdVc9X3ujzxxBbBQ1O5+R+71USq0="
         }
       ]
     },
     {
-      "Route": "css/style.css",
+      "Route": "css/style.7ftf2lg1fq.css",
       "AssetFile": "C:\\Workspace\\toocha\\wwwroot\\css\\style.css",
       "Selectors": [],
       "ResponseHeaders": [
@@ -7051,7 +7080,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "20483"
+          "Value": "22483"
         },
         {
           "Name": "Content-Type",
@@ -7059,121 +7088,21 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"irn4IqzGxoPLEpo8ouFeQzVGBPHv/D5A69zaMj28OE0=\""
+          "Value": "\"Tce7fkvO0hicRBBhdVc9X3ujzxxBbBQ1O5+R+71USq0=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Thu, 26 Jun 2025 22:15:04 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "no-cache"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-irn4IqzGxoPLEpo8ouFeQzVGBPHv/D5A69zaMj28OE0="
-        }
-      ]
-    },
-    {
-      "Route": "css/style.css.gz",
-      "AssetFile": "C:\\Workspace\\toocha\\obj\\Debug\\net9.0\\compressed\\1xfxo50w0g-uqj6dgbe2j.gz",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "3942"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/css"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"UdVQs7dS1pv75pFBDgSt8s2dVoDhiYKMNg3PmFT5ybs=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Thu, 26 Jun 2025 22:15:04 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "no-cache"
-        },
-        {
-          "Name": "Content-Encoding",
-          "Value": "gzip"
-        },
-        {
-          "Name": "Vary",
-          "Value": "Content-Encoding"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-UdVQs7dS1pv75pFBDgSt8s2dVoDhiYKMNg3PmFT5ybs="
-        }
-      ]
-    },
-    {
-      "Route": "css/style.uqj6dgbe2j.css",
-      "AssetFile": "C:\\Workspace\\toocha\\obj\\Debug\\net9.0\\compressed\\1xfxo50w0g-uqj6dgbe2j.gz",
-      "Selectors": [
-        {
-          "Name": "Content-Encoding",
-          "Value": "gzip",
-          "Quality": "0.000253613999"
-        }
-      ],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "3942"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"UdVQs7dS1pv75pFBDgSt8s2dVoDhiYKMNg3PmFT5ybs=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Thu, 26 Jun 2025 22:15:04 GMT"
+          "Value": "Thu, 10 Jul 2025 17:51:32 GMT"
         },
         {
           "Name": "Cache-Control",
           "Value": "max-age=31536000, immutable"
-        },
-        {
-          "Name": "Content-Encoding",
-          "Value": "gzip"
-        },
-        {
-          "Name": "Vary",
-          "Value": "Content-Encoding"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/css"
-        },
-        {
-          "Name": "ETag",
-          "Value": "W/\"irn4IqzGxoPLEpo8ouFeQzVGBPHv/D5A69zaMj28OE0=\""
         }
       ],
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "uqj6dgbe2j"
+          "Value": "7ftf2lg1fq"
         },
         {
           "Name": "label",
@@ -7181,13 +7110,13 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-irn4IqzGxoPLEpo8ouFeQzVGBPHv/D5A69zaMj28OE0="
+          "Value": "sha256-Tce7fkvO0hicRBBhdVc9X3ujzxxBbBQ1O5+R+71USq0="
         }
       ]
     },
     {
-      "Route": "css/style.uqj6dgbe2j.css",
-      "AssetFile": "C:\\Workspace\\toocha\\wwwroot\\css\\style.css",
+      "Route": "css/style.7ftf2lg1fq.css.gz",
+      "AssetFile": "C:\\Workspace\\toocha\\obj\\Debug\\net9.0\\compressed\\1xfxo50w0g-7ftf2lg1fq.gz",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -7196,7 +7125,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "20483"
+          "Value": "4295"
         },
         {
           "Name": "Content-Type",
@@ -7204,56 +7133,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"irn4IqzGxoPLEpo8ouFeQzVGBPHv/D5A69zaMj28OE0=\""
+          "Value": "\"o3wvXbu/zNCWUbwOtGriDVqtfXFib2PAroT/X6JXnnM=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Thu, 26 Jun 2025 22:15:04 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "fingerprint",
-          "Value": "uqj6dgbe2j"
-        },
-        {
-          "Name": "label",
-          "Value": "css/style.css"
-        },
-        {
-          "Name": "integrity",
-          "Value": "sha256-irn4IqzGxoPLEpo8ouFeQzVGBPHv/D5A69zaMj28OE0="
-        }
-      ]
-    },
-    {
-      "Route": "css/style.uqj6dgbe2j.css.gz",
-      "AssetFile": "C:\\Workspace\\toocha\\obj\\Debug\\net9.0\\compressed\\1xfxo50w0g-uqj6dgbe2j.gz",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "3942"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/css"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"UdVQs7dS1pv75pFBDgSt8s2dVoDhiYKMNg3PmFT5ybs=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Thu, 26 Jun 2025 22:15:04 GMT"
+          "Value": "Thu, 10 Jul 2025 17:51:32 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -7271,7 +7155,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "uqj6dgbe2j"
+          "Value": "7ftf2lg1fq"
         },
         {
           "Name": "label",
@@ -7279,7 +7163,144 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-UdVQs7dS1pv75pFBDgSt8s2dVoDhiYKMNg3PmFT5ybs="
+          "Value": "sha256-o3wvXbu/zNCWUbwOtGriDVqtfXFib2PAroT/X6JXnnM="
+        }
+      ]
+    },
+    {
+      "Route": "css/style.css",
+      "AssetFile": "C:\\Workspace\\toocha\\obj\\Debug\\net9.0\\compressed\\1xfxo50w0g-7ftf2lg1fq.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.000232774674"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "4295"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"o3wvXbu/zNCWUbwOtGriDVqtfXFib2PAroT/X6JXnnM=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 10 Jul 2025 17:51:32 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"Tce7fkvO0hicRBBhdVc9X3ujzxxBbBQ1O5+R+71USq0=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-Tce7fkvO0hicRBBhdVc9X3ujzxxBbBQ1O5+R+71USq0="
+        }
+      ]
+    },
+    {
+      "Route": "css/style.css",
+      "AssetFile": "C:\\Workspace\\toocha\\wwwroot\\css\\style.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "22483"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Tce7fkvO0hicRBBhdVc9X3ujzxxBbBQ1O5+R+71USq0=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 10 Jul 2025 17:51:32 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-Tce7fkvO0hicRBBhdVc9X3ujzxxBbBQ1O5+R+71USq0="
+        }
+      ]
+    },
+    {
+      "Route": "css/style.css.gz",
+      "AssetFile": "C:\\Workspace\\toocha\\obj\\Debug\\net9.0\\compressed\\1xfxo50w0g-7ftf2lg1fq.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "4295"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"o3wvXbu/zNCWUbwOtGriDVqtfXFib2PAroT/X6JXnnM=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 10 Jul 2025 17:51:32 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-o3wvXbu/zNCWUbwOtGriDVqtfXFib2PAroT/X6JXnnM="
         }
       ]
     },
@@ -17261,6 +17282,133 @@
       ]
     },
     {
+      "Route": "img/ic_scoll.webp",
+      "AssetFile": "C:\\Workspace\\toocha\\wwwroot\\img\\ic_scoll.webp",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "254"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/webp"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"ho48dVNVX00wpINU67D7TdOF5E/83YHiodQKLTJAPeo=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 10 Jul 2025 14:46:20 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-ho48dVNVX00wpINU67D7TdOF5E/83YHiodQKLTJAPeo="
+        }
+      ]
+    },
+    {
+      "Route": "img/ic_scoll.y5zq6pt7pl.webp",
+      "AssetFile": "C:\\Workspace\\toocha\\wwwroot\\img\\ic_scoll.webp",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "254"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/webp"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"ho48dVNVX00wpINU67D7TdOF5E/83YHiodQKLTJAPeo=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 10 Jul 2025 14:46:20 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "y5zq6pt7pl"
+        },
+        {
+          "Name": "label",
+          "Value": "img/ic_scoll.webp"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-ho48dVNVX00wpINU67D7TdOF5E/83YHiodQKLTJAPeo="
+        }
+      ]
+    },
+    {
+      "Route": "img/no-image.123txdtips.png",
+      "AssetFile": "C:\\Workspace\\toocha\\wwwroot\\img\\no-image.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "52"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"uRm76wvTH0AADGeS45gB1StN2a0+Na4ZOWeBhRKKBTU=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 01 Jul 2025 04:19:58 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "123txdtips"
+        },
+        {
+          "Name": "label",
+          "Value": "img/no-image.png"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-uRm76wvTH0AADGeS45gB1StN2a0+Na4ZOWeBhRKKBTU="
+        }
+      ]
+    },
+    {
       "Route": "img/no-image.png",
       "AssetFile": "C:\\Workspace\\toocha\\wwwroot\\img\\no-image.png",
       "Selectors": [],
@@ -17271,7 +17419,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "1"
+          "Value": "52"
         },
         {
           "Name": "Content-Type",
@@ -17279,11 +17427,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"Nqnn8clbgv+5l0PgxcTOldg8mkMKrFn4TvPL+rYUUGg=\""
+          "Value": "\"uRm76wvTH0AADGeS45gB1StN2a0+Na4ZOWeBhRKKBTU=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sun, 29 Jun 2025 00:29:20 GMT"
+          "Value": "Tue, 01 Jul 2025 04:19:58 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -17293,63 +17441,18 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-Nqnn8clbgv+5l0PgxcTOldg8mkMKrFn4TvPL+rYUUGg="
+          "Value": "sha256-uRm76wvTH0AADGeS45gB1StN2a0+Na4ZOWeBhRKKBTU="
         }
       ]
     },
     {
-      "Route": "img/no-image.yu78tspv7y.png",
-      "AssetFile": "C:\\Workspace\\toocha\\wwwroot\\img\\no-image.png",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "1"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "image/png"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"Nqnn8clbgv+5l0PgxcTOldg8mkMKrFn4TvPL+rYUUGg=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Sun, 29 Jun 2025 00:29:20 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "fingerprint",
-          "Value": "yu78tspv7y"
-        },
-        {
-          "Name": "label",
-          "Value": "img/no-image.png"
-        },
-        {
-          "Name": "integrity",
-          "Value": "sha256-Nqnn8clbgv+5l0PgxcTOldg8mkMKrFn4TvPL+rYUUGg="
-        }
-      ]
-    },
-    {
-      "Route": "js/admin.js",
-      "AssetFile": "C:\\Workspace\\toocha\\obj\\Debug\\net9.0\\compressed\\p3vxl4rwdf-v6jkqf797o.gz",
+      "Route": "js/admin.9fys0bohfr.js",
+      "AssetFile": "C:\\Workspace\\toocha\\obj\\Debug\\net9.0\\compressed\\p3vxl4rwdf-9fys0bohfr.gz",
       "Selectors": [
         {
           "Name": "Content-Encoding",
           "Value": "gzip",
-          "Quality": "0.000447427293"
+          "Quality": "0.000427350427"
         }
       ],
       "ResponseHeaders": [
@@ -17359,19 +17462,19 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "2234"
+          "Value": "2339"
         },
         {
           "Name": "ETag",
-          "Value": "\"BXBxY9nB60dF4y/m02WVkbcaY12YPZkAhB9NOhJQqRY=\""
+          "Value": "\"V859kJfhefg/E6eGC7sJ7Q3yqZaipNojJtbDZ9vslj8=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sun, 29 Jun 2025 00:27:25 GMT"
+          "Value": "Sun, 29 Jun 2025 02:57:08 GMT"
         },
         {
           "Name": "Cache-Control",
-          "Value": "no-cache"
+          "Value": "max-age=31536000, immutable"
         },
         {
           "Name": "Content-Encoding",
@@ -17387,18 +17490,26 @@
         },
         {
           "Name": "ETag",
-          "Value": "W/\"J0RZoXnbYkFNG73mg4cSbOlt1vGSGnUy+1tybkWzY5g=\""
+          "Value": "W/\"u5b/PB0Kdzf2ydGUp50hNn+MhvARo1lqe7x65K4RaGQ=\""
         }
       ],
       "EndpointProperties": [
         {
+          "Name": "fingerprint",
+          "Value": "9fys0bohfr"
+        },
+        {
+          "Name": "label",
+          "Value": "js/admin.js"
+        },
+        {
           "Name": "integrity",
-          "Value": "sha256-J0RZoXnbYkFNG73mg4cSbOlt1vGSGnUy+1tybkWzY5g="
+          "Value": "sha256-u5b/PB0Kdzf2ydGUp50hNn+MhvARo1lqe7x65K4RaGQ="
         }
       ]
     },
     {
-      "Route": "js/admin.js",
+      "Route": "js/admin.9fys0bohfr.js",
       "AssetFile": "C:\\Workspace\\toocha\\wwwroot\\js\\admin.js",
       "Selectors": [],
       "ResponseHeaders": [
@@ -17408,7 +17519,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "7220"
+          "Value": "7767"
         },
         {
           "Name": "Content-Type",
@@ -17416,121 +17527,21 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"J0RZoXnbYkFNG73mg4cSbOlt1vGSGnUy+1tybkWzY5g=\""
+          "Value": "\"u5b/PB0Kdzf2ydGUp50hNn+MhvARo1lqe7x65K4RaGQ=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sun, 29 Jun 2025 00:27:25 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "no-cache"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-J0RZoXnbYkFNG73mg4cSbOlt1vGSGnUy+1tybkWzY5g="
-        }
-      ]
-    },
-    {
-      "Route": "js/admin.js.gz",
-      "AssetFile": "C:\\Workspace\\toocha\\obj\\Debug\\net9.0\\compressed\\p3vxl4rwdf-v6jkqf797o.gz",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "2234"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/javascript"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"BXBxY9nB60dF4y/m02WVkbcaY12YPZkAhB9NOhJQqRY=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Sun, 29 Jun 2025 00:27:25 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "no-cache"
-        },
-        {
-          "Name": "Content-Encoding",
-          "Value": "gzip"
-        },
-        {
-          "Name": "Vary",
-          "Value": "Content-Encoding"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-BXBxY9nB60dF4y/m02WVkbcaY12YPZkAhB9NOhJQqRY="
-        }
-      ]
-    },
-    {
-      "Route": "js/admin.v6jkqf797o.js",
-      "AssetFile": "C:\\Workspace\\toocha\\obj\\Debug\\net9.0\\compressed\\p3vxl4rwdf-v6jkqf797o.gz",
-      "Selectors": [
-        {
-          "Name": "Content-Encoding",
-          "Value": "gzip",
-          "Quality": "0.000447427293"
-        }
-      ],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "2234"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"BXBxY9nB60dF4y/m02WVkbcaY12YPZkAhB9NOhJQqRY=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Sun, 29 Jun 2025 00:27:25 GMT"
+          "Value": "Sun, 29 Jun 2025 02:57:08 GMT"
         },
         {
           "Name": "Cache-Control",
           "Value": "max-age=31536000, immutable"
-        },
-        {
-          "Name": "Content-Encoding",
-          "Value": "gzip"
-        },
-        {
-          "Name": "Vary",
-          "Value": "Content-Encoding"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/javascript"
-        },
-        {
-          "Name": "ETag",
-          "Value": "W/\"J0RZoXnbYkFNG73mg4cSbOlt1vGSGnUy+1tybkWzY5g=\""
         }
       ],
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "v6jkqf797o"
+          "Value": "9fys0bohfr"
         },
         {
           "Name": "label",
@@ -17538,13 +17549,13 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-J0RZoXnbYkFNG73mg4cSbOlt1vGSGnUy+1tybkWzY5g="
+          "Value": "sha256-u5b/PB0Kdzf2ydGUp50hNn+MhvARo1lqe7x65K4RaGQ="
         }
       ]
     },
     {
-      "Route": "js/admin.v6jkqf797o.js",
-      "AssetFile": "C:\\Workspace\\toocha\\wwwroot\\js\\admin.js",
+      "Route": "js/admin.9fys0bohfr.js.gz",
+      "AssetFile": "C:\\Workspace\\toocha\\obj\\Debug\\net9.0\\compressed\\p3vxl4rwdf-9fys0bohfr.gz",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -17553,7 +17564,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "7220"
+          "Value": "2339"
         },
         {
           "Name": "Content-Type",
@@ -17561,56 +17572,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"J0RZoXnbYkFNG73mg4cSbOlt1vGSGnUy+1tybkWzY5g=\""
+          "Value": "\"V859kJfhefg/E6eGC7sJ7Q3yqZaipNojJtbDZ9vslj8=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sun, 29 Jun 2025 00:27:25 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "fingerprint",
-          "Value": "v6jkqf797o"
-        },
-        {
-          "Name": "label",
-          "Value": "js/admin.js"
-        },
-        {
-          "Name": "integrity",
-          "Value": "sha256-J0RZoXnbYkFNG73mg4cSbOlt1vGSGnUy+1tybkWzY5g="
-        }
-      ]
-    },
-    {
-      "Route": "js/admin.v6jkqf797o.js.gz",
-      "AssetFile": "C:\\Workspace\\toocha\\obj\\Debug\\net9.0\\compressed\\p3vxl4rwdf-v6jkqf797o.gz",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "2234"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/javascript"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"BXBxY9nB60dF4y/m02WVkbcaY12YPZkAhB9NOhJQqRY=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Sun, 29 Jun 2025 00:27:25 GMT"
+          "Value": "Sun, 29 Jun 2025 02:57:08 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -17628,7 +17594,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "v6jkqf797o"
+          "Value": "9fys0bohfr"
         },
         {
           "Name": "label",
@@ -17636,7 +17602,144 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-BXBxY9nB60dF4y/m02WVkbcaY12YPZkAhB9NOhJQqRY="
+          "Value": "sha256-V859kJfhefg/E6eGC7sJ7Q3yqZaipNojJtbDZ9vslj8="
+        }
+      ]
+    },
+    {
+      "Route": "js/admin.js",
+      "AssetFile": "C:\\Workspace\\toocha\\obj\\Debug\\net9.0\\compressed\\p3vxl4rwdf-9fys0bohfr.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.000427350427"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2339"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"V859kJfhefg/E6eGC7sJ7Q3yqZaipNojJtbDZ9vslj8=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 29 Jun 2025 02:57:08 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"u5b/PB0Kdzf2ydGUp50hNn+MhvARo1lqe7x65K4RaGQ=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-u5b/PB0Kdzf2ydGUp50hNn+MhvARo1lqe7x65K4RaGQ="
+        }
+      ]
+    },
+    {
+      "Route": "js/admin.js",
+      "AssetFile": "C:\\Workspace\\toocha\\wwwroot\\js\\admin.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "7767"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"u5b/PB0Kdzf2ydGUp50hNn+MhvARo1lqe7x65K4RaGQ=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 29 Jun 2025 02:57:08 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-u5b/PB0Kdzf2ydGUp50hNn+MhvARo1lqe7x65K4RaGQ="
+        }
+      ]
+    },
+    {
+      "Route": "js/admin.js.gz",
+      "AssetFile": "C:\\Workspace\\toocha\\obj\\Debug\\net9.0\\compressed\\p3vxl4rwdf-9fys0bohfr.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2339"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"V859kJfhefg/E6eGC7sJ7Q3yqZaipNojJtbDZ9vslj8=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 29 Jun 2025 02:57:08 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-V859kJfhefg/E6eGC7sJ7Q3yqZaipNojJtbDZ9vslj8="
         }
       ]
     },

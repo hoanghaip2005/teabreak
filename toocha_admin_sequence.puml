@@ -1,0 +1,236 @@
+@startuml Admin Management Sequence
+title Quản Trị Hệ Thống - Toocha
+
+!define RECTANGLE class
+
+' Styling
+skinparam sequence {
+    ArrowColor DarkBlue
+    ActorBorderColor DarkBlue
+    LifeLineBorderColor DarkBlue
+    LifeLineBackgroundColor LightBlue
+    ParticipantBorderColor DarkBlue
+    ParticipantBackgroundColor LightBlue
+    ParticipantFontName Impact
+    ParticipantFontSize 17
+    ActorFontSize 17
+    ActorFontName Impact
+}
+
+actor Admin as A
+participant "AdminController" as AC
+participant "ProductController" as PC
+participant "OrderController" as OC
+participant "UserController" as UC
+participant "ReportService" as RS
+participant "FileService" as FS
+participant "NotificationService" as NS
+participant "AppDbContext" as DB
+
+== Quản Lý Sản Phẩm ==
+A -> PC: GET /admin/products
+activate PC
+PC -> DB: GetAllProducts()
+activate DB
+DB --> PC: Product list
+deactivate DB
+PC --> A: Product management page
+deactivate PC
+
+A -> PC: POST /admin/product/create
+activate PC
+PC -> PC: Validate product data
+PC -> FS: UploadImage(productImage)
+activate FS
+FS -> FS: Save image to storage
+FS --> PC: Image URL
+deactivate FS
+
+PC -> DB: Create product
+activate DB
+DB -> DB: Save product
+DB --> PC: Product created
+deactivate DB
+PC --> A: Redirect to product list
+deactivate PC
+
+== Quản Lý Đơn Hàng ==
+A -> OC: GET /admin/orders
+activate OC
+OC -> DB: GetAllOrders()
+activate DB
+DB --> OC: Order list
+deactivate DB
+OC --> A: Order management page
+deactivate OC
+
+A -> OC: POST /admin/order/update-status
+activate OC
+OC -> OC: Validate status change
+OC -> DB: GetOrderById(orderId)
+activate DB
+DB --> OC: Order data
+deactivate DB
+
+OC -> DB: Update order status
+activate DB
+DB -> DB: Save changes
+DB --> OC: Order updated
+deactivate DB
+
+OC -> NS: NotifyCustomer(orderId, newStatus)
+activate NS
+NS -> NS: Send status update
+NS --> OC: Notification sent
+deactivate NS
+
+OC --> A: Status updated successfully
+deactivate OC
+
+== Quản Lý Người Dùng ==
+A -> UC: GET /admin/users
+activate UC
+UC -> DB: GetAllUsers()
+activate DB
+DB --> UC: User list
+deactivate DB
+UC --> A: User management page
+deactivate UC
+
+A -> UC: POST /admin/user/assign-role
+activate UC
+UC -> UC: Validate role assignment
+UC -> DB: GetUserById(userId)
+activate DB
+DB --> UC: User data
+deactivate DB
+
+UC -> DB: Assign role to user
+activate DB
+DB -> DB: Save user role
+DB --> UC: Role assigned
+deactivate DB
+
+UC --> A: Role assigned successfully
+deactivate UC
+
+== Báo Cáo Doanh Thu ==
+A -> AC: GET /admin/reports/revenue
+activate AC
+AC -> RS: GenerateRevenueReport(startDate, endDate)
+activate RS
+
+RS -> DB: Query orders by date range
+activate DB
+DB --> RS: Order data
+deactivate DB
+
+RS -> RS: Calculate revenue statistics
+note right of RS
+- Total revenue
+- Revenue by category
+- Revenue by store
+- Revenue by time period
+end note
+
+RS --> AC: Revenue report data
+deactivate RS
+
+AC --> A: Revenue report page
+deactivate AC
+
+== Báo Cáo Sản Phẩm Bán Chạy ==
+A -> AC: GET /admin/reports/best-selling
+activate AC
+AC -> RS: GenerateBestSellingReport(period)
+activate RS
+
+RS -> DB: Query order items with products
+activate DB
+DB --> RS: Order item data
+deactivate DB
+
+RS -> RS: Aggregate product sales
+note right of RS
+- Count by product
+- Revenue by product
+- Quantity sold
+- Top selling products
+end note
+
+RS --> AC: Best selling report data
+deactivate RS
+
+AC --> A: Best selling report page
+deactivate AC
+
+== Quản Lý Khuyến Mãi ==
+A -> AC: GET /admin/promotions
+activate AC
+AC -> DB: GetAllDiscounts()
+activate DB
+DB --> AC: Discount list
+deactivate DB
+AC --> A: Promotion management page
+deactivate AC
+
+A -> AC: POST /admin/promotion/create
+activate AC
+AC -> AC: Validate discount data
+AC -> DB: Create discount
+activate DB
+DB -> DB: Save discount
+DB --> AC: Discount created
+deactivate DB
+AC --> A: Redirect to promotion list
+deactivate AC
+
+== Quản Lý Cửa Hàng ==
+A -> AC: GET /admin/stores
+activate AC
+AC -> DB: GetAllStores()
+activate DB
+DB --> AC: Store list
+deactivate DB
+AC --> A: Store management page
+deactivate AC
+
+A -> AC: POST /admin/store/create
+activate AC
+AC -> AC: Validate store data
+AC -> DB: Create store
+activate DB
+DB -> DB: Save store
+DB --> AC: Store created
+deactivate DB
+AC --> A: Redirect to store list
+deactivate AC
+
+== Dashboard ==
+A -> AC: GET /admin/dashboard
+activate AC
+
+AC -> RS: GetDashboardStats()
+activate RS
+
+RS -> DB: Query various statistics
+activate DB
+DB --> RS: Statistical data
+deactivate DB
+
+RS -> RS: Calculate dashboard metrics
+note right of RS
+- Total orders today
+- Total revenue today
+- Pending orders
+- Active users
+- Low stock products
+end note
+
+RS --> AC: Dashboard statistics
+deactivate RS
+
+AC --> A: Admin dashboard
+deactivate AC
+
+@enduml 

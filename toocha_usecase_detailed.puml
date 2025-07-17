@@ -1,0 +1,249 @@
+@startuml Toocha_UseCase_Detailed
+!theme plain
+skinparam usecase {
+    BackgroundColor lightcyan
+    BorderColor darkblue
+    FontSize 9
+}
+skinparam actor {
+    BackgroundColor lightgreen
+    BorderColor darkgreen
+    FontSize 10
+}
+skinparam rectangle {
+    BackgroundColor lightyellow
+    BorderColor orange
+    FontSize 8
+}
+
+title "🏪 Sơ đồ Use Case Chi tiết - Hệ thống Toocha"
+
+' Main Actors
+actor "👤 Guest\n(Khách vãng lai)" as Guest
+actor "👤 Customer\n(Khách hàng)" as Customer
+actor "👨‍💼 Seller\n(Nhân viên bán hàng)" as Seller
+actor "👨‍💼 Manager\n(Quản lý)" as Manager
+actor "✏️ Editor\n(Biên tập viên)" as Editor
+actor "👑 Administrator\n(Quản trị viên)" as Admin
+
+' System boundary
+rectangle "Hệ thống Toocha - Quản lý cửa hàng trà sữa" {
+
+    ' Authentication & User Management
+    rectangle "🔐 Xác thực & Quản lý người dùng" {
+        usecase "Đăng ký tài khoản" as UC1
+        usecase "Đăng nhập/Đăng xuất" as UC2
+        usecase "Đăng nhập bằng\nGoogle/Facebook" as UC3
+        usecase "Quên mật khẩu" as UC4
+        usecase "Xác nhận email" as UC5
+        usecase "Quản lý thông tin\ncá nhân" as UC6
+        usecase "Quản lý người dùng" as UC7
+        usecase "Phân quyền người dùng" as UC8
+        usecase "Quản lý vai trò" as UC9
+    }
+    
+    ' Product & Catalog Management
+    rectangle "📦 Quản lý sản phẩm" {
+        usecase "Xem danh sách\nsản phẩm" as UC10
+        usecase "Xem chi tiết\nsản phẩm" as UC11
+        usecase "Tìm kiếm sản phẩm" as UC12
+        usecase "Quản lý danh mục" as UC13
+        usecase "Thêm/Sửa/Xóa\nsản phẩm" as UC14
+        usecase "Quản lý kích thước\n(Size)" as UC15
+        usecase "Quản lý topping" as UC16
+        usecase "Quản lý tồn kho" as UC17
+        usecase "Ẩn/Hiện sản phẩm" as UC18
+    }
+    
+    ' Order Management
+    rectangle "🛒 Quản lý đơn hàng" {
+        usecase "Thêm sản phẩm\nvào giỏ hàng" as UC19
+        usecase "Tùy chỉnh sản phẩm\n(Size, Topping, Đá, Đường)" as UC20
+        usecase "Đặt hàng" as UC21
+        usecase "Chọn phương thức\nthanh toán" as UC22
+        usecase "Thanh toán COD" as UC23
+        usecase "Thanh toán\nchuyển khoản" as UC24
+        usecase "Theo dõi trạng thái\nđơn hàng" as UC25
+        usecase "Quản lý đơn hàng\n(Admin/Seller)" as UC26
+        usecase "Cập nhật trạng thái\nđơn hàng" as UC27
+        usecase "Hủy đơn hàng" as UC28
+    }
+    
+    ' Store & Shipping Management
+    rectangle "🏬 Quản lý cửa hàng & Giao hàng" {
+        usecase "Xem danh sách\ncửa hàng" as UC29
+        usecase "Tìm cửa hàng\ngần nhất" as UC30
+        usecase "Tính phí giao hàng" as UC31
+        usecase "Quản lý thông tin\ncửa hàng" as UC32
+        usecase "Quản lý vị trí\ncửa hàng" as UC33
+        usecase "Quản lý phạm vi\ngiao hàng" as UC34
+    }
+    
+    ' Promotion & Discount Management
+    rectangle "🎁 Quản lý khuyến mãi" {
+        usecase "Xem khuyến mãi\nhiện tại" as UC35
+        usecase "Áp dụng mã\ngiảm giá" as UC36
+        usecase "Quản lý mã\ngiảm giá" as UC37
+        usecase "Tạo chương trình\nkhuyến mãi" as UC38
+        usecase "Quản lý chương trình\ntặng kèm" as UC39
+        usecase "Theo dõi hiệu quả\nkhuyến mãi" as UC40
+    }
+    
+    ' Reporting & Analytics
+    rectangle "📊 Báo cáo & Thống kê" {
+        usecase "Xem dashboard\ntổng quan" as UC41
+        usecase "Báo cáo doanh thu" as UC42
+        usecase "Báo cáo sản phẩm\nbán chạy" as UC43
+        usecase "Báo cáo trạng thái\nđơn hàng" as UC44
+        usecase "Thống kê theo\nthời gian" as UC45
+        usecase "Xuất báo cáo" as UC46
+    }
+    
+    ' Content Management
+    rectangle "📝 Quản lý nội dung" {
+        usecase "Xem tin tức" as UC47
+        usecase "Xem thông tin\ntuyển dụng" as UC48
+        usecase "Xem thông tin\nnhượng quyền" as UC49
+        usecase "Xem sự kiện" as UC50
+        usecase "Quản lý tin tức/\nbài viết" as UC51
+        usecase "Quản lý trang\ntuyển dụng" as UC52
+        usecase "Quản lý thông tin\nnhượng quyền" as UC53
+        usecase "Quản lý sự kiện" as UC54
+    }
+    
+    ' Database Management
+    rectangle "🗄️ Quản lý cơ sở dữ liệu" {
+        usecase "Seed dữ liệu mẫu" as UC55
+        usecase "Backup/Restore\ndatabase" as UC56
+        usecase "Xóa dữ liệu" as UC57
+    }
+    
+    ' Review & Rating
+    rectangle "⭐ Đánh giá sản phẩm" {
+        usecase "Xem đánh giá\nsản phẩm" as UC58
+        usecase "Viết đánh giá\nsản phẩm" as UC59
+        usecase "Quản lý đánh giá" as UC60
+    }
+}
+
+' Relationships - Guest
+Guest --> UC10
+Guest --> UC11
+Guest --> UC12
+Guest --> UC29
+Guest --> UC47
+Guest --> UC48
+Guest --> UC49
+Guest --> UC50
+Guest --> UC1
+Guest --> UC2
+Guest --> UC3
+
+' Relationships - Customer
+Customer --> UC2
+Customer --> UC4
+Customer --> UC5
+Customer --> UC6
+Customer --> UC10
+Customer --> UC11
+Customer --> UC12
+Customer --> UC19
+Customer --> UC20
+Customer --> UC21
+Customer --> UC22
+Customer --> UC23
+Customer --> UC24
+Customer --> UC25
+Customer --> UC28
+Customer --> UC29
+Customer --> UC30
+Customer --> UC31
+Customer --> UC35
+Customer --> UC36
+Customer --> UC47
+Customer --> UC48
+Customer --> UC49
+Customer --> UC50
+Customer --> UC58
+Customer --> UC59
+
+' Relationships - Seller
+Seller --> UC26
+Seller --> UC27
+Seller --> UC10
+Seller --> UC11
+Seller --> UC25
+Seller --> UC41
+Seller --> UC2
+
+' Relationships - Manager
+Manager --> UC26
+Manager --> UC27
+Manager --> UC41
+Manager --> UC42
+Manager --> UC43
+Manager --> UC44
+Manager --> UC45
+Manager --> UC46
+Manager --> UC32
+Manager --> UC33
+Manager --> UC34
+Manager --> UC2
+Manager --> UC17
+
+' Relationships - Editor
+Editor --> UC13
+Editor --> UC14
+Editor --> UC15
+Editor --> UC16
+Editor --> UC17
+Editor --> UC18
+Editor --> UC37
+Editor --> UC38
+Editor --> UC39
+Editor --> UC51
+Editor --> UC52
+Editor --> UC53
+Editor --> UC54
+Editor --> UC60
+Editor --> UC42
+Editor --> UC43
+Editor --> UC44
+Editor --> UC2
+
+' Relationships - Administrator
+Admin --> UC7
+Admin --> UC8
+Admin --> UC9
+Admin --> UC13
+Admin --> UC14
+Admin --> UC15
+Admin --> UC16
+Admin --> UC17
+Admin --> UC18
+Admin --> UC26
+Admin --> UC27
+Admin --> UC32
+Admin --> UC33
+Admin --> UC34
+Admin --> UC37
+Admin --> UC38
+Admin --> UC39
+Admin --> UC40
+Admin --> UC41
+Admin --> UC42
+Admin --> UC43
+Admin --> UC44
+Admin --> UC45
+Admin --> UC46
+Admin --> UC51
+Admin --> UC52
+Admin --> UC53
+Admin --> UC54
+Admin --> UC55
+Admin --> UC56
+Admin --> UC57
+Admin --> UC60
+Admin --> UC2
+
+@enduml 

@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using App.Models.Toocha;
 
 namespace App.Areas.Admin.Models
 {
@@ -36,5 +37,8 @@ namespace App.Areas.Admin.Models
 
         [Display(Name = "Tỷ lệ hoàn thành")]
         public double CompletionRate => TotalOrders > 0 ? (double)CompletedOrders / TotalOrders * 100 : 0;
+
+        // List of active stores for map display
+        public List<Store> Stores { get; set; } = new List<Store>();
     }
 } 

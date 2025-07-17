@@ -3,6 +3,7 @@ using App.Models.Toocha;
 using Microsoft.AspNetCore.Mvc;
 using toocha.Models.Toocha;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using App.Data;
 
 namespace toocha.Areas.Toocha.Controllers
@@ -366,6 +367,216 @@ namespace toocha.Areas.Toocha.Controllers
             catch (Exception ex)
             {
                 return Json(new { success = false, message = $"Lỗi: {ex.Message}" });
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SeedDiscounts()
+        {
+            try
+            {
+                // Kiểm tra xem đã có dữ liệu discount chưa
+                if (_context.Discounts.Any())
+                {
+                    return Json(new { success = false, message = "Dữ liệu discount đã tồn tại" });
+                }
+
+                // Lấy một số sản phẩm và categories để tham chiếu
+                var products = await _context.Products.Take(5).ToListAsync();
+                var categories = await _context.Categories.Take(3).ToListAsync();
+
+                var discounts = new List<Discount>
+                {
+                    // Mã giảm giá cho khách hàng mới
+                    new Discount
+                    {
+                        Code = "WELCOME2024",
+                        Description = "Chào mừng khách hàng mới đăng ký",
+                        Type = App.Models.Toocha.DiscountType.FixedAmount,
+                        Value = 50000,
+                        StartDate = DateTime.Now.AddDays(-30),
+                        EndDate = DateTime.Now.AddDays(60),
+                        IsActive = true,
+                        UsageLimit = 100,
+                        UsedCount = 45,
+                        MinOrderAmount = 100000,
+                        CreatedBy = "admin@toocha.com",
+                        Notes = "Dành cho khách hàng đăng ký lần đầu"
+                    },
+                    
+                    // Mã giảm theo phần trăm
+                    new Discount
+                    {
+                        Code = "SUMMER20",
+                        Description = "Giảm giá 20% cho tất cả sản phẩm mùa hè",
+                        Type = App.Models.Toocha.DiscountType.Percentage,
+                        Value = 20,
+                        StartDate = DateTime.Now.AddDays(-15),
+                        EndDate = DateTime.Now.AddDays(45),
+                        IsActive = true,
+                        UsageLimit = 200,
+                        UsedCount = 87,
+                        MinOrderAmount = 50000,
+                        MaxDiscountAmount = 100000,
+                        CreatedBy = "admin@toocha.com",
+                        Notes = "Khuyến mãi mùa hè 2024"
+                    },
+                    
+                    // Mã giảm giá cho sản phẩm cụ thể
+                    new Discount
+                    {
+                        Code = "TRASUA15",
+                        Description = "Giảm 15% cho sản phẩm trà sữa",
+                        Type = App.Models.Toocha.DiscountType.Percentage,
+                        Value = 15,
+                        StartDate = DateTime.Now.AddDays(-10),
+                        EndDate = DateTime.Now.AddDays(30),
+                        IsActive = true,
+                        ProductId = products.FirstOrDefault()?.Id,
+                        UsageLimit = 50,
+                        UsedCount = 23,
+                        MaxDiscountAmount = 50000,
+                        CreatedBy = "admin@toocha.com",
+                        Notes = "Áp dụng cho sản phẩm trà sữa cụ thể"
+                    },
+                    
+                    // Mã giảm cho danh mục
+                    new Discount
+                    {
+                        Code = "CAFFE30K",
+                        Description = "Giảm 30K cho đồ uống cà phê",
+                        Type = App.Models.Toocha.DiscountType.FixedAmount,
+                        Value = 30000,
+                        StartDate = DateTime.Now.AddDays(-5),
+                        EndDate = DateTime.Now.AddDays(25),
+                        IsActive = true,
+                        CategoryId = categories.FirstOrDefault()?.Id,
+                        UsageLimit = 75,
+                        UsedCount = 31,
+                        MinOrderAmount = 80000,
+                        CreatedBy = "admin@toocha.com",
+                        Notes = "Khuyến mãi cho danh mục cà phê"
+                    },
+                    
+                    // Mã đã hết hạn
+                    new Discount
+                    {
+                        Code = "OLDCODE123",
+                        Description = "Mã giảm giá đã hết hạn",
+                        Type = App.Models.Toocha.DiscountType.FixedAmount,
+                        Value = 30000,
+                        StartDate = DateTime.Now.AddDays(-90),
+                        EndDate = DateTime.Now.AddDays(-30),
+                        IsActive = true,
+                        UsageLimit = 50,
+                        UsedCount = 50,
+                        MinOrderAmount = 100000,
+                        CreatedBy = "admin@toocha.com",
+                        Notes = "Mã đã hết hạn sử dụng"
+                    },
+                    
+                    // Mã tạm dừng
+                    new Discount
+                    {
+                        Code = "PAUSED50",
+                        Description = "Mã giảm giá tạm dừng",
+                        Type = App.Models.Toocha.DiscountType.Percentage,
+                        Value = 50,
+                        StartDate = DateTime.Now.AddDays(-20),
+                        EndDate = DateTime.Now.AddDays(40),
+                        IsActive = false,
+                        UsageLimit = 30,
+                        UsedCount = 12,
+                        MaxDiscountAmount = 200000,
+                        CreatedBy = "admin@toocha.com",
+                        Notes = "Tạm dừng do chính sách thay đổi"
+                    },
+                    
+                    // Mã sắp hết hạn
+                    new Discount
+                    {
+                        Code = "EXPIRING10",
+                        Description = "Mã giảm 10% sắp hết hạn",
+                        Type = App.Models.Toocha.DiscountType.Percentage,
+                        Value = 10,
+                        StartDate = DateTime.Now.AddDays(-25),
+                        EndDate = DateTime.Now.AddDays(3),
+                        IsActive = true,
+                        UsageLimit = 25,
+                        UsedCount = 18,
+                        MaxDiscountAmount = 30000,
+                        CreatedBy = "admin@toocha.com",
+                        Notes = "Mã sắp hết hạn, khuyến khích sử dụng sớm"
+                    },
+                    
+                    // Mã khuyến mãi đặc biệt
+                    new Discount
+                    {
+                        Code = "MEGASALE",
+                        Description = "Khuyến mãi lớn giảm 100K",
+                        Type = App.Models.Toocha.DiscountType.FixedAmount,
+                        Value = 100000,
+                        StartDate = DateTime.Now.AddDays(-7),
+                        EndDate = DateTime.Now.AddDays(14),
+                        IsActive = true,
+                        UsageLimit = 500,
+                        UsedCount = 234,
+                        MinOrderAmount = 300000,
+                        CreatedBy = "admin@toocha.com",
+                        Notes = "Sự kiện khuyến mãi đặc biệt tháng 12"
+                    },
+                    
+                    // Mã cuối tuần
+                    new Discount
+                    {
+                        Code = "WEEKEND25",
+                        Description = "Giảm 25% dành cho cuối tuần",
+                        Type = App.Models.Toocha.DiscountType.Percentage,
+                        Value = 25,
+                        StartDate = DateTime.Now.AddDays(-3),
+                        EndDate = DateTime.Now.AddDays(17),
+                        IsActive = true,
+                        UsageLimit = 150,
+                        UsedCount = 67,
+                        MinOrderAmount = 50000,
+                        MaxDiscountAmount = 75000,
+                        CreatedBy = "admin@toocha.com",
+                        Notes = "Khuyến mãi đặc biệt cuối tuần"
+                    },
+                    
+                    // Mã sinh nhật
+                    new Discount
+                    {
+                        Code = "BIRTHDAY40K",
+                        Description = "Giảm 40K mừng sinh nhật khách hàng",
+                        Type = App.Models.Toocha.DiscountType.FixedAmount,
+                        Value = 40000,
+                        StartDate = DateTime.Now.AddDays(-12),
+                        EndDate = DateTime.Now.AddDays(35),
+                        IsActive = true,
+                        UsageLimit = 1000,
+                        UsedCount = 423,
+                        MinOrderAmount = 120000,
+                        CreatedBy = "admin@toocha.com",
+                        Notes = "Chương trình tri ân khách hàng sinh nhật"
+                    }
+                };
+
+                _context.Discounts.AddRange(discounts);
+                await _context.SaveChangesAsync();
+
+                return Json(new { success = true, message = "Đã tạo dữ liệu discount mẫu thành công!" });
+            }
+            catch (Exception ex)
+            {
+                var innerException = ex.InnerException?.Message ?? "Không có thông tin chi tiết";
+                var fullMessage = $"Lỗi khi tạo discount: {ex.Message}. Chi tiết: {innerException}";
+                
+                return Json(new { 
+                    success = false, 
+                    message = fullMessage,
+                    stackTrace = ex.StackTrace
+                });
             }
         }
     }

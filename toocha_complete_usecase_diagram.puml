@@ -1,0 +1,332 @@
+@startuml Toocha_Complete_UseCase_Diagram
+!theme plain
+skinparam usecase {
+    BackgroundColor lightcyan
+    BorderColor darkblue
+    FontSize 10
+}
+skinparam actor {
+    BackgroundColor lightgreen
+    BorderColor darkgreen
+    FontSize 11
+}
+skinparam rectangle {
+    BackgroundColor lightyellow
+    BorderColor orange
+    FontSize 9
+}
+
+title "🏪 Sơ đồ Use Case Tổng quan - Hệ thống Toocha Tea & Ice Cream"
+
+' Main Actors
+actor "👤 Khách vãng lai\n(Guest)" as Guest
+actor "👤 Khách hàng\n(Customer)" as Customer
+actor "👨‍💼 Nhân viên bán hàng\n(Seller)" as Seller
+actor "👑 Quản trị viên\n(Administrator)" as Admin
+
+' External Systems
+actor "💳 Hệ thống thanh toán\n(Payment Gateway)" as PaymentGateway
+actor "🗺️ Google Maps API" as GoogleMaps
+actor "📧 Email Service" as EmailService
+actor "📱 Social Login\n(Google, Facebook)" as SocialLogin
+
+' System boundary
+rectangle "🏪 Hệ thống Toocha - Quản lý cửa hàng trà sữa" {
+
+    ' Authentication & User Management Module
+    rectangle "🔐 Xác thực & Quản lý người dùng" {
+        usecase "Đăng ký tài khoản" as UC001
+        usecase "Đăng nhập/Đăng xuất" as UC002
+        usecase "Đăng nhập bằng\nGoogle/Facebook" as UC003
+        usecase "Quên mật khẩu" as UC004
+        usecase "Xác nhận email" as UC005
+        usecase "Quản lý thông tin cá nhân" as UC006
+        usecase "Quản lý người dùng" as UC007
+        usecase "Phân quyền người dùng" as UC008
+        usecase "Quản lý vai trò" as UC009
+        usecase "Xem lịch sử đơn hàng" as UC010
+    }
+    
+    ' Product & Catalog Management Module
+    rectangle "📦 Quản lý sản phẩm & Danh mục" {
+        usecase "Xem danh sách sản phẩm" as UC011
+        usecase "Xem chi tiết sản phẩm" as UC012
+        usecase "Tìm kiếm sản phẩm" as UC013
+        usecase "Lọc sản phẩm theo danh mục" as UC014
+        usecase "Quản lý danh mục" as UC015
+        usecase "Thêm/Sửa/Xóa sản phẩm" as UC016
+        usecase "Quản lý kích thước (Size)" as UC017
+        usecase "Quản lý topping" as UC018
+        usecase "Quản lý tồn kho" as UC019
+        usecase "Ẩn/Hiện sản phẩm" as UC020
+        usecase "Upload hình ảnh sản phẩm" as UC021
+    }
+    
+    ' Order Management Module
+    rectangle "🛒 Quản lý đơn hàng & Giỏ hàng" {
+        usecase "Thêm sản phẩm vào giỏ hàng" as UC022
+        usecase "Tùy chỉnh sản phẩm\n(Size, Topping, Đá, Đường)" as UC023
+        usecase "Xem/Chỉnh sửa giỏ hàng" as UC024
+        usecase "Đặt hàng" as UC025
+        usecase "Chọn phương thức thanh toán" as UC026
+        usecase "Thanh toán COD" as UC027
+        usecase "Thanh toán chuyển khoản" as UC028
+        usecase "Thanh toán online" as UC029
+        usecase "Theo dõi trạng thái đơn hàng" as UC030
+        usecase "Quản lý đơn hàng" as UC031
+        usecase "Cập nhật trạng thái đơn hàng" as UC032
+        usecase "Hủy đơn hàng" as UC033
+    }
+    
+    ' Store & Shipping Management Module
+    rectangle "🏬 Quản lý cửa hàng & Giao hàng" {
+        usecase "Xem danh sách cửa hàng" as UC034
+        usecase "Tìm cửa hàng gần nhất" as UC035
+        usecase "Xem bản đồ cửa hàng" as UC036
+        usecase "Tính phí giao hàng" as UC037
+        usecase "Quản lý thông tin cửa hàng" as UC038
+        usecase "Quản lý vị trí cửa hàng" as UC039
+        usecase "Quản lý phạm vi giao hàng" as UC040
+        usecase "Quản lý giờ hoạt động" as UC041
+    }
+    
+    ' Promotion & Discount Management Module
+    rectangle "🎁 Quản lý khuyến mãi & Giảm giá" {
+        usecase "Xem khuyến mãi hiện tại" as UC042
+        usecase "Áp dụng mã giảm giá" as UC043
+        usecase "Tạo mã giảm giá" as UC044
+        usecase "Quản lý chương trình khuyến mãi" as UC045
+        usecase "Quản lý coupon" as UC046
+        usecase "Quản lý quà tặng" as UC047
+        usecase "Theo dõi hiệu quả khuyến mãi" as UC048
+    }
+    
+    ' Reporting & Analytics Module
+    rectangle "📊 Báo cáo & Thống kê" {
+        usecase "Xem dashboard tổng quan" as UC049
+        usecase "Báo cáo doanh thu" as UC050
+        usecase "Báo cáo sản phẩm bán chạy" as UC051
+        usecase "Báo cáo trạng thái đơn hàng" as UC052
+        usecase "Thống kê theo thời gian" as UC053
+        usecase "Xuất báo cáo" as UC054
+        usecase "Biểu đồ doanh thu" as UC055
+    }
+    
+    ' Content Management Module
+    rectangle "📝 Quản lý nội dung" {
+        usecase "Xem tin tức" as UC056
+        usecase "Xem thông tin tuyển dụng" as UC057
+        usecase "Xem thông tin nhượng quyền" as UC058
+        usecase "Xem sự kiện" as UC059
+        usecase "Quản lý tin tức/bài viết" as UC060
+        usecase "Quản lý trang tuyển dụng" as UC061
+        usecase "Quản lý thông tin nhượng quyền" as UC062
+        usecase "Quản lý sự kiện" as UC063
+        usecase "Quản lý trang giới thiệu" as UC064
+    }
+    
+    ' Review & Rating Module
+    rectangle "⭐ Đánh giá & Nhận xét" {
+        usecase "Xem đánh giá sản phẩm" as UC069
+        usecase "Viết đánh giá sản phẩm" as UC070
+        usecase "Quản lý đánh giá" as UC071
+        usecase "Trả lời đánh giá khách hàng" as UC072
+    }
+    
+    ' Seller Dashboard Module
+    rectangle "👨‍💼 Dashboard Nhân viên" {
+        usecase "Xem dashboard bán hàng" as UC073
+        usecase "Xem thống kê doanh số" as UC074
+        usecase "Xem đơn hàng gần đây" as UC075
+        usecase "Xem top sản phẩm" as UC076
+    }
+}
+
+' Guest Relationships
+Guest --> UC011 : "Duyệt sản phẩm"
+Guest --> UC012 : "Xem chi tiết"
+Guest --> UC013 : "Tìm kiếm"
+Guest --> UC014 : "Lọc theo danh mục"
+Guest --> UC034 : "Xem cửa hàng"
+Guest --> UC035 : "Tìm cửa hàng gần"
+Guest --> UC036 : "Xem bản đồ"
+Guest --> UC056 : "Đọc tin tức"
+Guest --> UC057 : "Xem tuyển dụng"
+Guest --> UC058 : "Xem nhượng quyền"
+Guest --> UC059 : "Xem sự kiện"
+Guest --> UC069 : "Xem đánh giá"
+Guest --> UC001 : "Đăng ký"
+Guest --> UC002 : "Đăng nhập"
+Guest --> UC003 : "Đăng nhập social"
+
+' Customer Relationships
+Customer --> UC002 : "Đăng nhập/xuất"
+Customer --> UC004 : "Quên mật khẩu"
+Customer --> UC005 : "Xác nhận email"
+Customer --> UC006 : "Quản lý thông tin"
+Customer --> UC010 : "Xem lịch sử"
+Customer --> UC011 : "Xem sản phẩm"
+Customer --> UC012 : "Xem chi tiết"
+Customer --> UC013 : "Tìm kiếm"
+Customer --> UC014 : "Lọc sản phẩm"
+Customer --> UC022 : "Thêm vào giỏ"
+Customer --> UC023 : "Tùy chỉnh"
+Customer --> UC024 : "Quản lý giỏ hàng"
+Customer --> UC025 : "Đặt hàng"
+Customer --> UC026 : "Chọn thanh toán"
+Customer --> UC027 : "Thanh toán COD"
+Customer --> UC028 : "Thanh toán chuyển khoản"
+Customer --> UC029 : "Thanh toán online"
+Customer --> UC030 : "Theo dõi đơn hàng"
+Customer --> UC033 : "Hủy đơn hàng"
+Customer --> UC034 : "Xem cửa hàng"
+Customer --> UC035 : "Tìm cửa hàng"
+Customer --> UC036 : "Xem bản đồ"
+Customer --> UC037 : "Tính phí giao hàng"
+Customer --> UC042 : "Xem khuyến mãi"
+Customer --> UC043 : "Áp dụng mã giảm giá"
+Customer --> UC056 : "Xem tin tức"
+Customer --> UC057 : "Xem tuyển dụng"
+Customer --> UC058 : "Xem nhượng quyền"
+Customer --> UC059 : "Xem sự kiện"
+Customer --> UC069 : "Xem đánh giá"
+Customer --> UC070 : "Viết đánh giá"
+
+' Seller Relationships
+Seller --> UC002 : "Đăng nhập"
+Seller --> UC031 : "Quản lý đơn hàng"
+Seller --> UC032 : "Cập nhật trạng thái"
+Seller --> UC073 : "Dashboard bán hàng"
+Seller --> UC074 : "Thống kê doanh số"
+Seller --> UC075 : "Đơn hàng gần đây"
+Seller --> UC076 : "Top sản phẩm"
+Seller --> UC011 : "Xem sản phẩm"
+Seller --> UC012 : "Xem chi tiết"
+Seller --> UC030 : "Theo dõi đơn hàng"
+
+
+
+' Administrator Relationships
+Admin --> UC002 : "Đăng nhập"
+Admin --> UC007 : "Quản lý người dùng"
+Admin --> UC008 : "Phân quyền"
+Admin --> UC009 : "Quản lý vai trò"
+Admin --> UC015 : "Quản lý danh mục"
+Admin --> UC016 : "Quản lý sản phẩm"
+Admin --> UC017 : "Quản lý size"
+Admin --> UC018 : "Quản lý topping"
+Admin --> UC019 : "Quản lý tồn kho"
+Admin --> UC020 : "Ẩn/Hiện sản phẩm"
+Admin --> UC021 : "Upload hình ảnh"
+Admin --> UC031 : "Quản lý đơn hàng"
+Admin --> UC032 : "Cập nhật trạng thái"
+Admin --> UC038 : "Quản lý cửa hàng"
+Admin --> UC039 : "Quản lý vị trí"
+Admin --> UC040 : "Quản lý phạm vi"
+Admin --> UC041 : "Quản lý giờ hoạt động"
+Admin --> UC044 : "Tạo mã giảm giá"
+Admin --> UC045 : "Quản lý khuyến mãi"
+Admin --> UC046 : "Quản lý coupon"
+Admin --> UC047 : "Quản lý quà tặng"
+Admin --> UC048 : "Theo dõi hiệu quả"
+Admin --> UC049 : "Dashboard tổng quan"
+Admin --> UC050 : "Báo cáo doanh thu"
+Admin --> UC051 : "Báo cáo bán chạy"
+Admin --> UC052 : "Báo cáo đơn hàng"
+Admin --> UC053 : "Thống kê"
+Admin --> UC054 : "Xuất báo cáo"
+Admin --> UC055 : "Biểu đồ doanh thu"
+Admin --> UC060 : "Quản lý tin tức"
+Admin --> UC061 : "Quản lý tuyển dụng"
+Admin --> UC062 : "Quản lý nhượng quyền"
+Admin --> UC063 : "Quản lý sự kiện"
+Admin --> UC064 : "Quản lý trang giới thiệu"
+Admin --> UC065 : "Seed dữ liệu"
+Admin --> UC066 : "Backup/Restore"
+Admin --> UC067 : "Xóa dữ liệu"
+Admin --> UC068 : "Quản lý migration"
+Admin --> UC071 : "Quản lý đánh giá"
+Admin --> UC072 : "Trả lời đánh giá"
+
+' Include Relationships (Các use case phụ thuộc)
+UC001 .> UC002 : <<include>>
+UC025 .> UC002 : <<include>>
+UC031 .> UC002 : <<include>>
+UC032 .> UC002 : <<include>>
+UC049 .> UC002 : <<include>>
+UC073 .> UC002 : <<include>>
+
+UC025 .> UC005 : <<include>>
+UC004 .> UC005 : <<include>>
+
+UC025 .> UC037 : <<include>>
+UC035 .> UC037 : <<include>>
+
+' Extend Relationships (Các use case mở rộng)
+UC043 .> UC025 : <<extend>>
+UC023 .> UC022 : <<extend>>
+UC070 .> UC030 : <<extend>>
+UC036 .> UC034 : <<extend>>
+UC028 .> UC026 : <<extend>>
+UC029 .> UC026 : <<extend>>
+
+' External System Relationships
+UC029 --> PaymentGateway : "Thanh toán online"
+UC026 --> PaymentGateway : "Xử lý thanh toán"
+UC035 --> GoogleMaps : "Tìm cửa hàng"
+UC036 --> GoogleMaps : "Hiển thị bản đồ"
+UC037 --> GoogleMaps : "Tính khoảng cách"
+UC039 --> GoogleMaps : "Geocoding"
+UC004 --> EmailService : "Gửi email reset"
+UC005 --> EmailService : "Gửi email xác nhận"
+UC025 --> EmailService : "Gửi email đơn hàng"
+UC003 --> SocialLogin : "Xác thực social"
+
+note top of Guest
+**Khách vãng lai:**
+- Có thể xem sản phẩm và cửa hàng
+- Có thể đăng ký tài khoản
+- Không thể đặt hàng
+end note
+
+note top of Customer
+**Khách hàng:**
+- Có thể đặt hàng và thanh toán
+- Quản lý thông tin cá nhân
+- Xem lịch sử đơn hàng
+- Viết đánh giá sản phẩm
+end note
+
+note top of Seller
+**Nhân viên bán hàng:**
+- Xử lý đơn hàng
+- Cập nhật trạng thái
+- Xem thống kê doanh số
+end note
+
+
+
+note top of Admin
+**Quản trị viên:**
+- Toàn quyền quản lý hệ thống
+- Quản lý người dùng và phân quyền
+- Quản lý cơ sở dữ liệu
+- Quản lý sản phẩm và nội dung
+- Quản lý cửa hàng và báo cáo
+end note
+
+note right of UC002
+**Include/Extend Relationships:**
+
+**<<include>>** - Phụ thuộc bắt buộc:
+• Đăng nhập cần thiết cho hầu hết chức năng
+• Gửi email trong đặt hàng, đăng ký
+• Tính phí giao hàng khi đặt hàng
+
+**<<extend>>** - Mở rộng tùy chọn:
+• Áp mã giảm giá khi đặt hàng
+• Tùy chỉnh sản phẩm khi thêm giỏ hàng
+• Viết đánh giá sau khi nhận hàng
+end note
+
+@enduml 

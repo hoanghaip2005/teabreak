@@ -1,0 +1,246 @@
+@model List<App.Models.Toocha.Discount>
+@{
+    ViewData["Title"] = "Mã giảm giá";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h2 class="mb-1">Mã giảm giá</h2>
+        <p class="text-muted mb-0">Quản lý các mã giảm giá cho khách hàng</p>
+    </div>
+    <div>
+        <a href="/Admin/Promotion/Create" class="admin-btn admin-btn-success">
+            <i class="fas fa-plus me-2"></i>Tạo mã giảm giá mới
+        </a>
+    </div>
+</div>
+
+<!-- Coupon Statistics -->
+<div class="row mb-4">
+    <div class="col-lg-3 col-md-6 mb-3">
+        <div class="stats-card">
+            <div class="stats-icon warning">
+                <i class="fas fa-ticket-alt"></i>
+            </div>
+            <div class="stats-content">
+                <h3>@ViewBag.ActiveDiscounts</h3>
+                <p>Mã đang hoạt động</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6 mb-3">
+        <div class="stats-card">
+            <div class="stats-icon success">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <div class="stats-content">
+                <h3>@ViewBag.TotalUsages</h3>
+                <p>Đã sử dụng</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6 mb-3">
+        <div class="stats-card">
+            <div class="stats-icon primary">
+                <i class="fas fa-users"></i>
+            </div>
+            <div class="stats-content">
+                <h3>@ViewBag.ExpiredDiscounts</h3>
+                <p>Đã hết hạn</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6 mb-3">
+        <div class="stats-card">
+            <div class="stats-icon danger">
+                <i class="fas fa-clock"></i>
+            </div>
+            <div class="stats-content">
+                <h3>@ViewBag.ExpiringSoon</h3>
+                <p>Sắp hết hạn</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Coupons Table -->
+<div class="admin-card">
+    <div class="admin-card-header d-flex justify-content-between align-items-center">
+        <h5 class="admin-card-title">Danh sách mã giảm giá</h5>
+        <div class="d-flex gap-2">
+            <input type="text" class="form-control" placeholder="Tìm kiếm mã..." style="width: 200px;">
+            <select class="form-select" style="width: 150px;">
+                <option value="">Tất cả trạng thái</option>
+                <option value="active">Hoạt động</option>
+                <option value="expired">Hết hạn</option>
+                <option value="disabled">Tạm dừng</option>
+            </select>
+        </div>
+    </div>
+    <div class="admin-card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0">
+                <thead>
+                    <tr>
+                        <th>Mã giảm giá</th>
+                        <th>Loại giảm</th>
+                        <th>Giá trị</th>
+                        <th>Sử dụng</th>
+                        <th>Điều kiện</th>
+                        <th>Ngày hết hạn</th>
+                        <th>Trạng thái</th>
+                        <th>Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.Any())
+                    {
+                        @foreach (var discount in Model)
+                        {
+                            var isExpired = discount.EndDate <= DateTime.Now;
+                            var isActive = discount.IsActive && !isExpired;
+                            var isExpiringSoon = discount.IsActive && discount.EndDate <= DateTime.Now.AddDays(7) && !isExpired;
+                            
+                            <tr>
+                                <td>
+                                    <div>
+                                        <strong class="@(isActive ? "text-primary" : "text-muted")">@discount.Code</strong>
+                                        @if (!string.IsNullOrEmpty(discount.Description))
+                                        {
+                                            <br><small class="text-muted">@discount.Description</small>
+                                        }
+                                    </div>
+                                    <div class="mt-1">
+                                        @if (discount.Product != null)
+                                        {
+                                            <small class="badge bg-info">@discount.Product.Name</small>
+                                        }
+                                        else if (discount.Category != null)
+                                        {
+                                            <small class="badge bg-warning">@discount.Category.Name</small>
+                                        }
+                                        else
+                                        {
+                                            <small class="badge bg-success">Tất cả sản phẩm</small>
+                                        }
+                                    </div>
+                                </td>
+                                <td>
+                                    @if (discount.Type == App.Models.Toocha.DiscountType.Percentage)
+                                    {
+                                        <span class="badge bg-warning">Giảm %</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-info">Giảm tiền</span>
+                                    }
+                                </td>
+                                <td>
+                                    <strong>
+                                        @if (discount.Type == App.Models.Toocha.DiscountType.Percentage)
+                                        {
+                                            @Html.Raw(discount.Value.ToString("0.##") + "%")
+                                        }
+                                        else
+                                        {
+                                            @Html.Raw(discount.Value.ToString("N0") + "₫")
+                                        }
+                                    </strong>
+                                    @if (discount.Type == App.Models.Toocha.DiscountType.Percentage && discount.MaxDiscountAmount.HasValue)
+                                    {
+                                        <br><small class="text-muted">Tối đa: @Html.Raw(discount.MaxDiscountAmount.Value.ToString("N0") + "₫")</small>
+                                    }
+                                </td>
+                                <td>
+                                    @if (discount.UsageLimit.HasValue)
+                                    {
+                                        <div class="progress mb-1" style="height: 6px;">
+                                            <div class="progress-bar @(discount.RemainingUsage <= 5 ? "bg-danger" : "bg-primary")" 
+                                                 style="width: @((double)discount.UsedCount / discount.UsageLimit.Value * 100)%"></div>
+                                        </div>
+                                        <small class="text-muted">@discount.UsedCount/@discount.UsageLimit</small>
+                                    }
+                                    else
+                                    {
+                                        <span class="text-success">@discount.UsedCount</span>
+                                        <br><small class="text-muted">Không giới hạn</small>
+                                    }
+                                </td>
+                                <td>
+                                    @if (discount.MinOrderAmount.HasValue)
+                                    {
+                                        <small class="text-info">
+                                            <i class="fas fa-shopping-cart me-1"></i>
+                                            Min: @Html.Raw(discount.MinOrderAmount.Value.ToString("N0") + "₫")
+                                        </small>
+                                    }
+                                    else
+                                    {
+                                        <small class="text-muted">Không yêu cầu</small>
+                                    }
+                                </td>
+                                <td>@discount.EndDate.ToString("dd/MM/yyyy")</td>
+                                <td>
+                                    @if (isExpired)
+                                    {
+                                        <span class="badge bg-danger">Hết hạn</span>
+                                    }
+                                    else if (!discount.IsActive)
+                                    {
+                                        <span class="badge bg-secondary">Tạm dừng</span>
+                                    }
+                                    else if (discount.IsLimitReached)
+                                    {
+                                        <span class="badge bg-warning">Hết lượt</span>
+                                    }
+                                    else if (isExpiringSoon)
+                                    {
+                                        <span class="badge bg-warning">Sắp hết hạn</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-success">Hoạt động</span>
+                                    }
+                                </td>
+                                <td>
+                                    <a href="#" class="admin-btn admin-btn-primary admin-btn-sm me-1" title="Chỉnh sửa">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <a href="#" class="admin-btn admin-btn-info admin-btn-sm me-1" title="Sao chép">
+                                        <i class="fas fa-copy"></i>
+                                    </a>
+                                    <a href="#" class="admin-btn admin-btn-danger admin-btn-sm" title="Xóa">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="8" class="text-center py-4">
+                                <div class="text-muted">
+                                    <i class="fas fa-ticket-alt fa-3x mb-3"></i>
+                                    <p>Chưa có mã giảm giá nào được tạo</p>
+                                    <a href="/Admin/Promotion/Create" class="admin-btn admin-btn-primary">
+                                        <i class="fas fa-plus me-2"></i>Tạo mã giảm giá đầu tiên
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    @if (Model != null && Model.Any())
+    {
+        <div class="admin-card-body border-top">
+            <div class="d-flex justify-content-between align-items-center">
+                <small class="text-muted">Hiển thị @Model.Count trong tổng số @Model.Count mã giảm giá</small>
+                <!-- Pagination sẽ được thêm sau nếu cần -->
+            </div>
+        </div>
+    }
+</div> 

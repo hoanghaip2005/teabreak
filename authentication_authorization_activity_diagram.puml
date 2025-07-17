@@ -1,0 +1,261 @@
+@startuml Authentication and Authorization Activity Diagram
+
+title **Hệ thống Xác thực và Phân quyền - Toocha Tea**
+|#lightblue|**Người dùng chưa đăng nhập**|
+
+start
+
+if (Truy cập trang yêu cầu đăng nhập?) then (Có)
+    :Chuyển hướng đến trang đăng nhập<br/>/login/;
+    :Hiển thị form đăng nhập;
+    
+    if (Chọn phương thức đăng nhập?) then (Đăng nhập thường)
+        :Nhập Email/Username và Password;
+        :Gửi form đăng nhập;
+        
+        |#lightyellow|**Hệ thống**|
+        if (Kiểm tra định dạng email?) then (Email hợp lệ)
+            :Tìm user bằng email;
+            if (Tìm thấy user?) then (Có)
+                :Thực hiện SignInAsync với username;
+            else (Không)
+                :Thử đăng nhập trực tiếp với input;
+            endif
+        else (Username)
+            :Thực hiện SignInAsync với username;
+        endif
+        
+        if (Đăng nhập thành công?) then (Thành công)
+            if (Tài khoản bị khóa?) then (Bị khóa)
+                :Hiển thị trang Lockout;
+                stop
+            else (Không khóa)
+                if (Yêu cầu 2FA?) then (Có)
+                    :Chuyển đến trang 2FA;
+                    :Nhập mã xác thực;
+                    if (Mã 2FA đúng?) then (Đúng)
+                        :Đăng nhập thành công;
+                    else (Sai)
+                        :Hiển thị lỗi;
+                        stop
+                    endif
+                else (Không)
+                    :Đăng nhập thành công;
+                endif
+            endif
+        else (Thất bại)
+            :Hiển thị thông báo lỗi;
+            stop
+        endif
+        
+    else (Đăng nhập bên ngoài)
+        if (Chọn provider?) then (Google)
+            :Chuyển hướng đến Google<br/>/dang-nhap-tu-google;
+        else (Facebook)
+            :Chuyển hướng đến Facebook<br/>/dang-nhap-tu-facebook;
+        endif
+        
+        |#lightgreen|**External Provider**|
+        :Xác thực với provider bên ngoài;
+        
+        |#lightyellow|**Hệ thống**|
+        :Nhận callback từ provider;
+        :Lấy thông tin ExternalLoginInfo;
+        
+        if (Đã có liên kết tài khoản?) then (Có)
+            :Đăng nhập thành công;
+        else (Chưa có)
+            :Hiển thị trang xác nhận<br/>ExternalLoginConfirmation;
+            
+            |#lightblue|**Người dùng chưa đăng nhập**|
+            :Nhập/xác nhận email;
+            
+            |#lightyellow|**Hệ thống**|
+            if (Email đã tồn tại?) then (Có)
+                if (Email trùng với provider?) then (Trùng)
+                    :Liên kết tài khoản và đăng nhập;
+                else (Khác)
+                    :Hiển thị lỗi "Email khác";
+                    stop
+                endif
+            else (Chưa có)
+                :Tạo tài khoản mới;
+                :Liên kết với external login;
+                :Đăng nhập thành công;
+            endif
+        endif
+    endif
+    
+else (Không)
+    :Truy cập trang công khai;
+endif
+
+|#lightcyan|**Người dùng đã đăng nhập**|
+
+:Kiểm tra Identity Claims;
+
+if (Truy cập trang yêu cầu phân quyền?) then (Có)
+    |#lightyellow|**Hệ thống**|
+    :Lấy thông tin User từ UserManager;
+    :Lấy danh sách Roles của User;
+    :Lấy danh sách Claims của User;
+    
+    note right
+        **Các Roles chính:**
+        • Administrator - Quản trị viên
+        • Editor - Biên tập viên  
+        • Manager - Quản lý
+        • Seller - Nhân viên bán hàng
+        • Member - Thành viên
+        • ITStaff, ITManager - IT
+        • FinanceStaff, FinanceManager - Tài chính
+        • HRStaff, HRManager - Nhân sự
+        • ProcurementStaff, ProcurementManager - Mua sắm
+    end note
+    
+    if (Kiểm tra quyền truy cập?) then (Đủ quyền)
+        partition "**Phân quyền theo Area**" {
+            if (Truy cập Admin Area?) then (Có)
+                if (Có role Administrator?) then (Có)
+                    :Cho phép truy cập Admin;
+                    :Hiển thị Admin Dashboard;
+                    
+                    if (Quản lý User?) then (Có)
+                        :UserManagementController;
+                        :Danh sách người dùng;
+                        :Phân/thu hồi quyền;
+                        :Xem chi tiết user;
+                    endif
+                    
+                    if (Quản lý Role?) then (Có)
+                        :RoleController;
+                        :Tạo/sửa/xóa role;
+                        :Quản lý claims của role;
+                    endif
+                    
+                    if (Quản lý nội dung?) then (Có)
+                        if (Role Administrator hoặc Editor?) then (Có)
+                            :ArticleController, PageController;
+                            :RedirectController, PromotionController;
+                        else (Không)
+                            :Access Denied;
+                        endif
+                    endif
+                    
+                else (Không)
+                    :Chuyển đến /khongduoctruycap.html;
+                    stop
+                endif
+                
+            else if (Truy cập Seller Area?) then (Có)
+                if (Có role Administrator/Seller/Manager?) then (Có)
+                    :Cho phép truy cập Seller Dashboard;
+                    :Xem thống kê bán hàng;
+                    :Quản lý đơn hàng;
+                else (Không)
+                    :Access Denied;
+                endif
+                
+            else if (Truy cập Identity Area?) then (Có)
+                if (Quản lý Profile?) then (Có)
+                    :ManageController;
+                    :Chỉnh sửa thông tin cá nhân;
+                    :Quản lý external logins;
+                    :Đổi mật khẩu;
+                    :Cài đặt 2FA;
+                endif
+                
+                if (Quản lý Role/User?) then (Có)
+                    if (Có role Administrator?) then (Có)
+                        :RoleController, UserController;
+                        :Toàn quyền quản lý;
+                    else (Không)
+                        :Access Denied;
+                    endif
+                endif
+            endif
+        }
+        
+    else (Không đủ quyền)
+        :Chuyển đến Access Denied;
+        stop
+    endif
+    
+else (Không)
+    :Truy cập trang thông thường;
+endif
+
+if (Đăng xuất?) then (Có)
+    |#lightyellow|**Hệ thống**|
+    :Gọi SignOutAsync;
+    :Xóa Authentication Cookie;
+    :Chuyển hướng về /logout/;
+    
+    |#lightblue|**Người dùng chưa đăng nhập**|
+    stop
+    
+else (Tiếp tục sử dụng)
+    :Session tiếp tục;
+    :Cookie expiry = 7 ngày (sliding);
+    
+    if (Quản lý tài khoản?) then (Có)
+        partition "**Quản lý External Logins**" {
+            :Truy cập ManageLogins;
+            :Xem danh sách liên kết hiện tại;
+            
+            if (Thêm liên kết mới?) then (Có)
+                :Chọn provider (Google/Facebook);
+                :Xác thực với provider;
+                :Thêm external login;
+            endif
+            
+            if (Gỡ liên kết?) then (Có)
+                if (Còn cách đăng nhập khác?) then (Có)
+                    :Gỡ external login;
+                else (Không)
+                    :Không cho phép gỡ;
+                endif
+            endif
+        }
+        
+        partition "**Quản lý Bảo mật**" {
+            :Đổi mật khẩu;
+            :Cài đặt/gỡ 2FA;
+            :Tạo Recovery Codes;
+            :Quản lý Authenticator;
+        }
+    endif
+endif
+
+|#lightgray|**Admin Functions**|
+
+if (Admin quản lý hệ thống?) then (Có)
+    partition "**Database Management**" {
+        :DbManageController;
+        :Quản lý database;
+        :Seed data;
+    }
+    
+    partition "**User & Role Management**" {
+        :Tạo/sửa/xóa Users;
+        :Phân quyền Roles;
+        :Quản lý Claims;
+        :Xem báo cáo người dùng;
+    }
+    
+    partition "**Authorization Policies**" {
+        note right
+            **Policy "ViewManageMenu":**
+            • RequireAuthenticatedUser()
+            • RequireRole(Administrator)
+            
+            **Role-based Authorization:**
+            • [Authorize(Roles = "Administrator,Editor")]
+            • [Authorize(Roles = "Administrator,Seller,Manager")]
+        end note
+    }
+endif
+
+stop
+
+@enduml
